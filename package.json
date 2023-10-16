@@ -1,0 +1,32 @@
+{
+  "name": "water-synthesis-north-bekka",
+  "version": "1.0.0",
+  "private": true,
+  "description": "water-synthesis-north-bekka",
+  "author": "Jack Robetson",
+  "keywords": [
+    "gatsby"
+  ],
+  "scripts": {
+    "develop": "gatsby develop",
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean"
+  },
+  "dependencies": {
+    "@mdx-js/react": "^2.3.0",
+    "gatsby": "^5.12.4",
+    "gatsby-plugin-google-gtag": "^5.12.1",
+    "gatsby-plugin-image": "^3.12.1",
+    "gatsby-plugin-manifest": "^5.12.1",
+    "gatsby-plugin-mdx": "^5.12.1",
+    "gatsby-plugin-sharp": "^5.12.1",
+    "gatsby-plugin-sitemap": "^6.12.1",
+    "gatsby-source-filesystem": "^5.12.0",
+    "gatsby-transformer-remark": "^6.12.1",
+    "gatsby-transformer-sharp": "^5.12.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}

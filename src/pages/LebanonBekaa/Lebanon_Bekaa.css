@@ -1,0 +1,19 @@
+/* Use !important to ensure styles take precedence */
+.map-container {
+  
+    width: 100vw !important;
+    height: 100vh !important;
+    /* Your other styles here */
+  }
+  
+
+  .map-wrapper {
+    position: relative;
+}
+
+.svg-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none; /* This ensures map interactions aren't blocked */
+}

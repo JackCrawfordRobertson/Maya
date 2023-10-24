@@ -1,11 +1,13 @@
-import  { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
 
 import S0 from '../../images/S0.svg';
+import S11 from '../../images/S11.svg';
 
 const SVG_COORDINATES = [36.305, 34.270];
+const SVGs = [S0, S11]; // Array of SVGs
 
-const SVGHeatmapOverlay = ({ center, zoom, map }) => {
+const SVGHeatmapOverlay = ({ center, zoom, map, visibleSVG }) => {
   const markerRef = useRef(null);
 
   useEffect(() => {
@@ -13,16 +15,17 @@ const SVGHeatmapOverlay = ({ center, zoom, map }) => {
 
     const markerContainer = document.createElement("div");
     markerContainer.className = "marker";
-    markerContainer.style.zIndex = "0"; // Set the z-index to 0 to place it below other layers
+    markerContainer.style.zIndex = "0";
 
     const svgImage = new Image();
-    svgImage.src = S0;
+    svgImage.src = SVGs[visibleSVG];
     svgImage.style.opacity = '0.5';
     markerContainer.appendChild(svgImage);
 
-    if (!markerRef.current) {
-      markerRef.current = new mapboxgl.Marker(markerContainer).setLngLat(SVG_COORDINATES).addTo(map);
+    if (markerRef.current) {
+      markerRef.current.remove(); // Remove the old marker
     }
+    markerRef.current = new mapboxgl.Marker(markerContainer).setLngLat(SVG_COORDINATES).addTo(map);
 
     const geoReferenceWidthInMeters = 101000;
     const geoReferenceHeightInMeters = 101000;
@@ -30,18 +33,14 @@ const SVGHeatmapOverlay = ({ center, zoom, map }) => {
     function getScale(n, m) {
       var center = map.getCenter();
       var zoom = map.getZoom();
-      var tmp =
-        156543.03392 * Math.cos(center.lat * Math.PI / 180) / Math.pow(2, zoom);
+      var tmp = 156543.03392 * Math.cos(center.lat * Math.PI / 180) / Math.pow(2, zoom);
       var meterSizeInPixelN = n / tmp;
       var meterSizeInPixelM = m / tmp;
       return [meterSizeInPixelN, meterSizeInPixelM];
     }
 
     function render() {
-      var pixelSizes = getScale(
-        geoReferenceWidthInMeters,
-        geoReferenceHeightInMeters
-      );
+      var pixelSizes = getScale(geoReferenceWidthInMeters, geoReferenceHeightInMeters);
       markerContainer.style.width = pixelSizes[0] + "px";
       markerContainer.style.height = pixelSizes[1] + "px";
     }
@@ -58,7 +57,9 @@ const SVGHeatmapOverlay = ({ center, zoom, map }) => {
       map.off("drag", render);
       map.off("rotate", render);
     };
-  }, [map]); // Only depend on the map instance
+  }, [map, visibleSVG]);
+
+  console.log("SVGHeatmapOverlay prop visibleSVG:", visibleSVG);
 
   return null;
 };

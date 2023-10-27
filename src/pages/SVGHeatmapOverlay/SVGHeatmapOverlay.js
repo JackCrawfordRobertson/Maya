@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import mapboxgl from "mapbox-gl";
 
 import S0 from '../../images/S0.svg';
@@ -9,55 +9,77 @@ const SVGs = [S0, S11]; // Array of SVGs
 
 const SVGHeatmapOverlay = ({ center, zoom, map, visibleSVG }) => {
   const markerRef = useRef(null);
+  const [opacity, setOpacity] = useState(1);
+
+  const geoReferenceWidthInMeters = 101000;
+  const geoReferenceHeightInMeters = 101000;
+
+  function getScale(n, m) {
+    var center = map.getCenter();
+    var zoom = map.getZoom();
+    var tmp = 156543.03392 * Math.cos(center.lat * Math.PI / 180) / Math.pow(2, zoom);
+    var meterSizeInPixelN = n / tmp;
+    var meterSizeInPixelM = m / tmp;
+    return [meterSizeInPixelN, meterSizeInPixelM];
+  }
+
+  function render() {
+    var pixelSizes = getScale(geoReferenceWidthInMeters, geoReferenceHeightInMeters);
+    markerRef.current._element.style.width = pixelSizes[0] + "px";
+    markerRef.current._element.style.height = pixelSizes[1] + "px";
+  }
 
   useEffect(() => {
     if (!map) return;
 
-    const markerContainer = document.createElement("div");
-    markerContainer.className = "marker";
-    markerContainer.style.zIndex = "0";
+    const transitionDuration = 300;  // Transition duration in milliseconds
 
-    const svgImage = new Image();
-    svgImage.src = SVGs[visibleSVG];
-    svgImage.style.opacity = '0.5';
-    markerContainer.appendChild(svgImage);
-
+    // Fade out the current SVG
     if (markerRef.current) {
-      markerRef.current.remove(); // Remove the old marker
-    }
-    markerRef.current = new mapboxgl.Marker(markerContainer).setLngLat(SVG_COORDINATES).addTo(map);
-
-    const geoReferenceWidthInMeters = 101000;
-    const geoReferenceHeightInMeters = 101000;
-
-    function getScale(n, m) {
-      var center = map.getCenter();
-      var zoom = map.getZoom();
-      var tmp = 156543.03392 * Math.cos(center.lat * Math.PI / 180) / Math.pow(2, zoom);
-      var meterSizeInPixelN = n / tmp;
-      var meterSizeInPixelM = m / tmp;
-      return [meterSizeInPixelN, meterSizeInPixelM];
+        const currentSVG = markerRef.current.getElement().querySelector('img');
+        currentSVG.style.opacity = 0;
     }
 
-    function render() {
-      var pixelSizes = getScale(geoReferenceWidthInMeters, geoReferenceHeightInMeters);
-      markerContainer.style.width = pixelSizes[0] + "px";
-      markerContainer.style.height = pixelSizes[1] + "px";
-    }
+    const timer = setTimeout(() => {
+        // Remove old marker
+        if (markerRef.current) {
+            markerRef.current.remove();
+        }
 
-    map.on("viewreset", render);
-    map.on("zoom", render);
-    map.on("drag", render);
-    map.on("rotate", render);
-    render();
+        // Create new marker
+        const markerContainer = document.createElement("div");
+        markerContainer.className = "marker";
+        markerContainer.style.zIndex = "0";
+
+        const svgImage = new Image();
+        svgImage.src = SVGs[visibleSVG];
+        svgImage.style.opacity = 0;  // Start with opacity 0
+        svgImage.style.transition = `opacity ${transitionDuration / 1000}s ease-in-out`;
+        markerContainer.appendChild(svgImage);
+
+        markerRef.current = new mapboxgl.Marker(markerContainer).setLngLat(SVG_COORDINATES).addTo(map);
+
+        // Fade in the new SVG after a short delay
+        setTimeout(() => {
+            svgImage.style.opacity = 0.6;
+        }, 50);
+
+        map.on("viewreset", render);
+        map.on("zoom", render);
+        map.on("drag", render);
+        map.on("rotate", render);
+        render();
+
+    }, transitionDuration);
 
     return () => {
-      map.off("viewreset", render);
-      map.off("zoom", render);
-      map.off("drag", render);
-      map.off("rotate", render);
+        clearTimeout(timer);  // Cleanup timer on component unmount
+        map.off("viewreset", render);
+        map.off("zoom", render);
+        map.off("drag", render);
+        map.off("rotate", render);
     };
-  }, [map, visibleSVG]);
+}, [map, visibleSVG]);
 
   console.log("SVGHeatmapOverlay prop visibleSVG:", visibleSVG);
 

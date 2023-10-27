@@ -1,14 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
-import datasets from '../../geojsonData';
-import SVGHeatmapOverlay from '../SVGHeatmapOverlay/SVGHeatmapOverlay';
-import SVGControls from '../SVGHeatmapOverlay/SVGControls';
+import datasets from "../../geojsonData";
+import SVGHeatmapOverlay from "../SVGHeatmapOverlay/SVGHeatmapOverlay";
+import SVGControls from "../SVGHeatmapOverlay/SVGControls";
 
-import S0 from '../../images/S0.svg';
-import S11 from '../../images/S11.svg';
+import S0 from "../../images/S0.svg";
+import S11 from "../../images/S11.svg";
 import "./Lebanon_Bekaa.css";
 
-mapboxgl.accessToken = "pk.eyJ1IjoiamFja3JvYiIsImEiOiJjanZ1bDBrdjUxYmgyNGJtczlxdWl3MzRuIn0.qla3sSgkkyxIkbYLvVsceA";
+mapboxgl.accessToken =
+  "pk.eyJ1IjoiamFja3JvYiIsImEiOiJjanZ1bDBrdjUxYmgyNGJtczlxdWl3MzRuIn0.qla3sSgkkyxIkbYLvVsceA";
 
 const LebanonBekaa = () => {
   const mapContainer = useRef(null);
@@ -27,35 +28,40 @@ const LebanonBekaa = () => {
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: mapContainer.current,
-      style: "mapbox://styles/jackrob/clnuiw3az00oy01qp4m2j1dha",
+      style: "mapbox://styles/jackrob/clo8dumuh00v301pkd1ca12j0",
       center: center,
       zoom: zoom,
     });
 
-    map.on('move', () => {
+
+    
+    map.on("move", () => {
       setCenter(map.getCenter().toArray());
       setZoom(map.getZoom());
     });
 
-    map.on('load', () => {
+    map.on("load", () => {
       Object.entries(datasets).forEach(([key, data]) => {
         const sourceId = `${key}Source`;
         const layerId = `${key}Layer`;
 
         map.addSource(sourceId, {
-          type: 'geojson',
-          data: data
+          type: "geojson",
+          data: data,
         });
+
+        map.setLayoutProperty("place-city", "visibility", "none");
+        map.setLayoutProperty("place-town", "visibility", "none");
 
         map.addLayer({
           id: layerId,
-          type: 'fill',
+          type: "fill",
           source: sourceId,
           layout: {},
           paint: {
-            'fill-color': '#3496d3', 
-            'fill-opacity': 0.6,
-          }
+            "fill-color": "#3496d3",
+            "fill-opacity": 0.6,
+          },
         });
       });
 
@@ -70,7 +76,12 @@ const LebanonBekaa = () => {
   return (
     <div className="map-wrapper">
       <div className="map-container" ref={mapContainer}></div>
-      <SVGHeatmapOverlay center={center} zoom={zoom} map={mapInstance} visibleSVG={visibleSVG} />
+      <SVGHeatmapOverlay
+        center={center}
+        zoom={zoom}
+        map={mapInstance}
+        visibleSVG={visibleSVG}
+      />
       <SVGControls cycleSVG={cycleSVG} />
     </div>
   );

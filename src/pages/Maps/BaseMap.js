@@ -12,7 +12,7 @@ const BaseMap = ({ center, zoom, onMove, setMap }) => {  // Added setMap prop
     useEffect(() => {
         const mapInstance = new mapboxgl.Map({
             container: mapContainer.current,
-            style: "mapbox://styles/jackrob/clnuiw3az00oy01qp4m2j1dha",
+            style: "mapbox://styles/jackrob/clo8dumuh00v301pkd1ca12j0",
             center: center,
             zoom: zoom,
             interactive: true,

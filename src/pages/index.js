@@ -1,5 +1,5 @@
 import React from "react";
-import LebanonBekaa from "./LebanonBekaa/LebanonBekaa";
+import MapComponent from "./MainConsolidation/MapComponent";
 import "./global.css";
 import 'mapbox-gl/dist/mapbox-gl.css';
 
@@ -13,7 +13,7 @@ const IndexPage = () => {
     <main style={mainContainerStyle}>
       <title>Home Page</title>
 
-      <LebanonBekaa />
+      <MapComponent />
     </main>
   );
 };

@@ -1,12 +1,14 @@
-import { useEffect, useRef } from "react";
+// OverlayMap.js
+import React, { useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
 import * as d3 from "d3";
 
 import S0 from '../../images/S0.svg';
 import S11 from '../../images/S11.svg';
+import S11CC from '../../images/S11CC.svg';
 
 const SVG_COORDINATES = [36.305, 34.270];
-const SVGs = [S0, S11]; // Array of SVGs
+const SVGs = [S0, S11, S11CC]; // Array of SVGs
 
 const SVGHeatmapOverlay = ({ center, zoom, map, visibleSVG }) => {
     const markerRef = useRef(null);
@@ -24,13 +26,14 @@ const SVGHeatmapOverlay = ({ center, zoom, map, visibleSVG }) => {
     }
 
     function render() {
+        if (!markerRef.current) return;  // Add this line to prevent errors if markerRef.current is null
         var pixelSizes = getScale(geoReferenceWidthInMeters, geoReferenceHeightInMeters);
         markerRef.current._element.style.width = pixelSizes[0] + "px";
         markerRef.current._element.style.height = pixelSizes[1] + "px";
     }
 
     useEffect(() => {
-        if (!map) return;
+        if (!map) return;  // Ensure map is loaded
 
         const transitionDuration = 300;  // Transition duration in milliseconds
 
@@ -65,7 +68,7 @@ const SVGHeatmapOverlay = ({ center, zoom, map, visibleSVG }) => {
               .transition()
               .delay(50)
               .duration(transitionDuration)
-              .style("opacity", 0.6);
+              .style("opacity", 0.4);
 
             map.on("viewreset", render);
             map.on("zoom", render);

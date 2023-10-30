@@ -1,19 +1,22 @@
-/* Use !important to ensure styles take precedence */
 .map-container {
-  
-    width: 100vw !important;
-    height: 100vh !important;
-    /* Your other styles here */
-  }
-  
+  width: 100vw !important;
+  height: 100vh !important;
+  position: relative;
+  z-index: 0; /* Base layer */
+}
 
-  .map-wrapper {
-    position: relative;
+.map-wrapper {
+  position: relative;
 }
 
 .svg-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    pointer-events: none; /* This ensures map interactions aren't blocked */
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none; /* This ensures map interactions aren't blocked */
+  z-index: 1; /* Above the base map */
+}
+
+.mapboxgl-marker {
+  z-index: 2; /* Above the SVG overlay but below the town names and other layers */
 }

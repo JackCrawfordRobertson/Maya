@@ -92,7 +92,7 @@ const SVGControls = ({ cycleSVG, disabled }) => {
             fullWidth
             disabled={disabled}
           >
-            {open ? "Cycle SVG " : "Cycle SVG "}
+            {open ? "Close " : "Open "}
             {open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </Button>
           <Slide direction="right" in={open} mountOnEnter unmountOnExit>
@@ -133,7 +133,7 @@ const SVGControls = ({ cycleSVG, disabled }) => {
                       fullWidth
                       disabled={disabled}
                   >
-                      Cycle SVG
+                      Cycle Simulation  
                   </Button>
               </Paper>
           </Slide>

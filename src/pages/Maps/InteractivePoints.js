@@ -19,7 +19,7 @@ const InteractivePoints = ({ map }) => {
     endRadius,
     pointId
   ) => {
-    const progress = (timestamp - startTimestamp) / 2000; // Calculate progress
+    const progress = (timestamp - startTimestamp) / 1000; // Calculate progress
     if (progress < 1) {
       const currentRadius = startRadius + (endRadius - startRadius) * progress;
       map.setPaintProperty("points", "circle-radius", [
@@ -343,7 +343,7 @@ const InteractivePoints = ({ map }) => {
               source: "points",
               paint: {
                 "circle-radius": 6,
-                "circle-color": "#B42222",
+                "circle-color": "#3498db",
               },
             });
           }

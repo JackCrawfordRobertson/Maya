@@ -38,15 +38,15 @@ const SVGControls = ({ cycleSVG, disabled }) => {
   const contents = [
     {
       title: "Simulation S0",
-      text: "Business as usual including private wells, operating public wells, and under-construction wells.",
+      text: "Increase of domestic water demand and supply according to demographic expansion.",
     },
     {
       title: "Simulation S11",
-      text: "Increase of irrigation water demand based on spatial expansion in 2035, implementation of NWSS measures, additional measures to meet unmet domestic demand by 2035, and irrigation mitigation measures low demanding crops and efficiency improvement.",
+      text: "Implementation of water supply infrastructure and water conservation measures as proposed in the NWSS for 2035.",
     },
     {
       title: "Simulation S11CC",
-      text: " Increase of irrigation water demand based on spatial expansion in 2035 leading to an increase in groundwater abstractions, mainly from private wells.",
+      text: " Climate change scenario with incorporation of CMIP6 climate anomalies",
     },
     // ... Add more content objects for additional SVGs if needed
   ];
@@ -97,8 +97,9 @@ const SVGControls = ({ cycleSVG, disabled }) => {
           </Button>
           <Slide direction="right" in={open} mountOnEnter unmountOnExit>
               <Paper elevation={4} style={{ padding: "10px", width: "200px" }}>
-                  <h3 style={{ marginTop: '10px', marginBottom: '5px' }}>{contents[contentIndex].title}</h3>
-                  <p>{contents[contentIndex].text}</p>
+              <h3 style={{ marginTop: '10px', marginBottom: '5px' }}>{contents[contentIndex].title}</h3>
+              <h4 style={{ marginTop: '5px', marginBottom: '0px' }}>Description</h4>
+                  <p style={{ marginTop: '5px', marginBottom: '0px' }}>{contents[contentIndex].text}</p>
                   <div>
                       <h4 style={{ marginTop: '10px', marginBottom: '5px' }}>Drawdown (m)</h4>
                       {keyParameters.map((item, index) => (
@@ -118,8 +119,11 @@ const SVGControls = ({ cycleSVG, disabled }) => {
                                       marginRight: "10px",
                                   }}
                               ></div>
-                              <span>{item.text}</span>
-                          </div>
+                          <span>{item.text}</span>
+                          
+                        </div>
+                        
+                        
                       ))}
                   </div>
                   <Button

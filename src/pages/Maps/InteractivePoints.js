@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from "react";
-import mapboxgl from "mapbox-gl";
 import Button from "@mui/material/Button";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -403,7 +402,7 @@ const InteractivePoints = ({ map }) => {
           position: "absolute",
           top: "10px",
           right: "10px",
-          zIndex: 1000,
+          zIndex: 2,
         }}
       >
         <Slide direction="left" in={!!selectedPoint} mountOnEnter unmountOnExit>

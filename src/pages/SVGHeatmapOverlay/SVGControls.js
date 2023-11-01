@@ -32,10 +32,9 @@ const keyParameters = [
   // ... Add more parameters if needed
 ];
 
-const SVGControls = ({ cycleSVG }) => {
+const SVGControls = ({ cycleSVG, disabled }) => {
   const [open, setOpen] = useState(true);
   const [contentIndex, setContentIndex] = useState(0);
-
   const contents = [
     {
       title: "Simulation S0",
@@ -52,9 +51,21 @@ const SVGControls = ({ cycleSVG }) => {
     // ... Add more content objects for additional SVGs if needed
   ];
 
-  const handleCycleSVG = () => {
-    cycleSVG();
-    setContentIndex((prevIndex) => (prevIndex + 1) % contents.length);
+  const handleCycleSVG = (event) => {
+    event.preventDefault(); // Prevent default event behavior
+    event.stopPropagation(); // Stop event propagation
+    if (!disabled) {
+      cycleSVG();
+      setContentIndex((prevIndex) => (prevIndex + 1) % contents.length);
+    }
+  };
+
+  const toggleOpen = (event) => {
+    event.preventDefault(); // Prevent default event behavior
+    event.stopPropagation(); // Stop event propagation
+    if (!disabled) {
+      setOpen(!open);
+    }
   };
 
   return (
@@ -64,62 +75,61 @@ const SVGControls = ({ cycleSVG }) => {
           position: "absolute",
           top: "10px",
           left: "10px",
-          zIndex: 1000,
+          zIndex: 3,
         }}
       >
         <Button
           variant="contained"
           color="primary"
-          onClick={() => setOpen(!open)}
+          onClick={(e) => toggleOpen(e)} // Pass the event to the handler
           style={{ marginBottom: "10px", width: "100%" }}
           fullWidth
+          disabled={disabled}
         >
           {open ? "Cycle SVG " : "Cycle SVG "}
           {open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
         </Button>
-
         <Slide direction="right" in={open} mountOnEnter unmountOnExit>
-    <Paper elevation={4} style={{ padding: "10px", width: "200px" }}>
-        <h3 style={{ marginTop: '10px', marginBottom: '5px' }}>{contents[contentIndex].title}</h3>
-            <p>{contents[contentIndex].text}</p>
-            <div>
-
-            <h4 style={{ marginTop: '10px', marginBottom: '5px' }}>Drawdown (m)</h4>
-            {keyParameters.map((item, index) => (
-                <div
-                  key={index}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    marginBottom: "10px",
-                  }}
-                >
-                  <div
-                    style={{
-                      width: "20px",
-                      height: "20px",
-                      backgroundColor: item.color,
-                      marginRight: "10px",
-                    }}
-                  ></div>
-                  <span>{item.text}</span>
+            <Paper elevation={4} style={{ padding: "10px", width: "200px" }}>
+                <h3 style={{ marginTop: '10px', marginBottom: '5px' }}>{contents[contentIndex].title}</h3>
+                <p>{contents[contentIndex].text}</p>
+                <div>
+                    <h4 style={{ marginTop: '10px', marginBottom: '5px' }}>Drawdown (m)</h4>
+                    {keyParameters.map((item, index) => (
+                        <div
+                            key={index}
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                marginBottom: "10px",
+                            }}
+                        >
+                            <div
+                                style={{
+                                    width: "20px",
+                                    height: "20px",
+                                    backgroundColor: item.color,
+                                    marginRight: "10px",
+                                }}
+                            ></div>
+                            <span>{item.text}</span>
+                        </div>
+                    ))}
                 </div>
-              ))}
-            </div>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleCycleSVG}
-              fullWidth
-            >
-              Cycle SVG
-            </Button>
-          </Paper>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleCycleSVG} // Updated the onClick handler
+                    fullWidth
+                    disabled={disabled}
+                >
+                    Cycle SVG
+                </Button>
+            </Paper>
         </Slide>
       </div>
     </ThemeProvider>
   );
-
 };
 
 export default SVGControls;

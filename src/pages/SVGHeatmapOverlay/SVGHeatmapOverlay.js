@@ -1,5 +1,5 @@
 // OverlayMap.js
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
 import * as d3 from "d3";
 

@@ -21,6 +21,7 @@
     "@mui/icons-material": "^5.14.14",
     "@mui/material": "^5.14.14",
     "flubber": "^0.4.2",
+    "framer-motion": "^10.16.4",
     "gatsby": "^5.12.4",
     "gatsby-plugin-google-gtag": "^5.12.1",
     "gatsby-plugin-image": "^3.12.1",

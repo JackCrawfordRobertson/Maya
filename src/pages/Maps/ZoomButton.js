@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 
 const ZoomButton = ({ onZoom }) => {
     const [visible, setVisible] = useState(true);
@@ -22,7 +23,12 @@ const ZoomButton = ({ onZoom }) => {
 
     return (
         visible ? (
-            <div
+          
+            <motion.div
+                initial={{ opacity: 1, backgroundColor: 'rgba(52,152,219,1)' }}
+                animate={{ opacity: 1, backgroundColor: 'rgba(52,152,219,0.8)' }}
+                transition={{ duration: 2, ease: "easeInOut" }}  // Adjust the duration as needed
+                
                 style={{
                     position: 'absolute',
                     top: 0,
@@ -33,40 +39,44 @@ const ZoomButton = ({ onZoom }) => {
                     flexDirection: 'column',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    opacity: 1,
-                    transition: 'opacity 0.5s ease-in-out',
                     backgroundColor: 'rgba(52,152,219,0.8)',
                     zIndex: 100,
-                    borderRadius: '15px',
                     boxShadow: '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)',
+                    transition: 'opacity 0.5s ease-in-out',  // Adjusted transition for opacity
                 }}
             >
-                <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-                    <h1 style={{ fontSize: '48px', color: '#fff' }}>Aqueous</h1>  
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, ease: "easeInOut", delay: 0.25 }}
+                    style={{ textAlign: 'center', marginBottom: '20px' }}
+                >
+                    <h1 style={{ fontSize: '48px', color: '#fff' }}>Aqueous</h1>
                     <p style={{ color: '#fff' }}>Evolving understanding and scale through information</p>
-                </div>
-                <button 
-                    onClick={handleZoomClick} 
-                        style={{ 
-                            backgroundColor: '#fff', 
-                            padding: '15px 30px',  
-                            border: 'none', 
-                            borderRadius: '5px', 
-                            cursor: 'pointer',
-                            boxShadow: '0 2px 5px rgba(0,0,0,0.15)',
-                            fontSize: '16px',
-                            fontWeight: 'bold',
-                            transition: 'transform 0.3s ease-in-out',  // Transition for smooth scaling effect
-                        }}
-                        onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}  // Scale up on hover
-                        onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}  // Reset scale on mouse out
+                </motion.div>
+                <motion.button
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, ease: "easeInOut", delay: 2 }}
+                    onClick={handleZoomClick}
+                    style={{
+                        backgroundColor: '#fff',
+                        padding: '15px 30px',
+                        border: 'none',
+                        borderRadius: '5px',
+                        cursor: 'pointer',
+                        boxShadow: '0 2px 5px rgba(0,0,0,0.15)',
+                        fontSize: '16px',
+                        fontWeight: 'bold',
+                    }}
+                    onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                    onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
                     >
-                        Zoom to Focus
-                        </button>
-            </div>
+                    Zoom to Focus
+                </motion.button>
+            </motion.div>
         ) : null
     );
 };
 
 export default ZoomButton;
-

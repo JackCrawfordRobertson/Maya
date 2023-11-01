@@ -76,57 +76,64 @@ const SVGControls = ({ cycleSVG, disabled }) => {
           top: "10px",
           left: "10px",
           zIndex: 3,
+          pointerEvents: "none",  // Add this line to pass mouse events through
         }}
       >
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={(e) => toggleOpen(e)} // Pass the event to the handler
-          style={{ marginBottom: "10px", width: "100%" }}
-          fullWidth
-          disabled={disabled}
+        <div
+          style={{
+            pointerEvents: "auto"  // Add this line to re-enable mouse events for the SVGControls
+          }}
         >
-          {open ? "Cycle SVG " : "Cycle SVG "}
-          {open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-        </Button>
-        <Slide direction="right" in={open} mountOnEnter unmountOnExit>
-            <Paper elevation={4} style={{ padding: "10px", width: "200px" }}>
-                <h3 style={{ marginTop: '10px', marginBottom: '5px' }}>{contents[contentIndex].title}</h3>
-                <p>{contents[contentIndex].text}</p>
-                <div>
-                    <h4 style={{ marginTop: '10px', marginBottom: '5px' }}>Drawdown (m)</h4>
-                    {keyParameters.map((item, index) => (
-                        <div
-                            key={index}
-                            style={{
-                                display: "flex",
-                                alignItems: "center",
-                                marginBottom: "10px",
-                            }}
-                        >
-                            <div
-                                style={{
-                                    width: "20px",
-                                    height: "20px",
-                                    backgroundColor: item.color,
-                                    marginRight: "10px",
-                                }}
-                            ></div>
-                            <span>{item.text}</span>
-                        </div>
-                    ))}
-                </div>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleCycleSVG} // Updated the onClick handler
-                    fullWidth
-                    disabled={disabled}
-                >
-                    Cycle SVG
-                </Button>
-            </Paper>
-        </Slide>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={(e) => toggleOpen(e)} // Pass the event to the handler
+            style={{ marginBottom: "10px", width: "100%" }}
+            fullWidth
+            disabled={disabled}
+          >
+            {open ? "Cycle SVG " : "Cycle SVG "}
+            {open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+          </Button>
+          <Slide direction="right" in={open} mountOnEnter unmountOnExit>
+              <Paper elevation={4} style={{ padding: "10px", width: "200px" }}>
+                  <h3 style={{ marginTop: '10px', marginBottom: '5px' }}>{contents[contentIndex].title}</h3>
+                  <p>{contents[contentIndex].text}</p>
+                  <div>
+                      <h4 style={{ marginTop: '10px', marginBottom: '5px' }}>Drawdown (m)</h4>
+                      {keyParameters.map((item, index) => (
+                          <div
+                              key={index}
+                              style={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                  marginBottom: "10px",
+                              }}
+                          >
+                              <div
+                                  style={{
+                                      width: "20px",
+                                      height: "20px",
+                                      backgroundColor: item.color,
+                                      marginRight: "10px",
+                                  }}
+                              ></div>
+                              <span>{item.text}</span>
+                          </div>
+                      ))}
+                  </div>
+                  <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={handleCycleSVG} // Updated the onClick handler
+                      fullWidth
+                      disabled={disabled}
+                  >
+                      Cycle SVG
+                  </Button>
+              </Paper>
+          </Slide>
+        </div>
       </div>
     </ThemeProvider>
   );

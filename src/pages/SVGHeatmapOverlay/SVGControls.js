@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import Slide from "@mui/material/Slide";
 import Paper from "@mui/material/Paper";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { motion } from "framer-motion";
 
 // Create a custom theme
 const theme = createTheme({
@@ -84,19 +84,37 @@ const SVGControls = ({ cycleSVG, disabled }) => {
             pointerEvents: "auto"  // Add this line to re-enable mouse events for the SVGControls
           }}
         >
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={(e) => toggleOpen(e)} // Pass the event to the handler
-            style={{ marginBottom: "10px", width: "100%" }}
-            fullWidth
+           <motion.button
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: "easeInOut" }}
+            onClick={(e) => toggleOpen(e)}
+            style={{
+              backgroundColor: theme.palette.primary.main,
+              color: "#fff",
+              padding: "10px 20px",
+              border: "none",
+              borderRadius: "4px",
+              cursor: "pointer",
+              marginBottom: "10px",
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textTransform: "uppercase",  // This line ensures text is displayed in uppercase
+              fontSize: "0.875rem",  // Adjust font size if necessary
+              fontWeight: "500", 
+            }}
             disabled={disabled}
           >
             {open ? "Close " : "Open "}
             {open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </Button>
-          <Slide direction="right" in={open} mountOnEnter unmountOnExit>
-              <Paper elevation={4} style={{ padding: "10px", width: "200px" }}>
+          </motion.button>
+          <motion.div
+            initial={{ x: -300, opacity: 0 }}
+            animate={open ? { x: 0, opacity: 1 } : { x: -300, opacity: 0 }}
+            transition={{ duration: 1, ease: "easeInOut" }}
+          >              <Paper elevation={4} style={{ padding: "10px", width: "200px" }}>
               <h3 style={{ marginTop: '10px', marginBottom: '5px' }}>{contents[contentIndex].title}</h3>
               <h4 style={{ marginTop: '5px', marginBottom: '0px' }}>Description</h4>
                   <p style={{ marginTop: '5px', marginBottom: '0px' }}>{contents[contentIndex].text}</p>
@@ -135,8 +153,9 @@ const SVGControls = ({ cycleSVG, disabled }) => {
                   >
                       Cycle Simulation  
                   </Button>
-              </Paper>
-          </Slide>
+            </Paper>
+            </motion.div>
+          
         </div>
       </div>
     </ThemeProvider>

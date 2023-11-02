@@ -3,14 +3,14 @@ import BaseMap from "../Maps/BaseMap";
 import SVGHeatmapOverlay from "../SVGHeatmapOverlay/SVGHeatmapOverlay";
 import SVGControls from "../SVGHeatmapOverlay/SVGControls";
 import TownBorderMap from "../Maps/TownBorderMap";
-import ZoomButton from "../Maps/ZoomButton"; // Make sure the import path is correct
+import ZoomButton from "../StartingZoom/ZoomButton"; // Make sure the import path is correct
 
 const MapComponent = () => {
   // Initial center set to show the whole world
-  const [center, setCenter] = useState([0, 0]);
+  const [center, setCenter] = useState([0,0]);
 
   // Initial zoom set to show the whole world
-  const [zoom, setZoom] = useState(1);
+  const [zoom, setZoom] = useState(2);
 
   const [visibleSVG, setVisibleSVG] = useState(0);
   const [map, setMap] = useState(null);
@@ -28,26 +28,30 @@ const MapComponent = () => {
     setCenter(newCenter);
     setZoom(newZoom);
   };
+  
 
   const zoomToFocus = () => {
     if (map) {
-      map.flyTo({
-          center: [36.305, 34.27],
-          zoom: 9,
-          speed: .9,
-          curve: 2,
-          easing(t) {
-              return t;
-          },
-      });
+        map.flyTo({
+            center: [36.305, 34.27],
+            zoom: 9,
+            speed: .9,
+            curve: 2,
+            easing(t) {
+                return t;
+            },
+        });
 
-      map.once('moveend', function() {
-          console.log('Zoom animation completed');  // Log to console
-          setButtonsDisabled(false);  // Re-enable buttons
-          setIsZoomCompleted(true);  // Set isZoomCompleted to true once zoom completes
-      });
+        // Delay the attachment of the event listener by, e.g., 500 milliseconds
+        setTimeout(() => {
+            map.once('moveend', function() {
+                console.log('Zoom animation completed');  // Log to console
+                setButtonsDisabled(false);  // Re-enable buttons
+                setIsZoomCompleted(true);  // Set isZoomCompleted to true once zoom completes
+            });
+        }, 500);  // Adjust the delay time as necessary
     }
-  };
+};
 
   return (
     <div className="map-wrapper" style={{ position: "relative" }}>

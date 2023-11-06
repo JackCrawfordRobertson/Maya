@@ -1,7 +1,7 @@
 // TownBorderMap.js
 import React, { useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
-import InteractivePoints from "./InteractivePoints"; // Import the new component
+import InteractivePoints from "../Localities/InteractivePoints"; // Import the new component
 
 
 mapboxgl.accessToken = "pk.eyJ1IjoiamFja3JvYiIsImEiOiJjanZ1bDBrdjUxYmgyNGJtczlxdWl3MzRuIn0.qla3sSgkkyxIkbYLvVsceA";

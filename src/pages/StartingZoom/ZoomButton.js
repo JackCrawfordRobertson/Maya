@@ -6,7 +6,6 @@ const ZoomButton = ({ onZoom }) => {
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true); // State to manage button disabled/enabled
   const textColor = "#ffffff"; // Replace with your preferred color
-  const loadingBarColor = "#ecf0f1"; // Replace with your preferred color
 
 
 
@@ -40,13 +39,12 @@ const ZoomButton = ({ onZoom }) => {
     }
   };
 
-  // Calculate the button background based on the loading progress
-  const buttonBackground = `linear-gradient(to right, rgba(52,152,219,1) ${loadingProgress}%, transparent ${loadingProgress}%)`;
 
   return visible ? (
     <motion.div
-      initial={{ opacity: 1 }}
-      animate={{ opacity: 1 }}
+    initial={{ opacity: 1}}
+    animate={{ opacity: 0.8 }}
+    transition={{ delay: 3, duration: 2 }}
       style={{
         position: "absolute",
         top: 0,
@@ -57,7 +55,7 @@ const ZoomButton = ({ onZoom }) => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "rgba(52,152,219,0.8)",
+        backgroundColor: "rgba(52,152,219)",
         zIndex: 100,
         boxShadow: "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)",
       }}

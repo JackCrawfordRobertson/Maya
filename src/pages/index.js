@@ -1,7 +1,6 @@
 import React from "react";
 import MapComponent from "./MainConsolidation/MapComponent";
 import "./global.css";
-import 'mapbox-gl/dist/mapbox-gl.css';
 
 const IndexPage = () => {
   const mainContainerStyle = {

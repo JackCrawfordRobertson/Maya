@@ -78,7 +78,7 @@ const ZoomButton = ({ onZoom }) => {
         style={{ textAlign: "center", marginBottom: "0px" }}
       >
         <p style={{ color: textColor }}>
-          Transforming comprehension with information and data.
+          Transforming understanding with information and data.
         </p>
       </motion.div>
 

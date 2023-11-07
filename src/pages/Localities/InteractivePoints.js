@@ -5,56 +5,49 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Slide from "@mui/material/Slide";
 import Paper from "@mui/material/Paper";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
-import { motion } from "framer-motion"; // Ensure this import is present
-import { LocalitiesData } from './LocalitiesData';  // Import the data object
+import {motion} from "framer-motion";
+import {ResponsiveRadar} from "@nivo/radar";
+import {LocalitiesData} from "./LocalitiesData";
+import {LocalitesWaterUsage2} from "./LocalitesWaterUsage2";
+import "./Interactive.css";
 
-
+// Set the theme for the MUI components
 const theme = createTheme({
     typography: {
-      fontFamily: '"inter", sans-serif',
+        fontFamily: '"inter", sans-serif !important',
     },
+
     palette: {
-      primary: {
-        main: "#3498db",
-        "&:hover": {
-          backgroundColor: "#3498db",
+        primary: {
+            main: "#3498db",
         },
-      },
     },
-  });
+});
 
 const InteractivePoints = ({map}) => {
     const [ selectedPoint, setSelectedPoint ] = useState(null);
-    const hoveredPointIdRef = useRef(null); // Create a ref to hold the hovered point id
-    const [ isOpen, setIsOpen ] = useState(false); // State to control the button toggle
-    const [ disabled, setDisabled ] = useState(false); // You need to define when this should be true or false
+    const hoveredPointIdRef = useRef(null);
+    const [ isOpen, setIsOpen ] = useState(false);
 
-    const toggleOpen = () => {
-        setIsOpen(!isOpen);
-    };
-
-    const animateCircleRadius = (timestamp, startTimestamp, startRadius, endRadius, pointId) => {
-        const progress = (timestamp - startTimestamp) / 1000; // Calculate progress
-        if (progress < 1) {
-            const currentRadius = startRadius + (endRadius - startRadius) * progress;
-            map.setPaintProperty("points", "circle-radius", [
-                "case",
-                [ "==", [ "id" ], pointId ],
-                currentRadius,
-                6, // default radius for other points
-            ]);
-            requestAnimationFrame((newTimestamp) =>
-                animateCircleRadius(newTimestamp, startTimestamp, startRadius, endRadius, pointId)
-            );
+    const getCorrespondingData = (selectedId) => {
+        const data = LocalitesWaterUsage2.find((item) => item.id === selectedId);
+        if (data) {
+            return [
+                {
+                    metric: "Water Demand",
+                    [data.name]: data.waterDemand,
+                },
+                {
+                    metric: "Average Produced Water",
+                    [data.name]: data.averageProducedWater,
+                },
+                {
+                    metric: "Available Water Source",
+                    [data.name]: data.availableWaterSource,
+                },
+            ];
         }
-        else {
-            map.setPaintProperty("points", "circle-radius", [
-                "case",
-                [ "==", [ "id" ], pointId ],
-                endRadius,
-                6, // default radius for other points
-            ]);
-        }
+        return [];
     };
 
     useEffect(() => {
@@ -64,49 +57,46 @@ const InteractivePoints = ({map}) => {
             try {
                 map.addSource("points", {
                     type: "geojson",
-                    data: LocalitiesData,  // Use the data object here
+                    data: LocalitiesData, // Use the data object here
                 });
 
-                // Wait for the source to load before adding the layer
-                map.on("sourcedata", function onSourceData(e) {
-                    if (e.sourceId === "points" && map.isSourceLoaded("points")) {
-                        map.off("sourcedata", onSourceData);
-                        map.addLayer({
-                            id: "points",
-                            type: "circle",
-                            source: "points",
-                            paint: {
-                                "circle-radius": 6,
-                                "circle-color": "#3498db",
-                            },
-                        });
-                    }
+                map.addLayer({
+                    id: "points",
+                    type: "circle",
+                    source: "points",
+                    paint: {
+                        "circle-radius": 6,
+                        "circle-color": "#3498db",
+                    },
                 });
 
                 map.on("mouseenter", "points", (e) => {
                     map.getCanvas().style.cursor = "pointer";
                     if (e.features.length > 0) {
-                        const {id} = e.features[0];
+                        const {id} = e.features[0].properties;
                         hoveredPointIdRef.current = id;
-                        requestAnimationFrame((timestamp) => animateCircleRadius(timestamp, timestamp, 6, 12, id));
                     }
                 });
 
                 map.on("mouseleave", "points", () => {
                     map.getCanvas().style.cursor = "";
-                    if (hoveredPointIdRef.current !== null) {
-                        const id = hoveredPointIdRef.current;
-                        requestAnimationFrame((timestamp) => animateCircleRadius(timestamp, timestamp, 12, 6, id));
-                        hoveredPointIdRef.current = null; // Reset the hovered point id
-                    }
+                    hoveredPointIdRef.current = null;
                 });
 
                 map.on("click", "points", (e) => {
                     if (e.features.length > 0) {
-                        const coordinates = e.features[0].geometry.coordinates.slice();
-                        const description = e.features[0].properties.description;
-                        const title = e.features[0].properties.title;
-                        setSelectedPoint({coordinates, title, description});
+                        const featureId = e.features[0].properties.id; // Retrieve ID from the clicked feature properties
+                        const selectedData = LocalitesWaterUsage2.find((item) => item.id === featureId);
+                        const localityData = LocalitiesData.features.find(
+                            (feature) => feature.properties.id === featureId
+                        );
+                        if (selectedData && localityData) {
+                            setSelectedPoint({
+                                ...selectedData, // This contains id, name, waterDemand, averageProducedWater, availableWaterSource
+                                title: localityData.properties.title,
+                                description: localityData.properties.description,
+                            }); // Merge the data from both sources
+                        }
                     }
                 });
             } catch (error) {
@@ -122,29 +112,37 @@ const InteractivePoints = ({map}) => {
         }
 
         return () => {
-            map.off("load", handleMapLoad); // Remove the 'load' event listener
+            map.off("load", handleMapLoad);
             if (map.getLayer("points")) {
                 map.removeLayer("points");
                 map.removeSource("points");
             }
         };
-    }, [ map ]);
+    }, [map]);
+    
+       // Modify the toggleOpen function to handle event stopping
+       const toggleOpen = (event) => {
+        event.preventDefault(); // Prevent default event behavior
+        event.stopPropagation(); // Stop event propagation
+        setIsOpen(!isOpen);
+    };
 
     return (
         <ThemeProvider theme={theme}>
-            <div
-                style={{
-                    position: "absolute",
-                    top: "10px",
-                    right: "10px",
-                    zIndex: 2,
-                }}
-            >
+        <div
+            style={{
+                position: "absolute",
+                top: "10px",
+                right: "10px",
+                zIndex: 5,
+                pointerEvents: "none", // Pass mouse events through when the widget is closed
+            }}
+        >
                 <motion.button
                     initial={{opacity: 0, y: 20}}
                     animate={{opacity: 1, y: 0}}
                     transition={{duration: 1, ease: "easeInOut"}}
-                    onClick={toggleOpen} // Use the toggleOpen function here
+                    onClick={(e) => toggleOpen(e)} // Pass the event to the toggle function
                     style={{
                         backgroundColor: theme.palette.primary.main,
                         color: "#fff",
@@ -157,31 +155,73 @@ const InteractivePoints = ({map}) => {
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
-                        textTransform: "uppercase", // This line ensures text is displayed in uppercase
-                        fontSize: "0.875rem", // Adjust font size if necessary
+                        textTransform: "uppercase",
+                        fontSize: "0.875rem",
                         fontWeight: "500",
                     }}
-                    disabled={disabled}
                 >
                     {isOpen ? "Close " : "Open "}
                     {isOpen ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                 </motion.button>
 
-                <Slide direction="left" in={!!selectedPoint} mountOnEnter unmountOnExit>
-                    <Paper elevation={4} style={{padding: "10px", width: "200px"}}>
-                        <h3>{selectedPoint?.title}</h3>
-                        <p>{selectedPoint?.description}</p>
-                        <div
-                            style={{
-                                display: "flex",
-                                justifyContent: "space-between",
-                                marginTop: 8,
-                            }}
-                        >
+                <Slide direction="left" in={isOpen} mountOnEnter unmountOnExit>
+                    <Paper
+                        elevation={4}
+                        style={{
+                            padding: "10px",
+                            width: "300px",
+                            height: "50vh", // Set the height to 50vh
+                            display: "flex", // Use flexbox to layout the children
+                            flexDirection: "column", // Stack children vertically
+                            pointerEvents: "auto", // Re-enable mouse events for the open widget
+
+                        }}
+                    >
+                        <h2 style={{marginTop: "10px", marginBottom: "5px"}}>{selectedPoint?.title}</h2>
+                        <h4 style={{marginTop: "5px", marginBottom: "0px", fontSize: "1em"}}>Description</h4>
+                        <p style={{marginTop: "5px", marginBottom: "0px", fontSize: "1em"}}>
+                            {selectedPoint?.description}
+                        </p>
+                        <div style={{flex: 1, minHeight: 0}}>
+                            {" "}
+                            {/* This div will grow to fit available space */}
+                            {selectedPoint && (
+                                <ResponsiveRadar
+                                    keys={selectedPoint ? [ selectedPoint.name ] : []}
+                                    data={getCorrespondingData(selectedPoint?.id)}
+                                    indexBy="metric"
+                                    maxValue="auto"
+                                    margin={{top: 50, right: 80, bottom: 40, left: 80}}
+                                    padding={{right: 10, left: 10}}
+                                    curve="linearClosed"
+                                    borderWidth={2}
+                                    borderColor={{from: "color"}}
+                                    gridLevels={5}
+                                    gridShape="circular"
+                                    gridLabelOffset={10}
+                                    enableDots={true}
+                                    dotSize={10}
+                                    dotColor={{theme: "background"}}
+                                    dotBorderWidth={2}
+                                    dotBorderColor={{from: "color"}}
+                                    enableDotLabel={true}
+                                    dotLabel="value"
+                                    dotLabelYOffset={-12}
+                                    colors={{scheme: "nivo"}}
+                                    fillOpacity={0.25}
+                                    blendMode="multiply"
+                                    animate={true}
+                                    motionStiffness={90}
+                                    motionDamping={15}
+                                    isInteractive={true}
+                                />
+                            )}
+                        </div>
+                        <div style={{display: "flex", justifyContent: "space-between"}}>
                             <Button
                                 startIcon={<ChevronLeftIcon />}
                                 onClick={() => {
-                                    /* Navigate to previous point */
+                                    // Logic to navigate to the previous point
                                 }}
                             >
                                 Prev
@@ -189,7 +229,7 @@ const InteractivePoints = ({map}) => {
                             <Button
                                 endIcon={<ChevronRightIcon />}
                                 onClick={() => {
-                                    /* Navigate to next point */
+                                    // Logic to navigate to the next point
                                 }}
                             >
                                 Next

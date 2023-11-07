@@ -17,3 +17,6 @@ html, body {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+h1, h2, h3 {
+  font-family: 'Inter', sans-serif !important;
+}

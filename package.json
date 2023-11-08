@@ -22,6 +22,7 @@
     "@mui/material": "^5.14.14",
     "@nivo/core": "^0.83.0",
     "@nivo/radar": "^0.83.0",
+    "d3": "^7.8.5",
     "flubber": "^0.4.2",
     "framer-motion": "^10.16.4",
     "gatsby": "^5.12.4",

@@ -121,33 +121,37 @@ const InteractivePoints = ({map}) => {
             }
         };
 
-        if (map.isStyleLoaded()) {
+        if (map && map.isStyleLoaded()) {
             handleMapLoad();
+        } else {
+            // Only attach the load event listener if the map is not yet loaded
+            map?.on('load', handleMapLoad);
         }
-        else {
-            map.on("load", handleMapLoad);
-        }
-
-        // Clean up function
+    
+        // Cleanup function
         return () => {
             if (map) {
-              // Remove event listeners
-              map.off("mouseenter", "points");
-              map.off("mouseleave", "points");
-              map.off("click", "points");
-              map.off("load", handleMapLoad);
-          
-              // Remove the layer and source if they exist
-              if (map.getLayer("points")) {
-                map.removeLayer("points");
-              }
-              if (map.getSource("points")) {
-                map.removeSource("points");
-              }
+                // Remove event listeners
+                map.off('mouseenter', 'points');
+                map.off('mouseleave', 'points');
+                map.off('click', 'points');
+                map.off('load', handleMapLoad); // Remove this line if 'load' event is not being used elsewhere
+    
+                // Use try-catch to avoid errors when removing layers or sources that might not exist
+                try {
+                    if (map.getLayer('points')) {
+                        map.removeLayer('points');
+                    }
+                    if (map.getSource('points')) {
+                        map.removeSource('points');
+                    }
+                } catch (error) {
+                    console.error('Error removing layer or source:', error);
+                }
             }
-          };
-    }, [ map ]);
-
+        };
+    }, [map]);
+    
     // Modify the toggleOpen function to handle event stopping
     const toggleOpen = (event) => {
         event.preventDefault(); // Prevent default event behavior
@@ -204,7 +208,7 @@ const InteractivePoints = ({map}) => {
                         }}
                     >
                         <h2 style={{marginTop: "10px", marginBottom: "5px"}}>{selectedPoint?.title}</h2>
-                        <h4 style={{marginTop: "5px", marginBottom: "0px", fontSize: "1em"}}>Description</h4>
+                        <h4 style={{marginTop: "5px", marginBottom: "0px", fontSize: "1em"}}>Click on a localitie to see data</h4>
                         <p style={{marginTop: "5px", marginBottom: "0px", fontSize: "1em"}}>
                             {selectedPoint?.description}
                         </p>
@@ -233,7 +237,7 @@ const InteractivePoints = ({map}) => {
                                     enableDotLabel={true}
                                     dotLabel="value"
                                     dotLabelYOffset={-12}
-                                    colors={{ '2023': '#3498db', '2024': '#0f0f0f' }} // Define your custom colors here
+                                    colors={{ scheme: 'nivo' }} // This uses one of Nivo's predefined color schemes
                                     fillOpacity={0.25}
                                     blendMode="multiply"
                                     animate={true}

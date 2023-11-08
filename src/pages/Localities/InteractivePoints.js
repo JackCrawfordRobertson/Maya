@@ -7,8 +7,8 @@ import Paper from "@mui/material/Paper";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import {motion} from "framer-motion";
 import {ResponsiveRadar} from "@nivo/radar";
-import {LocalitiesData} from "./LocalitiesData";
-import {LocalitesWaterUsage2} from "./LocalitesWaterUsage2";
+import {LocalitiesData} from "../../data/LocalitiesData";
+import {LocalitesWaterUsage2023, LocalitesWaterUsage2024} from "../../data/LocalitesWaterUsage2";
 import "./Interactive.css";
 
 // Set the theme for the MUI components
@@ -29,24 +29,30 @@ const InteractivePoints = ({map}) => {
     const hoveredPointIdRef = useRef(null);
     const [ isOpen, setIsOpen ] = useState(false);
 
-    const getCorrespondingData = (selectedId) => {
-        const data = LocalitesWaterUsage2.find((item) => item.id === selectedId);
-        if (data) {
+    const getCorrespondingDataForLocality = (localityId) => {
+        const data2023 = LocalitesWaterUsage2023.find((item) => item.id === localityId);
+        const data2024 = LocalitesWaterUsage2024.find((item) => item.id === localityId);
+
+        if (data2023 && data2024) {
             return [
                 {
-                    metric: "Water Demand",
-                    [data.name]: data.waterDemand,
+                    metric: "Water Demand m3/day",
+                    2023: data2023.waterDemand,
+                    2024: data2024.waterDemand,
                 },
                 {
-                    metric: "Average Produced Water",
-                    [data.name]: data.averageProducedWater,
+                    metric: "Water Produced m3/day",
+                    2023: data2023.averageProducedWater,
+                    2024: data2024.averageProducedWater,
                 },
                 {
-                    metric: "Available Water Source",
-                    [data.name]: data.availableWaterSource,
+                    metric: "Available Water Source m3/day",
+                    2023: data2023.availableWaterSource,
+                    2024: data2024.availableWaterSource,
                 },
             ];
         }
+
         return [];
     };
 
@@ -86,16 +92,27 @@ const InteractivePoints = ({map}) => {
                 map.on("click", "points", (e) => {
                     if (e.features.length > 0) {
                         const featureId = e.features[0].properties.id; // Retrieve ID from the clicked feature properties
-                        const selectedData = LocalitesWaterUsage2.find((item) => item.id === featureId);
+                        const data2023 = LocalitesWaterUsage2023.find((item) => item.id === featureId);
+                        const data2024 = LocalitesWaterUsage2024.find((item) => item.id === featureId);
                         const localityData = LocalitiesData.features.find(
                             (feature) => feature.properties.id === featureId
                         );
-                        if (selectedData && localityData) {
+
+                        if (data2023 && data2024 && localityData) {
                             setSelectedPoint({
-                                ...selectedData, // This contains id, name, waterDemand, averageProducedWater, availableWaterSource
-                                title: localityData.properties.title,
-                                description: localityData.properties.description,
-                            }); // Merge the data from both sources
+                                // Merge data for both years along with the locality data
+                                ...localityData.properties, // This contains title and description
+                                data2023: {
+                                    waterDemand: data2023.waterDemand,
+                                    averageProducedWater: data2023.averageProducedWater,
+                                    availableWaterSource: data2023.availableWaterSource,
+                                },
+                                data2024: {
+                                    waterDemand: data2024.waterDemand,
+                                    averageProducedWater: data2024.averageProducedWater,
+                                    availableWaterSource: data2024.availableWaterSource,
+                                },
+                            });
                         }
                     }
                 });
@@ -111,17 +128,28 @@ const InteractivePoints = ({map}) => {
             map.on("load", handleMapLoad);
         }
 
+        // Clean up function
         return () => {
-            map.off("load", handleMapLoad);
-            if (map.getLayer("points")) {
+            if (map) {
+              // Remove event listeners
+              map.off("mouseenter", "points");
+              map.off("mouseleave", "points");
+              map.off("click", "points");
+              map.off("load", handleMapLoad);
+          
+              // Remove the layer and source if they exist
+              if (map.getLayer("points")) {
                 map.removeLayer("points");
+              }
+              if (map.getSource("points")) {
                 map.removeSource("points");
+              }
             }
-        };
-    }, [map]);
-    
-       // Modify the toggleOpen function to handle event stopping
-       const toggleOpen = (event) => {
+          };
+    }, [ map ]);
+
+    // Modify the toggleOpen function to handle event stopping
+    const toggleOpen = (event) => {
         event.preventDefault(); // Prevent default event behavior
         event.stopPropagation(); // Stop event propagation
         setIsOpen(!isOpen);
@@ -129,15 +157,14 @@ const InteractivePoints = ({map}) => {
 
     return (
         <ThemeProvider theme={theme}>
-        <div
-            style={{
-                position: "absolute",
-                top: "10px",
-                right: "10px",
-                zIndex: 5,
-                pointerEvents: "none", // Pass mouse events through when the widget is closed
-            }}
-        >
+            <div
+                style={{
+                    position: "absolute",
+                    top: "10px",
+                    right: "10px",
+                    zIndex: 100,
+                }}
+            >
                 <motion.button
                     initial={{opacity: 0, y: 20}}
                     animate={{opacity: 1, y: 0}}
@@ -169,12 +196,11 @@ const InteractivePoints = ({map}) => {
                         elevation={4}
                         style={{
                             padding: "10px",
-                            width: "300px",
+                            width: "25vw",
                             height: "50vh", // Set the height to 50vh
                             display: "flex", // Use flexbox to layout the children
                             flexDirection: "column", // Stack children vertically
                             pointerEvents: "auto", // Re-enable mouse events for the open widget
-
                         }}
                     >
                         <h2 style={{marginTop: "10px", marginBottom: "5px"}}>{selectedPoint?.title}</h2>
@@ -187,9 +213,9 @@ const InteractivePoints = ({map}) => {
                             {/* This div will grow to fit available space */}
                             {selectedPoint && (
                                 <ResponsiveRadar
-                                    keys={selectedPoint ? [ selectedPoint.name ] : []}
-                                    data={getCorrespondingData(selectedPoint?.id)}
-                                    indexBy="metric"
+                                data={getCorrespondingDataForLocality(selectedPoint?.id)}
+                                keys={['2023', '2024']}
+                                indexBy="metric"
                                     maxValue="auto"
                                     margin={{top: 50, right: 80, bottom: 40, left: 80}}
                                     padding={{right: 10, left: 10}}
@@ -207,7 +233,7 @@ const InteractivePoints = ({map}) => {
                                     enableDotLabel={true}
                                     dotLabel="value"
                                     dotLabelYOffset={-12}
-                                    colors={{scheme: "nivo"}}
+                                    colors={{ '2023': '#3498db', '2024': '#0f0f0f' }} // Define your custom colors here
                                     fillOpacity={0.25}
                                     blendMode="multiply"
                                     animate={true}

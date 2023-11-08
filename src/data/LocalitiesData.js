@@ -1,5 +1,5 @@
 // LocalitiesData.js
-import React from "react";
+
 
 export const LocalitiesData = {
     type: "FeatureCollection",

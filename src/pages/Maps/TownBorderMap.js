@@ -2,7 +2,6 @@
 import React, { useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
 import InteractivePoints from "../Localities/InteractivePoints"; // Import the new component
-import 'mapbox-gl/dist/mapbox-gl.css';
 
 
 mapboxgl.accessToken = "pk.eyJ1IjoiamFja3JvYiIsImEiOiJjanZ1bDBrdjUxYmgyNGJtczlxdWl3MzRuIn0.qla3sSgkkyxIkbYLvVsceA";

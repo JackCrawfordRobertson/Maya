@@ -1,9 +1,7 @@
 // BaseMap.js
 import React, { useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
-import datasets from "../../geojsonData";
 import './Lebanon_Bekaa.css';
-import 'mapbox-gl/dist/mapbox-gl.css';
 
 
 mapboxgl.accessToken = "pk.eyJ1IjoiamFja3JvYiIsImEiOiJjanZ1bDBrdjUxYmgyNGJtczlxdWl3MzRuIn0.qla3sSgkkyxIkbYLvVsceA";

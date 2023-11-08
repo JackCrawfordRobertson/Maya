@@ -115,7 +115,7 @@ const SVGControls = ({cycleSVG, disabled}) => {
                         transition={{duration: 1, ease: "easeInOut"}}
                     >
                         {" "}
-                        <Paper elevation={4} style={{padding: "10px", width: "200px"}}>
+                        <Paper elevation={4} style={{padding: "10px", width: "20vw"}}>
                             <h3 style={{marginTop: "10px", marginBottom: "5px"}}>{contents[contentIndex].title}</h3>
                             <h4 style={{marginTop: "5px", marginBottom: "0px", fontSize: "1em"}}>Description</h4>
                             <p style={{marginTop: "5px", marginBottom: "0px"}}>{contents[contentIndex].text}</p>

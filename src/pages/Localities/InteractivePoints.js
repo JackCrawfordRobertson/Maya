@@ -346,7 +346,7 @@ const InteractivePoints = ({map}) => {
                                         dotColor={{theme: "background"}}
                                         dotBorderWidth={2}
                                         dotBorderColor={{from: "color"}}
-                                        enableDotLabel={true}
+                                        enableDotLabel={false}
                                         dotLabel="value"
                                         dotLabelYOffset={-12}
                                         colors={{scheme: "spectral"}} // This uses one of Nivo's predefined color schemes
@@ -356,6 +356,7 @@ const InteractivePoints = ({map}) => {
                                         motionStiffness={90}
                                         motionDamping={15}
                                         isInteractive={true}
+                                        
                                         
                                     />
                                 )}

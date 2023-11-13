@@ -1,6 +1,6 @@
 //index.js
 import React from "react";
-import MapComponent from "./MainConsolidation/MapComponent";
+import App from "./MainConsolidation/App.js";
 import "./global.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 
@@ -12,11 +12,11 @@ const IndexPage = () => {
 
     return (
         <main style={mainContainerStyle}>
-            <MapComponent />
+            <App />
         </main>
     );
 };
 
 export default IndexPage;
 
-export const Head = () => <title>Home Page</title>;
+export const Head = () => <title>Maya</title>;

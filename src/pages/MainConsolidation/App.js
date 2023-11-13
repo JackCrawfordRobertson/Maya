@@ -5,7 +5,7 @@ import SVGControls from "../SVGHeatmapOverlay/SVGControls";
 import TownBorderMap from "../Maps/TownBorderMap";
 import ZoomButton from "../StartingZoom/ZoomButton"; // Make sure the import path is correct
 
-const MapComponent = () => {
+const App = () => {
   // Initial center set to show the whole world
   const [center, setCenter] = useState([0,0]);
 
@@ -82,4 +82,4 @@ const MapComponent = () => {
   );
 };
 
-export default MapComponent;
+export default App;

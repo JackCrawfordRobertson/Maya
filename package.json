@@ -19,7 +19,7 @@
     "@emotion/styled": "^11.11.0",
     "@mdx-js/react": "^2.3.0",
     "@mui/icons-material": "^5.14.14",
-    "@mui/material": "^5.14.14",
+    "@mui/material": "^5.14.17",
     "@nivo/core": "^0.83.0",
     "@nivo/radar": "^0.83.0",
     "d3": "^7.8.5",

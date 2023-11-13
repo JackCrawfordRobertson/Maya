@@ -1,3 +1,4 @@
+//index.js
 import React from "react";
 import MapComponent from "./MainConsolidation/MapComponent";
 import "./global.css";

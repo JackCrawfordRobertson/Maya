@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import BaseMap from "../Maps/BaseMap";
 import SVGHeatmapOverlay from "../SVGHeatmapOverlay/SVGHeatmapOverlay";
 import SVGControls from "../SVGHeatmapOverlay/SVGControls";

@@ -255,6 +255,7 @@ const InteractivePoints = ({map}) => {
                     top: "10px",
                     right: "10px",
                     zIndex: 1000,
+                    position: "absolute",
                 }}
             >
                 <motion.button
@@ -270,7 +271,7 @@ const InteractivePoints = ({map}) => {
                         borderRadius: "4px",
                         cursor: "pointer",
                         marginBottom: "20px", // Add a margin at the bottom of the button
-                        width: "26.5vw", // Fixed width for the button
+                        width: "25vw", // Fixed width for the button
                         textAlign: "center",
                         display: "flex",
                         justifyContent: "center",
@@ -279,8 +280,7 @@ const InteractivePoints = ({map}) => {
                         fontSize: "0.875rem",
                         fontWeight: "500",
                         position: "absolute", // Set the position to absolute
-                        top: "10px", // Adjust the top position as needed
-                        right: "10px", // Adjust the right position as needed
+                        
                         zIndex: 1000,
                     }}
                 >
@@ -306,14 +306,12 @@ const InteractivePoints = ({map}) => {
                                 padding: "10px",
                                 width: {
                                     xs: "90vw", // on extra-small screens (mobile)
-                                    md: "25vw", // on medium screens (desktop) and above
+                                    md: "24vw", // on medium screens (desktop) and above
                                 },
+                                marginTop: "55px",
                                 height: "50vh",
                                 display: "flex",
                                 flexDirection: "column",
-                                pointerEvents: "auto",
-                                marginTop: "65px", // Adjust the margin top as needed
-                                marginRight: "10px",
                                 zIndex: 1000,
                             }}
                         >

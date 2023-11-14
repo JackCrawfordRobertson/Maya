@@ -4,12 +4,19 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Paper from "@mui/material/Paper";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
+import InfoIcon from "@mui/icons-material/Info";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogActions from "@mui/material/DialogActions";
 import {motion} from "framer-motion";
 
 // Create a custom theme
 const theme = createTheme({
-    typography: {
-    },
+    typography: {},
     palette: {
         primary: {
             main: "#3498db",
@@ -64,8 +71,15 @@ const SVGControls = ({cycleSVG, disabled}) => {
         event.stopPropagation(); // Stop event propagation
         if (!disabled) {
             setOpen(!open);
+            
         }
     };
+
+    const toggleInfo = () => {
+        setInfoOpen(!infoOpen);
+    };
+
+    const [ infoOpen, setInfoOpen ] = useState(false);
 
     return (
         <ThemeProvider theme={theme}>
@@ -116,7 +130,37 @@ const SVGControls = ({cycleSVG, disabled}) => {
                     >
                         {" "}
                         <Paper elevation={4} style={{padding: "10px", width: "20vw"}}>
-                            <h3 style={{marginTop: "10px", marginBottom: "5px"}}>{contents[contentIndex].title}</h3>
+                            <div
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    alignItems: "center",
+                                    marginTop: "10px",
+                                    marginBottom: "5px",
+                                }}
+                            >
+                                <h3 style={{marginTop: "10px", marginBottom: "5px"}}>{contents[contentIndex].title}</h3>
+                                <Tooltip title="About this widget">
+                                    <IconButton onClick={toggleInfo}>
+                                        <InfoIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            </div>
+
+                            <Dialog open={infoOpen} onClose={toggleInfo}>
+                                <DialogTitle>About the Widget</DialogTitle>
+                                <DialogContent>
+                                    <DialogContentText>
+                                    This widget enables you to explore a range of simulations related to the Letani River Basin across various time frames and variable periods.
+                                    </DialogContentText>
+                                </DialogContent>
+                                <DialogActions>
+                                    <Button onClick={toggleInfo} color="primary">
+                                        Close
+                                    </Button>
+                                </DialogActions>
+                            </Dialog>
+
                             <h4 style={{marginTop: "5px", marginBottom: "0px", fontSize: "1em"}}>Description</h4>
                             <p style={{marginTop: "5px", marginBottom: "0px"}}>{contents[contentIndex].text}</p>
                             <div>

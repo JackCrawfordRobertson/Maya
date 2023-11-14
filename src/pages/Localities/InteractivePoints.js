@@ -4,16 +4,28 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Slide from "@mui/material/Slide";
 import Paper from "@mui/material/Paper";
+import InfoIcon from "@mui/icons-material/Info";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogActions from "@mui/material/DialogActions";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
-import {motion} from "framer-motion";
+import {motion, AnimatePresence} from "framer-motion";
 import {ResponsiveRadar} from "@nivo/radar";
 import {LocalitiesData} from "../../data/LocalitiesData";
-import {LocalitesWaterUsage2023, LocalitesWaterUsage2024, LocalitesWaterUsage2025, LocalitesWaterUsage2026} from "../../data/LocalitesWaterUsage2";
+import {
+    LocalitesWaterUsage2023,
+    LocalitesWaterUsage2024,
+    LocalitesWaterUsage2025,
+    LocalitesWaterUsage2026,
+} from "../../data/LocalitesWaterUsage2";
 import Slider from "@mui/material/Slider";
 import {useMediaQuery} from "@mui/material";
 
 import MenuIcon from "@mui/icons-material/Menu";
-import "./Interactive.css";
 
 // Set the theme for the MUI components
 const theme = createTheme({
@@ -45,7 +57,6 @@ const marks = [
     {
         value: 2026,
         label: "2026",
-
     },
 ];
 
@@ -55,23 +66,6 @@ const InteractivePoints = ({map}) => {
     const [ isOpen, setIsOpen ] = useState(false);
     const [ displayKeys, setDisplayKeys ] = useState([ "2023", "2024", "2025", "2026" ]);
     const [ mapReady, setMapReady ] = useState(false); // New state variable to control interaction
-
-    const handleYearFilter = (year) => {
-        setDisplayKeys([ year ]); // Set the display keys to the selected year
-    };
-
-    const paperStyle = {
-        padding: "10px",
-        width: "25vw", // Default width for larger devices
-        height: "50vh",
-        display: "flex",
-        flexDirection: "column",
-        pointerEvents: "auto",
-        // Add a media query for devices with a max-width of 768px
-        "@media (max-width: 768px)": {
-            width: "90vw", // 90% of the viewport width on smaller devices
-        },
-    };
 
     const getCorrespondingDataForLocality = (localityId) => {
         const data2023 = LocalitesWaterUsage2023.find((item) => item.id === localityId);
@@ -87,7 +81,6 @@ const InteractivePoints = ({map}) => {
                     2024: data2024.waterDemand,
                     2025: data2025.waterDemand,
                     2026: data2026.waterDemand,
-
                 },
                 {
                     metric: "Water Produced m3/day",
@@ -112,13 +105,14 @@ const InteractivePoints = ({map}) => {
     const radarData = useMemo(() => getCorrespondingDataForLocality(selectedPoint?.id), [ selectedPoint, displayKeys ]);
 
     const resetFilter = () => {
-        setDisplayKeys([ "2023", "2024", "2025", "2026", ]); // Reset the display keys to show all data
+        setDisplayKeys([ "2023", "2024", "2025", "2026" ]); // Reset the display keys to show all data
     };
 
-    const transitionSettings = { duration: 1, ease: "easeInOut" };
-
+    const transitionSettings = {duration: 1, ease: "easeInOut"};
 
     const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+    const [ detailsVisible, setDetailsVisible ] = useState(false);
 
     useEffect(() => {
         if (!map) return;
@@ -195,6 +189,8 @@ const InteractivePoints = ({map}) => {
                             });
                         }
                     }
+
+                    setDetailsVisible(true);
                 });
             } catch (error) {
                 console.error("Error adding source and layer:", error);
@@ -245,6 +241,37 @@ const InteractivePoints = ({map}) => {
         setDisplayKeys([ newValue.toString() ]); // Ensure the year is a string if your data keys are strings
     };
 
+    const toggleInfo = () => {
+        setInfoOpen(!infoOpen);
+    };
+
+    const [ infoOpen, setInfoOpen ] = useState(false);
+
+    useEffect(() => {
+        // Define the default locality ID
+        const defaultLocalityId = 1; // ID of the default locality
+
+        // Find the default locality data based on the defaultLocalityId
+        const defaultLocalityData = LocalitiesData.features.find(
+            (feature) => feature.properties.id === defaultLocalityId
+        );
+
+        if (defaultLocalityData) {
+            const data2023 = LocalitesWaterUsage2023.find((item) => item.id === defaultLocalityId);
+            const data2024 = LocalitesWaterUsage2024.find((item) => item.id === defaultLocalityId);
+            const data2025 = LocalitesWaterUsage2025.find((item) => item.id === defaultLocalityId);
+            const data2026 = LocalitesWaterUsage2026.find((item) => item.id === defaultLocalityId);
+
+            setSelectedPoint({
+                ...defaultLocalityData.properties, // This contains title and description
+                data2023: data2023 ? data2023 : {},
+                data2024: data2024 ? data2024 : {},
+                data2025: data2025 ? data2025 : {},
+                data2026: data2026 ? data2026 : {},
+            });
+        }
+    }, []);
+
     return (
         <ThemeProvider theme={theme}>
             <div
@@ -259,8 +286,8 @@ const InteractivePoints = ({map}) => {
                 }}
             >
                 <motion.button
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    initial={{opacity: 0, y: 20}}
+                    animate={{opacity: 1, y: 0}}
                     transition={transitionSettings}
                     onClick={toggleOpen}
                     style={{
@@ -280,7 +307,7 @@ const InteractivePoints = ({map}) => {
                         fontSize: "0.875rem",
                         fontWeight: "500",
                         position: "absolute", // Set the position to absolute
-                        
+
                         zIndex: 1000,
                     }}
                 >
@@ -296,8 +323,8 @@ const InteractivePoints = ({map}) => {
 
                 <Slide direction="right" in={isOpen} mountOnEnter unmountOnExit>
                     <motion.div
-                        initial={{ x: 600, opacity: 0 }}
-                        animate={isOpen ? { x: 0, opacity: 1 } : { x: 600, opacity: 0 }}
+                        initial={{x: 600, opacity: 0}}
+                        animate={isOpen ? {x: 0, opacity: 1} : {x: 600, opacity: 0}}
                         transition={{duration: 1, ease: "easeInOut"}}
                     >
                         <Paper
@@ -315,14 +342,67 @@ const InteractivePoints = ({map}) => {
                                 zIndex: 1000,
                             }}
                         >
-                            <h2 style={{marginTop: "10px", marginBottom: "5px"}}>Click on a localitie to see data</h2>
-                            <h4 style={{marginTop: "5px", marginBottom: "0px", fontSize: "1em"}}>
-                                {selectedPoint?.title}
-                            </h4>
-                            <p style={{marginTop: "5px", marginBottom: "0px", fontSize: "1em"}}>
-                                {selectedPoint?.description}
-                            </p>
-                            <div style={{flex: 1, minHeight: 0, zIndex: 1000,}}>
+                            <div
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    alignItems: "center",
+                                    marginTop: "10px",
+                                    marginBottom: "5px",
+                                }}
+                            >
+                                <h2>Explore the data by selecting a place</h2>
+                                <Tooltip title="About this widget">
+                                    <IconButton onClick={toggleInfo}>
+                                        <InfoIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            </div>
+
+                            <Dialog open={infoOpen} onClose={toggleInfo}>
+                                <DialogTitle>About the Widget</DialogTitle>
+                                <DialogContent>
+                                    <DialogContentText>
+                                        This widget allows you to explore water usage data across different localities.
+                                        Select a locality on the map to see detailed metrics.
+                                    </DialogContentText>
+                                </DialogContent>
+                                <DialogActions>
+                                    <Button onClick={toggleInfo} color="primary">
+                                        Close
+                                    </Button>
+                                </DialogActions>
+                            </Dialog>
+
+                            <AnimatePresence>
+                                {selectedPoint && (
+                                    <motion.div
+                                        key={selectedPoint.id}
+                                        initial={{opacity: 0, y: -20}}
+                                        animate={{opacity: 1, y: 0, transition: {delay: 0.5, duration: 0.5}}}
+                                        exit={{opacity: 0, y: 20, transition: {duration: 0.5}}}
+                                    >
+                                        <motion.h2
+                                            initial={{opacity: 0}}
+                                            animate={{opacity: 1, transition: {delay: 0.6}}}
+                                            exit={{opacity: 0}}
+                                            style={{marginTop: "5px", marginBottom: "0px"}}
+                                        >
+                                            {selectedPoint?.title}
+                                        </motion.h2>
+                                        <motion.p
+                                            initial={{opacity: 0}}
+                                            animate={{opacity: 1, transition: {delay: 0.7}}}
+                                            exit={{opacity: 0}}
+                                            style={{marginTop: "5px", marginBottom: "0px", fontSize: "1em"}}
+                                        >
+                                            {selectedPoint?.description}
+                                        </motion.p>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+
+                            <div style={{flex: 1, minHeight: 0, zIndex: 1000}}>
                                 {" "}
                                 {/* This div will grow to fit available space */}
                                 {selectedPoint && (
@@ -354,8 +434,6 @@ const InteractivePoints = ({map}) => {
                                         motionStiffness={90}
                                         motionDamping={15}
                                         isInteractive={true}
-                                        
-                                        
                                     />
                                 )}
                             </div>
@@ -372,7 +450,6 @@ const InteractivePoints = ({map}) => {
                                     disabled={!mapReady} // Disable the slider if the map is not ready
                                 />
                             </div>
-
                             <div style={{padding: "0 20px", marginTop: "10px"}}>
                                 <Button
                                     variant="contained"

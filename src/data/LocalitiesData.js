@@ -1,6 +1,5 @@
 // LocalitiesData.js
 
-
 export const LocalitiesData = {
     type: "FeatureCollection",
     features: [
@@ -187,7 +186,6 @@ export const LocalitiesData = {
         },
 
         {
-           
             type: "Feature",
             geometry: {
                 type: "Point",

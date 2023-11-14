@@ -299,7 +299,7 @@ const InteractivePoints = ({map}) => {
                         borderRadius: "4px",
                         cursor: "pointer",
                         marginBottom: "20px", // Add a margin at the bottom of the button
-                        width: "20vw", // Fixed width for the button
+                        width: "auto", // Fixed width for the button
                         textAlign: "center",
                         display: "flex",
                         justifyContent: "center",
@@ -321,144 +321,147 @@ const InteractivePoints = ({map}) => {
                     )}
                 </motion.button>
 
-                <Slide direction="right" in={isOpen} mountOnEnter unmountOnExit>
-                    <motion.div
-                        initial={{x: 600, opacity: 0}}
-                        animate={isOpen ? {x: 0, opacity: 1} : {x: 600, opacity: 0}}
-                        transition={{duration: 1, ease: "easeInOut"}}
-                    >
-                        <Paper
-                            elevation={4}
-                            sx={{
-                                padding: "10px",
-                                marginTop: "55px",
-                                height: "50vh",
-                                display: "flex",
-                                flexDirection: "column",
-                                zIndex: 1000,
-                            }}
+                <AnimatePresence>
+                    {isOpen && (
+                        <motion.div
+                            initial={{x: 600, opacity: 0}}
+                            animate={{x: 0, opacity: 1}}
+                            exit={{x: 600, opacity: 0}}
+                            transition={{duration: 1, ease: "easeInOut"}}
                         >
-                            <div
-                                style={{
+                            <Paper
+                                elevation={4}
+                                sx={{
+                                    padding: "10px",
+                                    marginTop: "55px",
+                                    height: "50vh",
                                     display: "flex",
-                                    justifyContent: "space-between",
-                                    alignItems: "center",
-                                    marginTop: "10px",
-                                    marginBottom: "5px",
+                                    flexDirection: "column",
+                                    zIndex: 1000,
                                 }}
                             >
-                                <h2>Explore the data by selecting a place</h2>
-                                <Tooltip title="About this widget">
-                                    <IconButton onClick={toggleInfo}>
-                                        <InfoIcon />
-                                    </IconButton>
-                                </Tooltip>
-                            </div>
-
-                            <Dialog open={infoOpen} onClose={toggleInfo}>
-                                <DialogTitle>About the Widget</DialogTitle>
-                                <DialogContent>
-                                    <DialogContentText>
-                                        This widget allows you to explore water usage data across different localities.
-                                        Select a locality on the map to see detailed metrics.
-                                    </DialogContentText>
-                                </DialogContent>
-                                <DialogActions>
-                                    <Button onClick={toggleInfo} color="primary">
-                                        Close
-                                    </Button>
-                                </DialogActions>
-                            </Dialog>
-
-                            <AnimatePresence>
-                                {selectedPoint && (
-                                    <motion.div
-                                        key={selectedPoint.id}
-                                        initial={{opacity: 0, y: -20}}
-                                        animate={{opacity: 1, y: 0, transition: {delay: 0.5, duration: 0.5}}}
-                                        exit={{opacity: 0, y: 20, transition: {duration: 0.5}}}
-                                    >
-                                        <motion.h2
-                                            initial={{opacity: 0}}
-                                            animate={{opacity: 1, transition: {delay: 0.6}}}
-                                            exit={{opacity: 0}}
-                                            style={{marginTop: "5px", marginBottom: "0px"}}
-                                        >
-                                            {selectedPoint?.title}
-                                        </motion.h2>
-                                        <motion.p
-                                            initial={{opacity: 0}}
-                                            animate={{opacity: 1, transition: {delay: 0.7}}}
-                                            exit={{opacity: 0}}
-                                            style={{marginTop: "5px", marginBottom: "0px", fontSize: "1em"}}
-                                        >
-                                            {selectedPoint?.description}
-                                        </motion.p>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-
-                            <div style={{flex: 1, minHeight: 0, zIndex: 1000}}>
-                                {" "}
-                                {/* This div will grow to fit available space */}
-                                {selectedPoint && (
-                                    <ResponsiveRadar
-                                        data={radarData}
-                                        keys={displayKeys} // Use the state variable here
-                                        indexBy="metric"
-                                        maxValue="auto"
-                                        margin={{top: 50, right: 80, bottom: 40, left: 80}}
-                                        padding={{right: 10, left: 10}}
-                                        curve="linearClosed"
-                                        borderWidth={2}
-                                        borderColor={{from: "color"}}
-                                        gridLevels={5}
-                                        gridShape="circular"
-                                        gridLabelOffset={10}
-                                        enableDots={true}
-                                        dotSize={10}
-                                        dotColor={{theme: "background"}}
-                                        dotBorderWidth={2}
-                                        dotBorderColor={{from: "color"}}
-                                        enableDotLabel={false}
-                                        dotLabel="value"
-                                        dotLabelYOffset={-12}
-                                        colors={{scheme: "spectral"}} // This uses one of Nivo's predefined color schemes
-                                        fillOpacity={0.25}
-                                        blendMode="multiply"
-                                        animate={true}
-                                        motionStiffness={90}
-                                        motionDamping={15}
-                                        isInteractive={true}
-                                    />
-                                )}
-                            </div>
-
-                            <div style={{padding: "0 20px"}}>
-                                <Slider
-                                    defaultValue={2023}
-                                    step={1}
-                                    marks={marks}
-                                    min={2023}
-                                    max={2026}
-                                    valueLabelDisplay="auto"
-                                    onChangeCommitted={handleSliderChange}
-                                    disabled={!mapReady} // Disable the slider if the map is not ready
-                                />
-                            </div>
-                            <div style={{padding: "0 20px", marginTop: "10px"}}>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    onClick={resetFilter}
-                                    style={{width: "100%"}} // You can adjust the width as needed
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        justifyContent: "space-between",
+                                        alignItems: "center",
+                                        marginTop: "10px",
+                                        marginBottom: "5px",
+                                    }}
                                 >
-                                    Reset Filter
-                                </Button>
-                            </div>
-                        </Paper>
-                    </motion.div>
-                </Slide>
+                                    <h2>Explore the data by selecting a place</h2>
+                                    <Tooltip title="About this widget">
+                                        <IconButton onClick={toggleInfo}>
+                                            <InfoIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                </div>
+
+                                <Dialog open={infoOpen} onClose={toggleInfo}>
+                                    <DialogTitle>About the Widget</DialogTitle>
+                                    <DialogContent>
+                                        <DialogContentText>
+                                            This widget allows you to explore water usage data across different
+                                            localities. Select a locality on the map to see detailed metrics.
+                                        </DialogContentText>
+                                    </DialogContent>
+                                    <DialogActions>
+                                        <Button onClick={toggleInfo} color="primary">
+                                            Close
+                                        </Button>
+                                    </DialogActions>
+                                </Dialog>
+
+                                <AnimatePresence>
+                                    {selectedPoint && (
+                                        <motion.div
+                                            key={selectedPoint.id}
+                                            initial={{opacity: 0, y: -20}}
+                                            animate={{opacity: 1, y: 0, transition: {delay: 0.5, duration: 0.5}}}
+                                            exit={{opacity: 0, y: 20, transition: {duration: 0.5}}}
+                                        >
+                                            <motion.h2
+                                                initial={{opacity: 0}}
+                                                animate={{opacity: 1, transition: {delay: 0.6}}}
+                                                exit={{opacity: 0}}
+                                                style={{marginTop: "5px", marginBottom: "0px"}}
+                                            >
+                                                {selectedPoint?.title}
+                                            </motion.h2>
+                                            <motion.p
+                                                initial={{opacity: 0}}
+                                                animate={{opacity: 1, transition: {delay: 0.7}}}
+                                                exit={{opacity: 0}}
+                                                style={{marginTop: "5px", marginBottom: "0px", fontSize: "1em"}}
+                                            >
+                                                {selectedPoint?.description}
+                                            </motion.p>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+
+                                <div style={{flex: 1, minHeight: 0, zIndex: 1000}}>
+                                    {" "}
+                                    {/* This div will grow to fit available space */}
+                                    {selectedPoint && (
+                                        <ResponsiveRadar
+                                            data={radarData}
+                                            keys={displayKeys} // Use the state variable here
+                                            indexBy="metric"
+                                            maxValue="auto"
+                                            margin={{top: 50, right: 80, bottom: 40, left: 80}}
+                                            padding={{right: 10, left: 10}}
+                                            curve="linearClosed"
+                                            borderWidth={2}
+                                            borderColor={{from: "color"}}
+                                            gridLevels={5}
+                                            gridShape="circular"
+                                            gridLabelOffset={10}
+                                            enableDots={true}
+                                            dotSize={10}
+                                            dotColor={{theme: "background"}}
+                                            dotBorderWidth={2}
+                                            dotBorderColor={{from: "color"}}
+                                            enableDotLabel={false}
+                                            dotLabel="value"
+                                            dotLabelYOffset={-12}
+                                            colors={{scheme: "spectral"}} // This uses one of Nivo's predefined color schemes
+                                            fillOpacity={0.25}
+                                            blendMode="multiply"
+                                            animate={true}
+                                            motionStiffness={90}
+                                            motionDamping={15}
+                                            isInteractive={true}
+                                        />
+                                    )}
+                                </div>
+
+                                <div style={{padding: "0 20px"}}>
+                                    <Slider
+                                        defaultValue={2023}
+                                        step={1}
+                                        marks={marks}
+                                        min={2023}
+                                        max={2026}
+                                        valueLabelDisplay="auto"
+                                        onChangeCommitted={handleSliderChange}
+                                        disabled={!mapReady} // Disable the slider if the map is not ready
+                                    />
+                                </div>
+                                <div style={{marginTop: "10px"}}>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={resetFilter}
+                                        style={{width: "100%"}} // You can adjust the width as needed
+                                    >
+                                        Reset Filter
+                                    </Button>
+                                </div>
+                            </Paper>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
         </ThemeProvider>
     );

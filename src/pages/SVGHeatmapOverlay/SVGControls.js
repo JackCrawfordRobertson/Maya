@@ -104,7 +104,7 @@ const SVGControls = ({cycleSVG, disabled}) => {
                         borderRadius: "4px",
                         cursor: "pointer",
                         marginBottom: "10px",
-                        width: "100%",
+                        width: "auto",
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
@@ -172,7 +172,7 @@ const SVGControls = ({cycleSVG, disabled}) => {
                         </Dialog>
 
                         {/* Container for the animating content */}
-                        <div style={{position: "relative", height: "100px"}}>
+                        <div style={{position: "relative", padding: "40px"}}>
                             {" "}
                             {/* Adjust height as needed */}
                             <AnimatePresence>

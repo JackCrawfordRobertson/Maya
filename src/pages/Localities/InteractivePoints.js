@@ -283,6 +283,7 @@ const InteractivePoints = ({map}) => {
                     right: "10px",
                     zIndex: 1000,
                     position: "absolute",
+                    width: "20vw",
                 }}
             >
                 <motion.button
@@ -298,7 +299,7 @@ const InteractivePoints = ({map}) => {
                         borderRadius: "4px",
                         cursor: "pointer",
                         marginBottom: "20px", // Add a margin at the bottom of the button
-                        width: "25vw", // Fixed width for the button
+                        width: "20vw", // Fixed width for the button
                         textAlign: "center",
                         display: "flex",
                         justifyContent: "center",
@@ -307,7 +308,6 @@ const InteractivePoints = ({map}) => {
                         fontSize: "0.875rem",
                         fontWeight: "500",
                         position: "absolute", // Set the position to absolute
-
                         zIndex: 1000,
                     }}
                 >
@@ -315,7 +315,7 @@ const InteractivePoints = ({map}) => {
                         <MenuIcon />
                     ) : (
                         <>
-                            {isOpen ? "Close " : "Open "}
+                            {isOpen ? "Hide panal " : "Show panal "}
                             {isOpen ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                         </>
                     )}
@@ -331,10 +331,6 @@ const InteractivePoints = ({map}) => {
                             elevation={4}
                             sx={{
                                 padding: "10px",
-                                width: {
-                                    xs: "90vw", // on extra-small screens (mobile)
-                                    md: "24vw", // on medium screens (desktop) and above
-                                },
                                 marginTop: "55px",
                                 height: "50vh",
                                 display: "flex",
@@ -457,7 +453,7 @@ const InteractivePoints = ({map}) => {
                                     onClick={resetFilter}
                                     style={{width: "100%"}} // You can adjust the width as needed
                                 >
-                                    Reset
+                                    Reset Filter
                                 </Button>
                             </div>
                         </Paper>

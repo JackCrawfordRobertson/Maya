@@ -12,7 +12,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
-import {motion} from "framer-motion";
+import {motion, AnimatePresence} from "framer-motion";
 
 // Create a custom theme
 const theme = createTheme({
@@ -71,7 +71,6 @@ const SVGControls = ({cycleSVG, disabled}) => {
         event.stopPropagation(); // Stop event propagation
         if (!disabled) {
             setOpen(!open);
-            
         }
     };
 
@@ -89,115 +88,158 @@ const SVGControls = ({cycleSVG, disabled}) => {
                     top: "10px",
                     left: "10px",
                     zIndex: 3,
-                    pointerEvents: "none", // Add this line to pass mouse events through
+                    width: "20vw",
                 }}
             >
-                <div
+                <motion.button
+                    initial={{opacity: 0, y: 20}}
+                    animate={{opacity: 1, y: 0}}
+                    transition={{duration: 1, ease: "easeInOut"}}
+                    onClick={(e) => toggleOpen(e)}
                     style={{
-                        pointerEvents: "auto", // Add this line to re-enable mouse events for the SVGControls
+                        backgroundColor: theme.palette.primary.main,
+                        color: "#fff",
+                        padding: "10px 20px",
+                        border: "none",
+                        borderRadius: "4px",
+                        cursor: "pointer",
+                        marginBottom: "10px",
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        textTransform: "uppercase", // This line ensures text is displayed in uppercase
+                        fontSize: "0.875rem", // Adjust font size if necessary
+                        fontWeight: "500",
                     }}
+                    disabled={disabled}
                 >
-                    <motion.button
-                        initial={{opacity: 0, y: 20}}
-                        animate={{opacity: 1, y: 0}}
-                        transition={{duration: 1, ease: "easeInOut"}}
-                        onClick={(e) => toggleOpen(e)}
-                        style={{
-                            backgroundColor: theme.palette.primary.main,
-                            color: "#fff",
-                            padding: "10px 20px",
-                            border: "none",
-                            borderRadius: "4px",
-                            cursor: "pointer",
-                            marginBottom: "10px",
-                            width: "100%",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            textTransform: "uppercase", // This line ensures text is displayed in uppercase
-                            fontSize: "0.875rem", // Adjust font size if necessary
-                            fontWeight: "500",
-                        }}
-                        disabled={disabled}
-                    >
-                        {open ? "Close " : "Open "}
-                        {open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-                    </motion.button>
-                    <motion.div
-                        initial={{x: -300, opacity: 0}}
-                        animate={open ? {x: 0, opacity: 1} : {x: -300, opacity: 0}}
-                        transition={{duration: 1, ease: "easeInOut"}}
-                    >
-                        {" "}
-                        <Paper elevation={4} style={{padding: "10px", width: "20vw"}}>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    alignItems: "center",
-                                    marginTop: "10px",
-                                    marginBottom: "5px",
-                                }}
-                            >
-                                <h3 style={{marginTop: "10px", marginBottom: "5px"}}>{contents[contentIndex].title}</h3>
-                                <Tooltip title="About this widget">
-                                    <IconButton onClick={toggleInfo}>
-                                        <InfoIcon />
-                                    </IconButton>
-                                </Tooltip>
-                            </div>
-
-                            <Dialog open={infoOpen} onClose={toggleInfo}>
-                                <DialogTitle>About the Widget</DialogTitle>
-                                <DialogContent>
-                                    <DialogContentText>
-                                    This widget enables you to explore a range of simulations related to the Letani River Basin across various time frames and variable periods.
-                                    </DialogContentText>
-                                </DialogContent>
-                                <DialogActions>
-                                    <Button onClick={toggleInfo} color="primary">
-                                        Close
-                                    </Button>
-                                </DialogActions>
-                            </Dialog>
-
-                            <h4 style={{marginTop: "5px", marginBottom: "0px", fontSize: "1em"}}>Description</h4>
-                            <p style={{marginTop: "5px", marginBottom: "0px"}}>{contents[contentIndex].text}</p>
-                            <div>
-                                <h4 style={{marginTop: "10px", marginBottom: "5px"}}>Drawdown (m)</h4>
-                                {keyParameters.map((item, index) => (
-                                    <div
-                                        key={index}
-                                        style={{
-                                            display: "flex",
-                                            alignItems: "center",
-                                            marginBottom: "10px",
-                                        }}
+                    {open ? "Hide panal " : "Show panal "}
+                    {open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                </motion.button>
+                <motion.div
+                    initial={{x: -300, opacity: 0}}
+                    animate={open ? {x: 0, opacity: 1} : {x: -300, opacity: 0}}
+                    transition={{duration: 1, ease: "easeInOut"}}
+                >
+                    {" "}
+                    <Paper elevation={4} style={{padding: "10px"}}>
+                        <div
+                            style={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                            }}
+                        >
+                            <AnimatePresence>
+                                <motion.div
+                                    key={contentIndex}
+                                    initial={{opacity: 0, y: -20}}
+                                    animate={{opacity: 1, y: 0, transition: {delay: 0.5, duration: 0.5}}}
+                                    exit={{opacity: 0, y: 20, transition: {duration: 0.5}}}
+                                >
+                                    <motion.h3
+                                        initial={{opacity: 0}}
+                                        animate={{opacity: 1, transition: {delay: 0.6}}}
+                                        exit={{opacity: 0}}
+                                        style={{marginTop: "5px", marginBottom: "0px"}}
                                     >
-                                        <div
-                                            style={{
-                                                width: "20px",
-                                                height: "20px",
-                                                backgroundColor: item.color,
-                                                marginRight: "10px",
-                                            }}
-                                        ></div>
-                                        <span>{item.text}</span>
-                                    </div>
-                                ))}
-                            </div>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={handleCycleSVG} // Updated the onClick handler
-                                fullWidth
-                                disabled={disabled}
-                            >
-                                Cycle Simulation
-                            </Button>
-                        </Paper>
-                    </motion.div>
-                </div>
+                                        {contents[contentIndex].title}
+                                    </motion.h3>
+                                </motion.div>
+                            </AnimatePresence>
+
+                            <Tooltip title="About this widget">
+                                <IconButton onClick={toggleInfo}>
+                                    <InfoIcon />
+                                </IconButton>
+                            </Tooltip>
+                        </div>
+
+                        <Dialog open={infoOpen} onClose={toggleInfo}>
+                            <DialogTitle>About the Widget</DialogTitle>
+                            <DialogContent>
+                                <DialogContentText>
+                                    This widget enables you to explore a range of simulations related to the Letani
+                                    River Basin across various time frames and variable periods.
+                                </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={toggleInfo} color="primary">
+                                    Close
+                                </Button>
+                            </DialogActions>
+                        </Dialog>
+
+                        {/* Container for the animating content */}
+                        <div style={{position: "relative", height: "100px"}}>
+                            {" "}
+                            {/* Adjust height as needed */}
+                            <AnimatePresence>
+                                <motion.div
+                                    key={contentIndex}
+                                    initial={{opacity: 0, y: -20}}
+                                    animate={{opacity: 1, y: 0, transition: {delay: 0.5, duration: 0.5}}}
+                                    exit={{opacity: 0, y: 20, transition: {duration: 0.5}}}
+                                    style={{position: "absolute", top: 0, left: 0}}
+                                >
+                                    {/* Animating elements */}
+                                    <motion.h5
+                                        initial={{opacity: 0}}
+                                        animate={{opacity: 1, transition: {delay: 0.6}}}
+                                        exit={{opacity: 0}}
+                                        style={{marginTop: "5px", marginBottom: "0px"}}
+                                    >
+                                        Description
+                                    </motion.h5>
+                                    <motion.p
+                                        initial={{opacity: 0}}
+                                        animate={{opacity: 1, transition: {delay: 0.7}}}
+                                        exit={{opacity: 0}}
+                                        style={{marginTop: "5px", marginBottom: "0px", fontSize: "1em"}}
+                                    >
+                                        {contents[contentIndex].text}
+                                    </motion.p>
+                                </motion.div>
+                            </AnimatePresence>
+                        </div>
+
+                        <div style={{marginTop: "10px"}}>
+                            {" "}
+                            {/* Adjust margin-top as needed */}
+                            <h4 style={{marginTop: "10px", marginBottom: "5px"}}>Drawdown (m)</h4>
+                            {keyParameters.map((item, index) => (
+                                <div
+                                    key={index}
+                                    style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        marginBottom: "10px",
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            width: "20px",
+                                            height: "20px",
+                                            backgroundColor: item.color,
+                                            marginRight: "10px",
+                                        }}
+                                    ></div>
+                                    <span>{item.text}</span>
+                                </div>
+                            ))}
+                        </div>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={handleCycleSVG}
+                            fullWidth
+                            disabled={disabled}
+                        >
+                            Next Simulation
+                        </Button>
+                    </Paper>
+                </motion.div>
             </div>
         </ThemeProvider>
     );

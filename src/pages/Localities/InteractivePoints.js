@@ -307,18 +307,44 @@ const InteractivePoints = ({map}) => {
                         textTransform: "uppercase",
                         fontSize: "0.875rem",
                         fontWeight: "500",
+                        width: "13vw",
                         position: "absolute", // Set the position to absolute
                         zIndex: 1000,
                     }}
                 >
-                    {isMobile ? (
-                        <MenuIcon />
-                    ) : (
-                        <>
-                            {isOpen ? "Hide panal " : "Show panal "}
-                            {isOpen ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-                        </>
-                    )}
+                    <AnimatePresence mode="wait">
+                        {isOpen ? (
+                            <motion.div
+                                key="hide"
+                                initial={{opacity: 0}}
+                                animate={{opacity: 1}}
+                                exit={{opacity: 0}}
+                                transition={{duration: 0.2}}
+                                style={{
+                                    display: "flex", // Enable flexbox
+                                    justifyContent: "center", // Center content horizontally
+                                    alignItems: "center",
+                                }}
+                            >
+                                Hide panel <ChevronRightIcon />
+                            </motion.div>
+                        ) : (
+                            <motion.div
+                                key="show"
+                                initial={{opacity: 0}}
+                                animate={{opacity: 1}}
+                                exit={{opacity: 0}}
+                                transition={{duration: 0.2}}
+                                style={{
+                                    display: "flex", // Enable flexbox
+                                    justifyContent: "center", // Center content horizontally
+                                    alignItems: "center",
+                                }}
+                            >
+                                Show panel <ChevronLeftIcon />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </motion.button>
 
                 <AnimatePresence>
@@ -345,8 +371,8 @@ const InteractivePoints = ({map}) => {
                                         display: "flex",
                                         justifyContent: "space-between",
                                         alignItems: "center",
-                                        marginTop: "10px",
-                                        marginBottom: "5px",
+                                        margin: "0px",
+                                        
                                     }}
                                 >
                                     <h2>Explore the data by selecting a place</h2>

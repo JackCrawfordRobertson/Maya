@@ -106,6 +106,7 @@ const SVGControls = ({cycleSVG, disabled}) => {
                         marginBottom: "10px",
                         width: "auto",
                         display: "flex",
+                        width: "13vw",
                         justifyContent: "center",
                         alignItems: "center",
                         textTransform: "uppercase", // This line ensures text is displayed in uppercase
@@ -114,9 +115,41 @@ const SVGControls = ({cycleSVG, disabled}) => {
                     }}
                     disabled={disabled}
                 >
-                    {open ? "Hide panal " : "Show panal "}
-                    {open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                    <AnimatePresence mode="wait">
+                        {open ? (
+                            <motion.div
+                                key="hide"
+                                initial={{opacity: 0}}
+                                animate={{opacity: 1}}
+                                exit={{opacity: 0}}
+                                transition={{duration: 0.2}}
+                                style={{
+                                    display: "flex", // Enable flexbox
+                                    justifyContent: "center", // Center content horizontally
+                                    alignItems: "center",
+                                }}
+                            >
+                                Hide panel <ChevronRightIcon />
+                            </motion.div>
+                        ) : (
+                            <motion.div
+                                key="show"
+                                initial={{opacity: 0}}
+                                animate={{opacity: 1}}
+                                exit={{opacity: 0}}
+                                transition={{duration: 0.2}}
+                                style={{
+                                    display: "flex", // Enable flexbox
+                                    justifyContent: "center", // Center content horizontally
+                                    alignItems: "center",
+                                }}
+                            >
+                                Show panel <ChevronLeftIcon />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </motion.button>
+
                 <motion.div
                     initial={{x: -300, opacity: 0}}
                     animate={open ? {x: 0, opacity: 1} : {x: -300, opacity: 0}}

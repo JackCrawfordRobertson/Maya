@@ -2,7 +2,6 @@ import React, {useEffect, useState, useRef, useMemo} from "react";
 import Button from "@mui/material/Button";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import Slide from "@mui/material/Slide";
 import Paper from "@mui/material/Paper";
 import InfoIcon from "@mui/icons-material/Info";
 import IconButton from "@mui/material/IconButton";
@@ -23,9 +22,7 @@ import {
     LocalitesWaterUsage2026,
 } from "../../data/LocalitesWaterUsage2";
 import Slider from "@mui/material/Slider";
-import {useMediaQuery} from "@mui/material";
 
-import MenuIcon from "@mui/icons-material/Menu";
 
 // Set the theme for the MUI components
 const theme = createTheme({
@@ -60,12 +57,13 @@ const marks = [
     },
 ];
 
-const InteractivePoints = ({map}) => {
-    const [ selectedPoint, setSelectedPoint ] = useState(null);
+const InteractivePoints = ({ map, isZoomCompleted }) => {
+    const [selectedPoint, setSelectedPoint] = useState(null);
     const hoveredPointIdRef = useRef(null);
-    const [ isOpen, setIsOpen ] = useState(false);
-    const [ displayKeys, setDisplayKeys ] = useState([ "2023", "2024", "2025", "2026" ]);
-    const [ mapReady, setMapReady ] = useState(false); // New state variable to control interaction
+    const [isOpen, setIsOpen] = useState(false);
+    const [displayKeys, setDisplayKeys] = useState(["2023", "2024", "2025", "2026"]);
+    const [mapReady, setMapReady] = useState(false);
+    const [infoOpen, setInfoOpen] = useState(false);
 
     const getCorrespondingDataForLocality = (localityId) => {
         const data2023 = LocalitesWaterUsage2023.find((item) => item.id === localityId);
@@ -102,26 +100,23 @@ const InteractivePoints = ({map}) => {
         return [];
     };
 
-    const radarData = useMemo(() => getCorrespondingDataForLocality(selectedPoint?.id), [ selectedPoint, displayKeys ]);
+    const radarData = useMemo(() => getCorrespondingDataForLocality(selectedPoint?.id), [selectedPoint, displayKeys]);
 
     const resetFilter = () => {
-        setDisplayKeys([ "2023", "2024", "2025", "2026" ]); // Reset the display keys to show all data
+        setDisplayKeys(["2023", "2024", "2025", "2026"]);
     };
 
-    const transitionSettings = {duration: 1, ease: "easeInOut"};
+    const transitionSettings = { duration: 1, ease: "easeInOut" };
 
-    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-    const [ detailsVisible, setDetailsVisible ] = useState(false);
 
     useEffect(() => {
-        if (!map) return;
 
         const handleMapLoad = () => {
             try {
                 map.addSource("points", {
                     type: "geojson",
-                    data: LocalitiesData, // Use the data object here
+                    data: LocalitiesData,
                 });
 
                 map.on("zoomend", () => {
@@ -153,7 +148,7 @@ const InteractivePoints = ({map}) => {
 
                 map.on("click", "points", (e) => {
                     if (e.features.length > 0) {
-                        const featureId = e.features[0].properties.id; // Retrieve ID from the clicked feature properties
+                        const featureId = e.features[0].properties.id;
                         const data2023 = LocalitesWaterUsage2023.find((item) => item.id === featureId);
                         const data2024 = LocalitesWaterUsage2024.find((item) => item.id === featureId);
                         const data2025 = LocalitesWaterUsage2025.find((item) => item.id === featureId);
@@ -164,8 +159,7 @@ const InteractivePoints = ({map}) => {
 
                         if (data2023 && data2024 && data2025 && data2026 && localityData) {
                             setSelectedPoint({
-                                // Merge data for both years along with the locality data
-                                ...localityData.properties, // This contains title and description
+                                ...localityData.properties,
                                 data2023: {
                                     waterDemand: data2023.waterDemand,
                                     averageProducedWater: data2023.averageProducedWater,
@@ -189,8 +183,6 @@ const InteractivePoints = ({map}) => {
                             });
                         }
                     }
-
-                    setDetailsVisible(true);
                 });
             } catch (error) {
                 console.error("Error adding source and layer:", error);
@@ -199,23 +191,18 @@ const InteractivePoints = ({map}) => {
 
         if (map && map.isStyleLoaded()) {
             handleMapLoad();
-        }
-        else {
-            // Only attach the load event listener if the map is not yet loaded
+        } else {
             map?.on("load", handleMapLoad);
         }
 
-        // Cleanup function
         return () => {
             if (map) {
-                // Remove event listeners
                 map.off("mouseenter", "points");
                 map.off("mouseleave", "points");
                 map.off("click", "points");
-                map.off("load", handleMapLoad); // Remove this line if 'load' event is not being used elsewhere
+                map.off("load", handleMapLoad);
                 map.off("zoomend");
 
-                // Use try-catch to avoid errors when removing layers or sources that might not exist
                 try {
                     if (map.getLayer("points")) {
                         map.removeLayer("points");
@@ -228,30 +215,32 @@ const InteractivePoints = ({map}) => {
                 }
             }
         };
-    }, [ map ]);
+    }, [map]);
 
-    // Modify the toggleOpen function to handle event stopping
-    const toggleOpen = (event) => {
-        event.preventDefault(); // Prevent default event behavior
-        event.stopPropagation(); // Stop event propagation
+ const toggleOpen = (event) => {
+        if (!isZoomCompleted) return;
+        event.preventDefault();
+        event.stopPropagation();
         setIsOpen(!isOpen);
     };
 
+    useEffect(() => {
+        if (isZoomCompleted) {
+            setIsOpen(true);
+        }
+    }, [isZoomCompleted]);
+
     const handleSliderChange = (event, newValue) => {
-        setDisplayKeys([ newValue.toString() ]); // Ensure the year is a string if your data keys are strings
+        setDisplayKeys([newValue.toString()]);
     };
 
     const toggleInfo = () => {
         setInfoOpen(!infoOpen);
     };
 
-    const [ infoOpen, setInfoOpen ] = useState(false);
-
     useEffect(() => {
-        // Define the default locality ID
-        const defaultLocalityId = 1; // ID of the default locality
+        const defaultLocalityId = 1;
 
-        // Find the default locality data based on the defaultLocalityId
         const defaultLocalityData = LocalitiesData.features.find(
             (feature) => feature.properties.id === defaultLocalityId
         );
@@ -263,7 +252,7 @@ const InteractivePoints = ({map}) => {
             const data2026 = LocalitesWaterUsage2026.find((item) => item.id === defaultLocalityId);
 
             setSelectedPoint({
-                ...defaultLocalityData.properties, // This contains title and description
+                ...defaultLocalityData.properties,
                 data2023: data2023 ? data2023 : {},
                 data2024: data2024 ? data2024 : {},
                 data2025: data2025 ? data2025 : {},
@@ -274,7 +263,7 @@ const InteractivePoints = ({map}) => {
 
     return (
         <ThemeProvider theme={theme}>
-            <div
+            <div className="interactive-points"
                 style={{
                     display: "flex",
                     flexDirection: "column",
@@ -286,211 +275,208 @@ const InteractivePoints = ({map}) => {
                     width: "20vw",
                 }}
             >
-                <motion.button
-                    initial={{opacity: 0, y: 20}}
-                    animate={{opacity: 1, y: 0}}
-                    transition={transitionSettings}
-                    onClick={toggleOpen}
-                    style={{
-                        backgroundColor: theme.palette.primary.main,
-                        color: "#fff",
-                        padding: "10px 20px",
-                        border: "none",
-                        borderRadius: "4px",
-                        cursor: "pointer",
-                        marginBottom: "20px", // Add a margin at the bottom of the button
-                        width: "auto", // Fixed width for the button
-                        textAlign: "center",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        textTransform: "uppercase",
-                        fontSize: "0.875rem",
-                        fontWeight: "500",
-                        width: "13vw",
-                        position: "absolute", // Set the position to absolute
-                        zIndex: 1000,
-                    }}
-                >
-                    <AnimatePresence mode="wait">
-                        {isOpen ? (
-                            <motion.div
-                                key="hide"
-                                initial={{opacity: 0}}
-                                animate={{opacity: 1}}
-                                exit={{opacity: 0}}
-                                transition={{duration: 0.2}}
-                                style={{
-                                    display: "flex", // Enable flexbox
-                                    justifyContent: "center", // Center content horizontally
-                                    alignItems: "center",
-                                }}
-                            >
-                                Hide panel <ChevronRightIcon />
-                            </motion.div>
-                        ) : (
-                            <motion.div
-                                key="show"
-                                initial={{opacity: 0}}
-                                animate={{opacity: 1}}
-                                exit={{opacity: 0}}
-                                transition={{duration: 0.2}}
-                                style={{
-                                    display: "flex", // Enable flexbox
-                                    justifyContent: "center", // Center content horizontally
-                                    alignItems: "center",
-                                }}
-                            >
-                                Show panel <ChevronLeftIcon />
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-                </motion.button>
-
                 <AnimatePresence>
-                    {isOpen && (
-                        <motion.div
-                            initial={{x: 600, opacity: 0}}
-                            animate={{x: 0, opacity: 1}}
-                            exit={{x: 600, opacity: 0}}
-                            transition={{duration: 1, ease: "easeInOut"}}
-                        >
-                            <Paper
-                                elevation={4}
-                                sx={{
-                                    padding: "10px",
-                                    marginTop: "55px",
-                                    height: "50vh",
+                    {isZoomCompleted && (
+                        <>
+                            <motion.button
+                                initial={{opacity: 0, y: 20}}
+                                animate={{opacity: 1, y: 0}}
+                                transition={transitionSettings}
+                                onClick={toggleOpen}
+                                style={{
+                                    backgroundColor: theme.palette.primary.main,
+                                    color: "#fff",
+                                    padding: "10px 20px",
+                                    border: "none",
+                                    borderRadius: "4px",
+                                    cursor: "pointer",
+                                    marginBottom: "20px",
+                                    width: "13vw",
+                                    textAlign: "center",
                                     display: "flex",
-                                    flexDirection: "column",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    textTransform: "uppercase",
+                                    fontSize: "0.875rem",
+                                    fontWeight: "500",
+                                    position: "absolute",
                                     zIndex: 1000,
                                 }}
                             >
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                        margin: "0px",
-                                        
-                                    }}
-                                >
-                                    <h2>Explore the data by selecting a place</h2>
-                                    <Tooltip title="About this widget">
-                                        <IconButton onClick={toggleInfo}>
-                                            <InfoIcon />
-                                        </IconButton>
-                                    </Tooltip>
-                                </div>
-
-                                <Dialog open={infoOpen} onClose={toggleInfo}>
-                                    <DialogTitle>About the Widget</DialogTitle>
-                                    <DialogContent>
-                                        <DialogContentText>
-                                            This widget allows you to explore water usage data across different
-                                            localities. Select a locality on the map to see detailed metrics.
-                                        </DialogContentText>
-                                    </DialogContent>
-                                    <DialogActions>
-                                        <Button onClick={toggleInfo} color="primary">
-                                            Close
-                                        </Button>
-                                    </DialogActions>
-                                </Dialog>
-
-                                <AnimatePresence>
-                                    {selectedPoint && (
+                                <AnimatePresence mode="wait">
+                                    {isOpen ? (
                                         <motion.div
-                                            key={selectedPoint.id}
-                                            initial={{opacity: 0, y: -20}}
-                                            animate={{opacity: 1, y: 0, transition: {delay: 0.5, duration: 0.5}}}
-                                            exit={{opacity: 0, y: 20, transition: {duration: 0.5}}}
+                                            key="hide"
+                                            initial={{opacity: 0}}
+                                            animate={{opacity: 1}}
+                                            exit={{opacity: 0}}
+                                            transition={{duration: 0.2}}
+                                            style={{
+                                                display: "flex",
+                                                justifyContent: "center",
+                                                alignItems: "center",
+                                            }}
                                         >
-                                            <motion.h2
-                                                initial={{opacity: 0}}
-                                                animate={{opacity: 1, transition: {delay: 0.6}}}
-                                                exit={{opacity: 0}}
-                                                style={{marginTop: "5px", marginBottom: "0px"}}
-                                            >
-                                                {selectedPoint?.title}
-                                            </motion.h2>
-                                            <motion.p
-                                                initial={{opacity: 0}}
-                                                animate={{opacity: 1, transition: {delay: 0.7}}}
-                                                exit={{opacity: 0}}
-                                                style={{marginTop: "5px", marginBottom: "0px", fontSize: "1em"}}
-                                            >
-                                                {selectedPoint?.description}
-                                            </motion.p>
+                                            Hide panel <ChevronRightIcon />
+                                        </motion.div>
+                                    ) : (
+                                        <motion.div
+                                            key="show"
+                                            initial={{opacity: 0}}
+                                            animate={{opacity: 1}}
+                                            exit={{opacity: 0}}
+                                            transition={{duration: 0.2}}
+                                            style={{
+                                                display: "flex",
+                                                justifyContent: "center",
+                                                alignItems: "center",
+                                            }}
+                                        >
+                                            Show panel <ChevronLeftIcon />
                                         </motion.div>
                                     )}
                                 </AnimatePresence>
-
-                                <div style={{flex: 1, minHeight: 0, zIndex: 1000}}>
-                                    {" "}
-                                    {/* This div will grow to fit available space */}
-                                    {selectedPoint && (
-                                        <ResponsiveRadar
-                                            data={radarData}
-                                            keys={displayKeys} // Use the state variable here
-                                            indexBy="metric"
-                                            maxValue="auto"
-                                            margin={{top: 50, right: 80, bottom: 40, left: 80}}
-                                            padding={{right: 10, left: 10}}
-                                            curve="linearClosed"
-                                            borderWidth={2}
-                                            borderColor={{from: "color"}}
-                                            gridLevels={5}
-                                            gridShape="circular"
-                                            gridLabelOffset={10}
-                                            enableDots={true}
-                                            dotSize={10}
-                                            dotColor={{theme: "background"}}
-                                            dotBorderWidth={2}
-                                            dotBorderColor={{from: "color"}}
-                                            enableDotLabel={false}
-                                            dotLabel="value"
-                                            dotLabelYOffset={-12}
-                                            colors={{scheme: "spectral"}} // This uses one of Nivo's predefined color schemes
-                                            fillOpacity={0.25}
-                                            blendMode="multiply"
-                                            animate={true}
-                                            motionStiffness={90}
-                                            motionDamping={15}
-                                            isInteractive={true}
-                                        />
-                                    )}
-                                </div>
-
-                                <div style={{padding: "0 20px"}}>
-                                    <Slider
-                                        defaultValue={2023}
-                                        step={1}
-                                        marks={marks}
-                                        min={2023}
-                                        max={2026}
-                                        valueLabelDisplay="auto"
-                                        onChangeCommitted={handleSliderChange}
-                                        disabled={!mapReady} // Disable the slider if the map is not ready
-                                    />
-                                </div>
-                                <div style={{marginTop: "10px"}}>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        onClick={resetFilter}
-                                        style={{width: "100%"}} // You can adjust the width as needed
+                            </motion.button>
+    
+                            {isOpen && (
+                                <motion.div
+                                    initial={{x: 600, opacity: 0}}
+                                    animate={{x: 0, opacity: 1}}
+                                    exit={{x: 600, opacity: 0}}
+                                    transition={{duration: 1, ease: "easeInOut"}}
+                                >
+                                    <Paper
+                                        elevation={4}
+                                        sx={{
+                                            padding: "10px",
+                                            marginTop: "55px",
+                                            height: "50vh",
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            zIndex: 1000,
+                                        }}
                                     >
-                                        Reset Filter
-                                    </Button>
-                                </div>
-                            </Paper>
-                        </motion.div>
+                                        <div
+                                            style={{
+                                                display: "flex",
+                                                justifyContent: "space-between",
+                                                alignItems: "center",
+                                                margin: "0px",
+                                            }}
+                                        >
+                                            <h2>Explore the data by selecting a place</h2>
+                                            <Tooltip title="About this widget">
+                                                <IconButton onClick={toggleInfo}>
+                                                    <InfoIcon />
+                                                </IconButton>
+                                            </Tooltip>
+                                        </div>
+    
+                                        <Dialog open={infoOpen} onClose={toggleInfo}>
+                                            <DialogTitle>About the Widget</DialogTitle>
+                                            <DialogContent>
+                                                <DialogContentText>
+                                                    This widget allows you to explore water usage data across different localities. Select a locality on the map to see detailed metrics.
+                                                </DialogContentText>
+                                            </DialogContent>
+                                            <DialogActions>
+                                                <Button onClick={toggleInfo} color="primary">
+                                                    Close
+                                                </Button>
+                                            </DialogActions>
+                                        </Dialog>
+    
+                                        {selectedPoint && (
+                                            <motion.div
+                                                key={selectedPoint.id}
+                                                initial={{opacity: 0, y: -20}}
+                                                animate={{opacity: 1, y: 0, transition: {delay: 0.5, duration: 0.5}}}
+                                                exit={{opacity: 0, y: 20, transition: {duration: 0.5}}}
+                                            >
+                                                <motion.h2
+                                                    initial={{opacity: 0}}
+                                                    animate={{opacity: 1, transition: {delay: 0.6}}}
+                                                    exit={{opacity: 0}}
+                                                    style={{marginTop: "5px", marginBottom: "0px"}}
+                                                >
+                                                    {selectedPoint?.title}
+                                                </motion.h2>
+                                                <motion.p
+                                                    initial={{opacity: 0}}
+                                                    animate={{opacity: 1, transition: {delay: 0.7}}}
+                                                    exit={{opacity: 0}}
+                                                    style={{marginTop: "5px", marginBottom: "0px", fontSize: "1em"}}
+                                                >
+                                                    {selectedPoint?.description}
+                                                </motion.p>
+                                            </motion.div>
+                                        )}
+    
+                                        <div style={{flex: 1, minHeight: 0, zIndex: 1000}}>
+                                            {selectedPoint && (
+                                                <ResponsiveRadar
+                                                    data={radarData}
+                                                    keys={displayKeys}
+                                                    indexBy="metric"
+                                                    maxValue="auto"
+                                                    margin={{top: 50, right: 80, bottom: 40, left: 80}}
+                                                    padding={{right: 10, left: 10}}
+                                                    curve="linearClosed"
+                                                    borderWidth={2}
+                                                    borderColor={{from: "color"}}
+                                                    gridLevels={5}
+                                                    gridShape="circular"
+                                                    gridLabelOffset={10}
+                                                    enableDots={true}
+                                                    dotSize={10}
+                                                    dotColor={{theme: "background"}}
+                                                    dotBorderWidth={2}
+                                                    dotBorderColor={{from: "color"}}
+                                                    enableDotLabel={false}
+                                                    dotLabel="value"
+                                                    dotLabelYOffset={-12}
+                                                    colors={{scheme: "spectral"}}
+                                                    fillOpacity={0.25}
+                                                    blendMode="multiply"
+                                                    animate={true}
+                                                    motionStiffness={90}
+                                                    motionDamping={15}
+                                                    isInteractive={true}
+                                                />
+                                            )}
+                                        </div>
+    
+                                        <div style={{padding: "0 20px"}}>
+                                            <Slider
+                                                defaultValue={2023}
+                                                step={1}
+                                                marks={marks}
+                                                min={2023}
+                                                max={2026}
+                                                valueLabelDisplay="auto"
+                                                onChangeCommitted={handleSliderChange}
+                                                disabled={!mapReady}
+                                            />
+                                        </div>
+                                        <div style={{marginTop: "10px"}}>
+                                            <Button
+                                                variant="contained"
+                                                color="primary"
+                                                onClick={resetFilter}
+                                                style={{width: "100%"}}
+                                            >
+                                                Reset Filter
+                                            </Button>
+                                        </div>
+                                    </Paper>
+                                </motion.div>
+                            )}
+                        </>
                     )}
                 </AnimatePresence>
             </div>
         </ThemeProvider>
     );
-};
 
+};
 export default InteractivePoints;

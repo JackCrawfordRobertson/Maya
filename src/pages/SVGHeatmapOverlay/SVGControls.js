@@ -83,6 +83,7 @@ const SVGControls = ({cycleSVG, disabled}) => {
     return (
         <ThemeProvider theme={theme}>
             <div
+                className="heatmap-overlay"
                 style={{
                     position: "absolute",
                     top: "10px",

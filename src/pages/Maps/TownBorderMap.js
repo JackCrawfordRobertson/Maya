@@ -6,7 +6,7 @@ import InteractivePoints from "../Localities/InteractivePoints"; // Import the n
 
 mapboxgl.accessToken = "pk.eyJ1IjoiamFja3JvYiIsImEiOiJjanZ1bDBrdjUxYmgyNGJtczlxdWl3MzRuIn0.qla3sSgkkyxIkbYLvVsceA";
 
-const TownBorderMap = ({ center, zoom, onMove }) => {
+const TownBorderMap = ({ center, zoom, onMove, isZoomCompleted }) => {
     const mapContainer = useRef(null);
     const map = useRef(null);
 
@@ -57,7 +57,7 @@ const TownBorderMap = ({ center, zoom, onMove }) => {
 
     return (
         <div className="town-border-map-container" ref={mapContainer} style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, zIndex: 1 }}>
-            {map.current && <InteractivePoints map={map.current} />}
+            {map.current && <InteractivePoints map={map.current} isZoomCompleted={isZoomCompleted} />}
         </div>
     );
 };

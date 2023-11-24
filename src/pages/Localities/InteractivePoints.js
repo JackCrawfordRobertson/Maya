@@ -270,7 +270,7 @@ const InteractivePoints = ({ map, isZoomCompleted }) => {
                     alignItems: "flex-end",
                     top: "10px",
                     right: "10px",
-                    zIndex: 1000,
+                    zIndex: 1,
                     position: "absolute",
                     width: "20vw",
                 }}
@@ -300,7 +300,7 @@ const InteractivePoints = ({ map, isZoomCompleted }) => {
                                     fontSize: "0.875rem",
                                     fontWeight: "500",
                                     position: "absolute",
-                                    zIndex: 1000,
+                                    zIndex: 1,
                                 }}
                             >
                                 <AnimatePresence mode="wait">
@@ -353,7 +353,7 @@ const InteractivePoints = ({ map, isZoomCompleted }) => {
                                             height: "50vh",
                                             display: "flex",
                                             flexDirection: "column",
-                                            zIndex: 1000,
+                                            zIndex: 1,
                                         }}
                                     >
                                         <div
@@ -412,7 +412,7 @@ const InteractivePoints = ({ map, isZoomCompleted }) => {
                                             </motion.div>
                                         )}
     
-                                        <div style={{flex: 1, minHeight: 0, zIndex: 1000}}>
+                                        <div style={{flex: 1, minHeight: 0, zIndex: 1}}>
                                             {selectedPoint && (
                                                 <ResponsiveRadar
                                                     data={radarData}

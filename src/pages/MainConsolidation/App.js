@@ -1,25 +1,18 @@
-//App.js
-import React, {useState, useContext} from "react";
+// App.js
+import React, {useState} from "react";
 import BaseMap from "../Maps/BaseMap";
 import SVGHeatmapOverlay from "../SVGHeatmapOverlay/SVGHeatmapOverlay";
 import SVGControls from "../SVGHeatmapOverlay/SVGControls";
 import TownBorderMap from "../Maps/TownBorderMap";
 import ZoomButton from "../StartingZoom/ZoomButton";
-import Joyride, {STATUS} from "react-joyride";
+// import TutorialJoyride from "../Tutorial/TutorialJoyride"; // Adjust the path as necessary
 
 const App = () => {
-    // Initial center set to show the whole world
     const [ center, setCenter ] = useState([ 0, 0 ]);
-
-    // Initial zoom set to show the whole world
     const [ zoom, setZoom ] = useState(2);
-
     const [ visibleSVG, setVisibleSVG ] = useState(0);
     const [ map, setMap ] = useState(null);
-
     const [ buttonsDisabled, setButtonsDisabled ] = useState(true);
-
-    // New state variable to track whether zoom has completed
     const [ isZoomCompleted, setIsZoomCompleted ] = useState(false);
 
     const cycleSVG = () => {
@@ -27,31 +20,9 @@ const App = () => {
     };
 
     const handleMove = (newCenter, newZoom) => {
-        setCenter(newCenter);
-        setZoom(newZoom);
-    };
-
-    //Tutorial
-
-    const [ runTour, setRunTour ] = useState(false); // For controlling whether the tour is running
-    const [ stepIndex, setStepIndex ] = useState(0); // For tracking the current step of the tour
-    const [ hasInteracted, setHasInteracted ] = useState(false); // Declare hasInteracted state
-
-    const steps = [
-        {
-            target: ".heatmap-overlay", // CSS Selector for the element to target
-            content: "This is an important feature!",
-        },
-    ];
-
-    const handleJoyrideCallback = (data) => {
-        const {status, type} = data;
-
-        if ([ STATUS.FINISHED, STATUS.SKIPPED ].includes(status)) {
-            setRunTour(false);
-        }
-        else if (type === "beacon:click" || type === "tooltip:close") {
-            setHasInteracted(true);
+        if (center[0] !== newCenter[0] || center[1] !== newCenter[1] || zoom !== newZoom) {
+            setCenter(newCenter);
+            setZoom(newZoom);
         }
     };
 
@@ -67,37 +38,20 @@ const App = () => {
                 },
             });
 
-            // Delay the attachment of the event listener
             setTimeout(() => {
                 map.once("moveend", function () {
-                    console.log("Zoom animation completed"); // Log to console
-                    setButtonsDisabled(false); // Re-enable buttons
-                    setIsZoomCompleted(true); // Set isZoomCompleted to true once zoom completes
-                    setRunTour(true); // Start the Joyride tour
+                    console.log("Zoom animation completed");
+                    setButtonsDisabled(false);
+                    setIsZoomCompleted(true);
                 });
-            }, 500); // Adjust the delay time as necessary
+            }, 500);
         }
     };
 
     return (
-        <div className="app" style={{position: "relative"}}>
-            <Joyride
-                steps={steps}
-                run={runTour && !hasInteracted}
-                stepIndex={stepIndex}
-                callback={handleJoyrideCallback}
-                styles={{
-                    options: {
-                        arrowColor: "#e3ffeb",
-                        backgroundColor: "#ffffff",
-                        overlayColor: "#424242",
-                        primaryColor: "#00bf43",
-                        textColor: "#000000",
-                        width: "20vw",
-                        zIndex: 1000,
-                    },
-                }}
-            />
+        <div className="app" style={{ position: "relative" }}>
+            
+            {/* <TutorialJoyride /> */}
 
             <div style={{pointerEvents: isZoomCompleted ? "all" : "none"}}>
                 <BaseMap center={center} zoom={zoom} onMove={handleMove} setMap={setMap} />
@@ -108,7 +62,7 @@ const App = () => {
             </div>
 
             <div style={{pointerEvents: isZoomCompleted ? "all" : "none"}}>
-            <TownBorderMap center={center} zoom={zoom} onMove={handleMove} isZoomCompleted={isZoomCompleted} />
+                <TownBorderMap center={center} zoom={zoom} onMove={handleMove} isZoomCompleted={isZoomCompleted} />
             </div>
 
             <div style={{pointerEvents: isZoomCompleted ? "all" : "none"}}>

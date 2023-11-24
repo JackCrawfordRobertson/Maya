@@ -2,7 +2,7 @@
 import React, { useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
 import './Lebanon_Bekaa.css';
-
+import { debounce } from 'lodash';
 
 mapboxgl.accessToken = "pk.eyJ1IjoiamFja3JvYiIsImEiOiJjanZ1bDBrdjUxYmgyNGJtczlxdWl3MzRuIn0.qla3sSgkkyxIkbYLvVsceA";
 
@@ -31,7 +31,7 @@ const BaseMap = ({ center, zoom, onMove, setMap }) => {  // Added setMap prop
         });
 
         mapInstance.on("load", () => {
-            // ... (your existing 'load' event handler code)
+
         });
 
         return () => {

@@ -70,7 +70,14 @@ const App = () => {
             </div>
 
             <ZoomButton onZoom={zoomToFocus} disabled={buttonsDisabled} />
+
+            <div className="app" style={{ position: "relative" }}>
+                hghg
+                </div>
+
         </div>
+
+    
     );
 };
 

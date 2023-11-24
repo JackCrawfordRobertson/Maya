@@ -1,49 +1,30 @@
 <p align="center">
-  <a href="https://www.gatsbyjs.com/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter">
-    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
+  <a href="https://www.jack-roberson.com">
+    <img alt="Main website" src="src/images/icon.png" width="60" />
   </a>
 </p>
 <h1 align="center">
-  Gatsby Minimal Starter
+Maya - Transforming understanding with information and data.
 </h1>
 
-## 🚀 Quick start
+# Project Overview
 
-1.  **Create a Gatsby site.**
+This project, named "Maya", aims to transform understanding with information and data. It's a React-based application that uses Gatsby for building the website and app.
 
-    Use the Gatsby CLI to create a new site, specifying the minimal starter.
+The project is structured into several main parts:
 
-    ```shell
-    # create a new Gatsby site using the minimal starter
-    npm init gatsby
-    ```
+- `src/data/`: This directory contains JavaScript files with data that the application uses. It also includes a `geojsonData/` subdirectory with GeoJSON data for different localities.
 
-2.  **Start developing.**
+- `src/images/`: This directory contains images used throughout the application.
 
-    Navigate into your new site’s directory and start it up.
+- `src/pages/`: This directory contains the main components of the application. Each file corresponds to a different page or feature of the app. Notable subdirectories include `Localities/`, `MainConsolidation/`, `Maps/`, `SVGHeatmapOverlay/`, `StartingZoom/`, and `Tutorial/`.
 
-    ```shell
-    cd my-gatsby-site/
-    npm run develop
-    ```
+- `src/pages/Localities/InteractivePoints.js`: This file contains the interactive points for the localities.
 
-3.  **Open the code and start customizing!**
+- `src/pages/MainConsolidation/App.js`: This is the main application file.
 
-    Your site is now running at http://localhost:8000!
+- `src/pages/Maps/`: This directory contains files related to the map features of the application, including `BaseMap.js`, `Lebanon_Bekaa.css`, and `TownBorderMap.js`.
 
-    Edit `src/pages/index.js` to see your site update in real-time!
+The project uses npm and Yarn as package managers. To start the development server, run `yarn develop`.
 
-4.  **Learn more**
-
-    - [Documentation](https://www.gatsbyjs.com/docs/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-    - [Tutorials](https://www.gatsbyjs.com/docs/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-    - [Guides](https://www.gatsbyjs.com/docs/how-to/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-    - [API Reference](https://www.gatsbyjs.com/docs/api-reference/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-    - [Plugin Library](https://www.gatsbyjs.com/plugins?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-    - [Cheat Sheet](https://www.gatsbyjs.com/docs/cheat-sheet/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-## 🚀 Quick start (Netlify)
-
-Deploy this starter with one click on [Netlify](https://app.netlify.com/signup):
-
-[<img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify" />](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-minimal)
+Please refer to the individual files and directories for more detailed information.

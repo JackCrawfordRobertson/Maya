@@ -71,9 +71,7 @@ const App = () => {
 
             <ZoomButton onZoom={zoomToFocus} disabled={buttonsDisabled} />
 
-            <div className="app" style={{ position: "relative" }}>
-                hghg
-                </div>
+        
 
         </div>
 

@@ -98,7 +98,6 @@ const SVGControls = ({cycleSVG, disabled}) => {
                     top: "10px",
                     left: "10px",
                     zIndex: 3,
-                    width: isMobile ? "90vw" : "20vw",
                 }}
             >
                     <motion.button
@@ -120,7 +119,7 @@ const SVGControls = ({cycleSVG, disabled}) => {
                             textTransform: "uppercase",
                             fontSize: "0.875rem",
                             fontWeight: "500",
-                        }}
+                            width: isMobile ? "45vw" : "20vw",                        }}
                         disabled={disabled}
                     >
                         <AnimatePresence mode="wait">
@@ -137,7 +136,7 @@ const SVGControls = ({cycleSVG, disabled}) => {
                                         alignItems: "center",
                                     }}
                                 >
-                                    Hide panel <ChevronRightIcon />
+                                    Hide panel <ChevronLeftIcon />
                                 </motion.div>
                             ) : (
                                 <motion.div
@@ -152,7 +151,7 @@ const SVGControls = ({cycleSVG, disabled}) => {
                                         alignItems: "center",
                                     }}
                                 >
-                                    Show panel <ChevronLeftIcon />
+                                    Show panel <ChevronRightIcon />
                                 </motion.div>
                             )}
                         </AnimatePresence>
@@ -174,6 +173,8 @@ const SVGControls = ({cycleSVG, disabled}) => {
                                         display: "flex",
                                         justifyContent: "space-between",
                                         alignItems: "center",
+                                        width: isMobile ? "90vw" : "20vw", // Dynamic width based on device
+
                                     }}
                                 >
                                     <AnimatePresence>

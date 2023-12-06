@@ -66,7 +66,7 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
     const [ infoOpen, setInfoOpen ] = useState(false);
     const muiTheme = useTheme();
     const isMobile = useMediaQuery(muiTheme.breakpoints.down("sm"));
-    const [isOpen, setIsOpen] = useState(!isMobile);
+    const [ isOpen, setIsOpen ] = useState(!isMobile);
 
     const getCorrespondingDataForLocality = (localityId) => {
         const data2023 = LocalitesWaterUsage2023.find((item) => item.id === localityId);
@@ -110,7 +110,6 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
     };
 
     const transitionSettings = {duration: 1, ease: "easeInOut"};
-
 
     useEffect(() => {
         const handleMapLoad = () => {
@@ -222,15 +221,16 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
     useEffect(() => {
         if (isZoomCompleted && !isMobile) {
             setIsOpen(true);
-        } else if (isMobile) {
+        }
+        else if (isMobile) {
             setIsOpen(false);
         }
-    }, [isZoomCompleted, isMobile]);
-    
+    }, [ isZoomCompleted, isMobile ]);
+
     const toggleOpen = (event) => {
         event.preventDefault();
         event.stopPropagation();
-        setIsOpen(prevState => !prevState);
+        setIsOpen((prevState) => !prevState);
     };
 
     const handleSliderChange = (event, newValue) => {
@@ -274,9 +274,8 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
                     alignItems: "flex-end",
                     top: "10px",
                     right: "10px",
-                    zIndex: 1000,
+                    zIndex: 3,
                     position: "absolute",
-                    width: isMobile ? "90vw" : "20vw", // Dynamic width based on device
                 }}
             >
                 <AnimatePresence>
@@ -294,16 +293,14 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
                                     border: "none",
                                     borderRadius: "4px",
                                     cursor: "pointer",
-                                    marginBottom: "20px",
-                                    textAlign: "center",
+                                    marginBottom: "10px",
                                     display: "flex",
                                     justifyContent: "center",
                                     alignItems: "center",
                                     textTransform: "uppercase",
                                     fontSize: "0.875rem",
                                     fontWeight: "500",
-                                    position: "absolute",
-                                    zIndex: 100,
+                                    width: isMobile ? "45vw" : "20vw",      
                                 }}
                             >
                                 <AnimatePresence mode="wait">
@@ -320,7 +317,7 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
                                                 alignItems: "center",
                                             }}
                                         >
-                                            Hide panel <ChevronRightIcon />
+                                            <ChevronRightIcon /> Hide panel
                                         </motion.div>
                                     ) : (
                                         <motion.div
@@ -335,7 +332,7 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
                                                 alignItems: "center",
                                             }}
                                         >
-                                            Show panel <ChevronLeftIcon />
+                                            <ChevronLeftIcon /> Show panel
                                         </motion.div>
                                     )}
                                 </AnimatePresence>
@@ -352,11 +349,11 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
                                         elevation={4}
                                         sx={{
                                             padding: "10px",
-                                            marginTop: "55px",
                                             height: "50vh",
                                             display: "flex",
                                             flexDirection: "column",
                                             zIndex: 1,
+                                            width: isMobile ? "90vw" : "20vw", // Dynamic width based on device
                                         }}
                                     >
                                         <div

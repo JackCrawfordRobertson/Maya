@@ -278,9 +278,8 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
                     position: "absolute",
                 }}
             >
-                <AnimatePresence>
+            <AnimatePresence>
                     {isZoomCompleted && (
-                        <>
                             <motion.button
                                 initial={{opacity: 0, y: 20}}
                                 animate={{opacity: 1, y: 0}}
@@ -303,7 +302,6 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
                                     width: isMobile ? "45vw" : "20vw",      
                                 }}
                             >
-                                <AnimatePresence mode="wait">
                                     {isOpen ? (
                                         <motion.div
                                             key="hide"
@@ -335,15 +333,20 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
                                             <ChevronLeftIcon /> Show panel
                                         </motion.div>
                                     )}
-                                </AnimatePresence>
-                            </motion.button>
+                        </motion.button>
+                         )}
+                            </AnimatePresence>
 
-                            {isOpen && (
-                                <motion.div
-                                    initial={{x: 600, opacity: 0}}
-                                    animate={{x: 0, opacity: 1}}
-                                    exit={{x: 600, opacity: 0}}
-                                    transition={{duration: 1, ease: "easeInOut"}}
+
+                <AnimatePresence>
+                {isOpen && isZoomCompleted && (
+
+                                 <motion.div
+                                 key="panel" // key that reflects the presence of the element
+                                 initial={{ x: 300, opacity: 0 }}
+                                 animate={{ x: 0, opacity: 1 }}
+                                 exit={{ x: 300, opacity: 0 }}
+                                 transition={{ duration: 1, ease: "easeInOut" }}
                                 >
                                     <Paper
                                         elevation={4}
@@ -469,14 +472,13 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
                                                 Reset Filter
                                             </Button>
                                         </div>
-                                    </Paper>
-                                </motion.div>
-                            )}
-                        </>
+                                        </Paper>
+                        </motion.div>
                     )}
                 </AnimatePresence>
             </div>
         </ThemeProvider>
     );
 };
+
 export default InteractivePoints;

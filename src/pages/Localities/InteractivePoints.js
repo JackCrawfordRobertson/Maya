@@ -288,7 +288,7 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
                                 style={{
                                     backgroundColor: theme.palette.primary.main,
                                     color: "#fff",
-                                    padding: "10px 20px",
+                                    padding: "10px",
                                     border: "none",
                                     borderRadius: "4px",
                                     cursor: "pointer",
@@ -315,7 +315,7 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
                                                 alignItems: "center",
                                             }}
                                         >
-                                            <ChevronRightIcon /> Hide panel
+                                            <ChevronRightIcon /> Localities Data
                                         </motion.div>
                                     ) : (
                                         <motion.div
@@ -330,7 +330,7 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
                                                 alignItems: "center",
                                             }}
                                         >
-                                            <ChevronLeftIcon /> Show panel
+                                            <ChevronLeftIcon /> Localities Data
                                         </motion.div>
                                     )}
                         </motion.button>

@@ -108,7 +108,7 @@ const SVGControls = ({cycleSVG, disabled}) => {
                         style={{
                             backgroundColor: theme.palette.primary.main,
                             color: "#fff",
-                            padding: "10px 20px",
+                            padding: "10px",
                             border: "none",
                             borderRadius: "4px",
                             cursor: "pointer",
@@ -119,7 +119,8 @@ const SVGControls = ({cycleSVG, disabled}) => {
                             textTransform: "uppercase",
                             fontSize: "0.875rem",
                             fontWeight: "500",
-                            width: isMobile ? "45vw" : "20vw",                        }}
+                            width: isMobile ? "45vw" : "20vw",
+                        }}
                         disabled={disabled}
                     >
                         <AnimatePresence mode="wait">
@@ -136,7 +137,7 @@ const SVGControls = ({cycleSVG, disabled}) => {
                                         alignItems: "center",
                                     }}
                                 >
-                                    Hide panel <ChevronLeftIcon />
+                                    Aquifer Data <ChevronLeftIcon />
                                 </motion.div>
                             ) : (
                                 <motion.div
@@ -151,7 +152,7 @@ const SVGControls = ({cycleSVG, disabled}) => {
                                         alignItems: "center",
                                     }}
                                 >
-                                    Show panel <ChevronRightIcon />
+                                    Aquifer Data <ChevronRightIcon />
                                 </motion.div>
                             )}
                         </AnimatePresence>
@@ -174,7 +175,7 @@ const SVGControls = ({cycleSVG, disabled}) => {
                                         justifyContent: "space-between",
                                         alignItems: "center",
                                         width: isMobile ? "90vw" : "20vw", // Dynamic width based on device
-
+                                        
                                     }}
                                 >
                                     <AnimatePresence>

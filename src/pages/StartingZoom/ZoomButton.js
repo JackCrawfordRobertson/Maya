@@ -71,7 +71,7 @@ const ZoomButton = ({onZoom}) => {
                 transition={{duration: 0.5, ease: "easeInOut", delay: 0.5}}
                 style={{textAlign: "center", width: "70%", }}
             >
-                <p style={{color: textColor}}>Visualising the Climate-Water Connection for Specialists</p>
+                <p style={{color: textColor}}> Visualising the Climate-Water Connection for Specialists</p>
             </motion.div>
 
             <motion.button

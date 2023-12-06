@@ -174,7 +174,7 @@ const SVGControls = ({cycleSVG, disabled}) => {
                                         display: "flex",
                                         justifyContent: "space-between",
                                         alignItems: "center",
-                                        width: isMobile ? "90vw" : "20vw", // Dynamic width based on device
+                                        width: isMobile ? "90vw" : "25vw", // Dynamic width based on device
                                         
                                     }}
                                 >

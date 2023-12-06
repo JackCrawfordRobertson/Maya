@@ -299,7 +299,7 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
                                     textTransform: "uppercase",
                                     fontSize: "0.875rem",
                                     fontWeight: "500",
-                                    width: isMobile ? "45vw" : "20vw",      
+                                    width: isMobile ? "45vw" : "20vw",     
                                 }}
                             >
                                     {isOpen ? (
@@ -352,11 +352,11 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
                                         elevation={4}
                                         sx={{
                                             padding: "10px",
-                                            height: "50vh",
+                                            height: isMobile ? "90vh" : "80vh", // Dynamic width based on device
                                             display: "flex",
                                             flexDirection: "column",
                                             zIndex: 1,
-                                            width: isMobile ? "90vw" : "20vw", // Dynamic width based on device
+                                            width: isMobile ? "90vw" : "25vw", // Dynamic width based on device
                                         }}
                                     >
                                         <div

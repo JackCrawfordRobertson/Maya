@@ -14,6 +14,8 @@ import DialogActions from "@mui/material/DialogActions";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import {motion, AnimatePresence} from "framer-motion";
 import {ResponsiveRadar} from "@nivo/radar";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import {useTheme} from "@mui/material/styles";
 import {LocalitiesData} from "../../data/LocalitiesData";
 import {
     LocalitesWaterUsage2023,
@@ -22,7 +24,6 @@ import {
     LocalitesWaterUsage2026,
 } from "../../data/LocalitesWaterUsage2";
 import Slider from "@mui/material/Slider";
-
 
 // Set the theme for the MUI components
 const theme = createTheme({
@@ -57,13 +58,15 @@ const marks = [
     },
 ];
 
-const InteractivePoints = ({ map, isZoomCompleted }) => {
-    const [selectedPoint, setSelectedPoint] = useState(null);
+const InteractivePoints = ({map, isZoomCompleted}) => {
+    const [ selectedPoint, setSelectedPoint ] = useState(null);
     const hoveredPointIdRef = useRef(null);
-    const [isOpen, setIsOpen] = useState(false);
-    const [displayKeys, setDisplayKeys] = useState(["2023", "2024", "2025", "2026"]);
-    const [mapReady, setMapReady] = useState(false);
-    const [infoOpen, setInfoOpen] = useState(false);
+    const [ displayKeys, setDisplayKeys ] = useState([ "2023", "2024", "2025", "2026" ]);
+    const [ mapReady, setMapReady ] = useState(false);
+    const [ infoOpen, setInfoOpen ] = useState(false);
+    const muiTheme = useTheme();
+    const isMobile = useMediaQuery(muiTheme.breakpoints.down("sm"));
+    const [isOpen, setIsOpen] = useState(!isMobile);
 
     const getCorrespondingDataForLocality = (localityId) => {
         const data2023 = LocalitesWaterUsage2023.find((item) => item.id === localityId);
@@ -100,18 +103,16 @@ const InteractivePoints = ({ map, isZoomCompleted }) => {
         return [];
     };
 
-    const radarData = useMemo(() => getCorrespondingDataForLocality(selectedPoint?.id), [selectedPoint, displayKeys]);
+    const radarData = useMemo(() => getCorrespondingDataForLocality(selectedPoint?.id), [ selectedPoint, displayKeys ]);
 
     const resetFilter = () => {
-        setDisplayKeys(["2023", "2024", "2025", "2026"]);
+        setDisplayKeys([ "2023", "2024", "2025", "2026" ]);
     };
 
-    const transitionSettings = { duration: 1, ease: "easeInOut" };
-
+    const transitionSettings = {duration: 1, ease: "easeInOut"};
 
 
     useEffect(() => {
-
         const handleMapLoad = () => {
             try {
                 map.addSource("points", {
@@ -191,7 +192,8 @@ const InteractivePoints = ({ map, isZoomCompleted }) => {
 
         if (map && map.isStyleLoaded()) {
             handleMapLoad();
-        } else {
+        }
+        else {
             map?.on("load", handleMapLoad);
         }
 
@@ -215,23 +217,24 @@ const InteractivePoints = ({ map, isZoomCompleted }) => {
                 }
             }
         };
-    }, [map]);
-
- const toggleOpen = (event) => {
-        if (!isZoomCompleted) return;
-        event.preventDefault();
-        event.stopPropagation();
-        setIsOpen(!isOpen);
-    };
+    }, [ map ]);
 
     useEffect(() => {
-        if (isZoomCompleted) {
+        if (isZoomCompleted && !isMobile) {
             setIsOpen(true);
+        } else if (isMobile) {
+            setIsOpen(false);
         }
-    }, [isZoomCompleted]);
+    }, [isZoomCompleted, isMobile]);
+    
+    const toggleOpen = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        setIsOpen(prevState => !prevState);
+    };
 
     const handleSliderChange = (event, newValue) => {
-        setDisplayKeys([newValue.toString()]);
+        setDisplayKeys([ newValue.toString() ]);
     };
 
     const toggleInfo = () => {
@@ -263,16 +266,17 @@ const InteractivePoints = ({ map, isZoomCompleted }) => {
 
     return (
         <ThemeProvider theme={theme}>
-            <div className="interactive-points"
+            <div
+                className="interactive-points"
                 style={{
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "flex-end",
                     top: "10px",
                     right: "10px",
-                    zIndex: 1,
+                    zIndex: 1000,
                     position: "absolute",
-                    width: "20vw",
+                    width: isMobile ? "90vw" : "20vw", // Dynamic width based on device
                 }}
             >
                 <AnimatePresence>
@@ -282,7 +286,7 @@ const InteractivePoints = ({ map, isZoomCompleted }) => {
                                 initial={{opacity: 0, y: 20}}
                                 animate={{opacity: 1, y: 0}}
                                 transition={transitionSettings}
-                                onClick={toggleOpen}
+                                onClick={toggleOpen} // Toggle isOpen
                                 style={{
                                     backgroundColor: theme.palette.primary.main,
                                     color: "#fff",
@@ -291,7 +295,6 @@ const InteractivePoints = ({ map, isZoomCompleted }) => {
                                     borderRadius: "4px",
                                     cursor: "pointer",
                                     marginBottom: "20px",
-                                    width: "13vw",
                                     textAlign: "center",
                                     display: "flex",
                                     justifyContent: "center",
@@ -300,7 +303,7 @@ const InteractivePoints = ({ map, isZoomCompleted }) => {
                                     fontSize: "0.875rem",
                                     fontWeight: "500",
                                     position: "absolute",
-                                    zIndex: 1,
+                                    zIndex: 100,
                                 }}
                             >
                                 <AnimatePresence mode="wait">
@@ -337,7 +340,7 @@ const InteractivePoints = ({ map, isZoomCompleted }) => {
                                     )}
                                 </AnimatePresence>
                             </motion.button>
-    
+
                             {isOpen && (
                                 <motion.div
                                     initial={{x: 600, opacity: 0}}
@@ -371,12 +374,13 @@ const InteractivePoints = ({ map, isZoomCompleted }) => {
                                                 </IconButton>
                                             </Tooltip>
                                         </div>
-    
+
                                         <Dialog open={infoOpen} onClose={toggleInfo}>
                                             <DialogTitle>About the Widget</DialogTitle>
                                             <DialogContent>
                                                 <DialogContentText>
-                                                    This widget allows you to explore water usage data across different localities. Select a locality on the map to see detailed metrics.
+                                                    This widget allows you to explore water usage data across different
+                                                    localities. Select a locality on the map to see detailed metrics.
                                                 </DialogContentText>
                                             </DialogContent>
                                             <DialogActions>
@@ -385,7 +389,7 @@ const InteractivePoints = ({ map, isZoomCompleted }) => {
                                                 </Button>
                                             </DialogActions>
                                         </Dialog>
-    
+
                                         {selectedPoint && (
                                             <motion.div
                                                 key={selectedPoint.id}
@@ -411,7 +415,7 @@ const InteractivePoints = ({ map, isZoomCompleted }) => {
                                                 </motion.p>
                                             </motion.div>
                                         )}
-    
+
                                         <div style={{flex: 1, minHeight: 0, zIndex: 1}}>
                                             {selectedPoint && (
                                                 <ResponsiveRadar
@@ -445,7 +449,7 @@ const InteractivePoints = ({ map, isZoomCompleted }) => {
                                                 />
                                             )}
                                         </div>
-    
+
                                         <div style={{padding: "0 20px"}}>
                                             <Slider
                                                 defaultValue={2023}
@@ -477,6 +481,5 @@ const InteractivePoints = ({ map, isZoomCompleted }) => {
             </div>
         </ThemeProvider>
     );
-
 };
 export default InteractivePoints;

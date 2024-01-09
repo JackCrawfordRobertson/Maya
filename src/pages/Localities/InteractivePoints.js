@@ -38,6 +38,17 @@ const theme = createTheme({
     },
 });
 
+const reversedPurpleBlue = [
+    "#3DA9DE",
+    "#2881B4",
+    "#6BBDEE",
+    "#5BAFD7",
+    "#A2D9F2",
+    "#3DA9DE",
+    "#2881B4",
+    "#6BBDEE",
+].reverse();
+
 const marks = [
     {
         value: 2023,
@@ -439,7 +450,7 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
                                                     enableDotLabel={false}
                                                     dotLabel="value"
                                                     dotLabelYOffset={-12}
-                                                    colors={{scheme: "spectral"}}
+                                                    colors={reversedPurpleBlue}
                                                     fillOpacity={0.25}
                                                     blendMode="multiply"
                                                     animate={true}

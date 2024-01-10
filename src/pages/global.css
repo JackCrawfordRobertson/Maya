@@ -1,3 +1,5 @@
+/* global.css */
+
 body {
   font-family: Inter, sans-serif;
   margin: 0;
@@ -6,7 +8,18 @@ body {
   min-height: 100vw;
   overflow-x: hidden; /* Hide horizontal scrollbar and prevent horizontal scrolling */
   overflow-y: hidden; /* Hide vertical scrollbar and prevent vertical scrolling */
+  font-size: 1em;
+
 }
+
+.mapboxgl-map * {
+  font-family: 'Inter', sans-serif !important;
+}
+
+.mapboxgl-map {
+  font-family: 'Inter', sans-serif !important;
+}
+
 
 /* Hide scrollbar for Chrome, Safari and Opera */
 ::-webkit-scrollbar {

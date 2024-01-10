@@ -289,200 +289,200 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
                     position: "absolute",
                 }}
             >
-            <AnimatePresence>
+                <AnimatePresence>
                     {isZoomCompleted && (
-                            <motion.button
-                                initial={{opacity: 0, y: 20}}
-                                animate={{opacity: 1, y: 0}}
-                                transition={transitionSettings}
-                                onClick={toggleOpen} // Toggle isOpen
-                                style={{
-                                    backgroundColor: theme.palette.primary.main,
-                                    color: "#fff",
-                                    padding: "10px",
-                                    border: "none",
-                                    borderRadius: "4px",
-                                    cursor: "pointer",
-                                    marginBottom: "10px",
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    textTransform: "uppercase",
-                                    fontWeight: "500",
-                                    width: isMobile ? "45vw" : "20vw",     
-                                }}
-                            >
-                                    {isOpen ? (
-                                        <motion.div
-                                            key="hide"
-                                            initial={{opacity: 0}}
-                                            animate={{opacity: 1}}
-                                            exit={{opacity: 0}}
-                                            transition={{duration: 0.2}}
-                                            style={{
-                                                display: "flex",
-                                                justifyContent: "center",
-                                                alignItems: "center",
-                                            }}
-                                        >
-                                            <ChevronRightIcon /> Localities Data
-                                        </motion.div>
-                                    ) : (
-                                        <motion.div
-                                            key="show"
-                                            initial={{opacity: 0}}
-                                            animate={{opacity: 1}}
-                                            exit={{opacity: 0}}
-                                            transition={{duration: 0.2}}
-                                            style={{
-                                                display: "flex",
-                                                justifyContent: "center",
-                                                alignItems: "center",
-                                            }}
-                                        >
-                                            <ChevronLeftIcon /> Localities Data
-                                        </motion.div>
-                                    )}
+                        <motion.button
+                            initial={{opacity: 0, y: 20}}
+                            animate={{opacity: 1, y: 0}}
+                            transition={transitionSettings}
+                            onClick={toggleOpen} // Toggle isOpen
+                            style={{
+                                backgroundColor: theme.palette.primary.main,
+                                color: "#fff",
+                                padding: "10px",
+                                border: "none",
+                                borderRadius: "4px",
+                                cursor: "pointer",
+                                marginBottom: "10px",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                textTransform: "uppercase",
+                                fontWeight: "500",
+                                width: isMobile ? "45vw" : "20vw",
+                            }}
+                        >
+                            {isOpen ? (
+                                <motion.div
+                                    key="hide"
+                                    initial={{opacity: 0}}
+                                    animate={{opacity: 1}}
+                                    exit={{opacity: 0}}
+                                    transition={{duration: 0.2}}
+                                    style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                    }}
+                                >
+                                    <ChevronRightIcon /> Localities Data
+                                </motion.div>
+                            ) : (
+                                <motion.div
+                                    key="show"
+                                    initial={{opacity: 0}}
+                                    animate={{opacity: 1}}
+                                    exit={{opacity: 0}}
+                                    transition={{duration: 0.2}}
+                                    style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                    }}
+                                >
+                                    <ChevronLeftIcon /> Localities Data
+                                </motion.div>
+                            )}
                         </motion.button>
-                         )}
-                            </AnimatePresence>
-
+                    )}
+                </AnimatePresence>
 
                 <AnimatePresence>
-                {isOpen && isZoomCompleted && (
+                    {isOpen && isZoomCompleted && (
+                        <motion.div
+                            key="panel" // key that reflects the presence of the element
+                            initial={{x: 300, opacity: 0}}
+                            animate={{x: 0, opacity: 1}}
+                            exit={{x: 300, opacity: 0}}
+                            transition={{duration: 1, ease: "easeInOut"}}
+                        >
+                            <Paper
+                                elevation={4}
+                                sx={{
+                                    padding: "10px",
+                                    height: isMobile ? "90vh" : "80vh", // Dynamic width based on device
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    zIndex: 1,
+                                    width: isMobile ? "90vw" : "25vw", // Dynamic width based on device
+                                }}
+                            >
 
-                                 <motion.div
-                                 key="panel" // key that reflects the presence of the element
-                                 initial={{ x: 300, opacity: 0 }}
-                                 animate={{ x: 0, opacity: 1 }}
-                                 exit={{ x: 300, opacity: 0 }}
-                                 transition={{ duration: 1, ease: "easeInOut" }}
+                                
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        justifyContent: "space-between",
+                                        alignItems: "center",
+                                        margin: "0px",
+                                    }}
                                 >
-                                    <Paper
-                                        elevation={4}
-                                        sx={{
-                                            padding: "10px",
-                                            height: isMobile ? "90vh" : "80vh", // Dynamic width based on device
-                                            display: "flex",
-                                            flexDirection: "column",
-                                            zIndex: 1,
-                                            width: isMobile ? "90vw" : "25vw", // Dynamic width based on device
-                                        }}
+                                    <motion.h2
+                                        initial={{opacity: 0}}
+                                        animate={{opacity: 1, transition: {delay: 0.6}}}
+                                        exit={{opacity: 0}}
+                                        style={{marginTop: "5px", marginBottom: "0px"}}
                                     >
-                                        <div
-                                            style={{
-                                                display: "flex",
-                                                justifyContent: "space-between",
-                                                alignItems: "center",
-                                                margin: "0px",
-                                            }}
+                                        {selectedPoint?.title}
+                                    </motion.h2>
+                                    <Tooltip title="About this widget">
+                                        <IconButton onClick={toggleInfo}>
+                                            <InfoIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                </div>
+
+                                <Dialog open={infoOpen} onClose={toggleInfo}>
+                                    <DialogTitle>About the Widget</DialogTitle>
+                                    <DialogContent>
+                                        <DialogContentText>
+                                            This widget allows you to explore water usage data across different
+                                            localities. Select a locality on the map to see detailed metrics.
+                                        </DialogContentText>
+                                    </DialogContent>
+                                    <DialogActions>
+                                        <Button onClick={toggleInfo} color="primary">
+                                            Close
+                                        </Button>
+                                    </DialogActions>
+                                </Dialog>
+
+                                {selectedPoint && (
+                                    <motion.div
+                                        key={selectedPoint.id}
+                                        initial={{opacity: 0, y: -20}}
+                                        animate={{opacity: 1, y: 0, transition: {delay: 0.5, duration: 0.5}}}
+                                        exit={{opacity: 0, y: 20, transition: {duration: 0.5}}}
+                                    >
+                                
+                                        <motion.p
+                                            initial={{opacity: 0}}
+                                            animate={{opacity: 1, transition: {delay: 0.7}}}
+                                            exit={{opacity: 0}}
+                                            style={{marginTop: "5px", marginBottom: "0px", fontSize: "1.3em"}}
                                         >
-                                            <h2>Explore the data by selecting a place</h2>
-                                            <Tooltip title="About this widget">
-                                                <IconButton onClick={toggleInfo}>
-                                                    <InfoIcon />
-                                                </IconButton>
-                                            </Tooltip>
-                                        </div>
+                                            {selectedPoint?.description}
+                                        </motion.p>
+                                    </motion.div>
+                                )}
 
-                                        <Dialog open={infoOpen} onClose={toggleInfo}>
-                                            <DialogTitle>About the Widget</DialogTitle>
-                                            <DialogContent>
-                                                <DialogContentText>
-                                                    This widget allows you to explore water usage data across different
-                                                    localities. Select a locality on the map to see detailed metrics.
-                                                </DialogContentText>
-                                            </DialogContent>
-                                            <DialogActions>
-                                                <Button onClick={toggleInfo} color="primary">
-                                                    Close
-                                                </Button>
-                                            </DialogActions>
-                                        </Dialog>
+                                <div style={{flex: 1, minHeight: 0, zIndex: 1}}>
+                                    {selectedPoint && (
+                                        <ResponsiveRadar
+                                            data={radarData}
+                                            keys={displayKeys}
+                                            indexBy="metric"
+                                            maxValue="auto"
+                                            margin={{top: 50, right: 80, bottom: 40, left: 80}}
+                                            padding={{right: 10, left: 10}}
+                                            curve="linearClosed"
+                                            borderWidth={2}
+                                            borderColor={{from: "color"}}
+                                            gridLevels={5}
+                                            gridShape="circular"
+                                            gridLabelOffset={10}
+                                            enableDots={true}
+                                            dotSize={10}
+                                            dotColor={{theme: "background"}}
+                                            dotBorderWidth={2}
+                                            dotBorderColor={{from: "color"}}
+                                            enableDotLabel={false}
+                                            dotLabel="value"
+                                            dotLabelYOffset={-12}
+                                            colors={reversedPurpleBlue}
+                                            fillOpacity={0.25}
+                                            blendMode="multiply"
+                                            animate={true}
+                                            motionStiffness={90}
+                                            motionDamping={15}
+                                            isInteractive={true}
+                                        />
+                                    )}
+                                </div>
 
-                                        {selectedPoint && (
-                                            <motion.div
-                                                key={selectedPoint.id}
-                                                initial={{opacity: 0, y: -20}}
-                                                animate={{opacity: 1, y: 0, transition: {delay: 0.5, duration: 0.5}}}
-                                                exit={{opacity: 0, y: 20, transition: {duration: 0.5}}}
-                                            >
-                                                <motion.h2
-                                                    initial={{opacity: 0}}
-                                                    animate={{opacity: 1, transition: {delay: 0.6}}}
-                                                    exit={{opacity: 0}}
-                                                    style={{marginTop: "5px", marginBottom: "0px"}}
-                                                >
-                                                    {selectedPoint?.title}
-                                                </motion.h2>
-                                                <motion.p
-                                                    initial={{opacity: 0}}
-                                                    animate={{opacity: 1, transition: {delay: 0.7}}}
-                                                    exit={{opacity: 0}}
-                                                    style={{marginTop: "5px", marginBottom: "0px", fontSize: "1.3em"}}
-                                                >
-                                                    {selectedPoint?.description}
-                                                </motion.p>
-                                            </motion.div>
-                                        )}
-
-                                        <div style={{flex: 1, minHeight: 0, zIndex: 1}}>
-                                            {selectedPoint && (
-                                                <ResponsiveRadar
-                                                    data={radarData}
-                                                    keys={displayKeys}
-                                                    indexBy="metric"
-                                                    maxValue="auto"
-                                                    margin={{top: 50, right: 80, bottom: 40, left: 80}}
-                                                    padding={{right: 10, left: 10}}
-                                                    curve="linearClosed"
-                                                    borderWidth={2}
-                                                    borderColor={{from: "color"}}
-                                                    gridLevels={5}
-                                                    gridShape="circular"
-                                                    gridLabelOffset={10}
-                                                    enableDots={true}
-                                                    dotSize={10}
-                                                    dotColor={{theme: "background"}}
-                                                    dotBorderWidth={2}
-                                                    dotBorderColor={{from: "color"}}
-                                                    enableDotLabel={false}
-                                                    dotLabel="value"
-                                                    dotLabelYOffset={-12}
-                                                    colors={reversedPurpleBlue}
-                                                    fillOpacity={0.25}
-                                                    blendMode="multiply"
-                                                    animate={true}
-                                                    motionStiffness={90}
-                                                    motionDamping={15}
-                                                    isInteractive={true}
-                                                />
-                                            )}
-                                        </div>
-
-                                        <div style={{padding: "0 20px"}}>
-                                            <Slider
-                                                defaultValue={2023}
-                                                step={1}
-                                                marks={marks}
-                                                min={2023}
-                                                max={2026}
-                                                valueLabelDisplay="auto"
-                                                onChangeCommitted={handleSliderChange}
-                                                disabled={!mapReady}
-                                            />
-                                        </div>
-                                        <div style={{marginTop: "10px"}}>
-                                            <Button
-                                                variant="contained"
-                                                color="primary"
-                                                onClick={resetFilter}
-                                                style={{width: "100%"}}
-                                            >
-                                                Reset Filter
-                                            </Button>
-                                        </div>
-                                        </Paper>
+                                <div style={{padding: "0 20px"}}>
+                                    <Slider
+                                        defaultValue={2023}
+                                        step={1}
+                                        marks={marks}
+                                        min={2023}
+                                        max={2026}
+                                        valueLabelDisplay="auto"
+                                        onChangeCommitted={handleSliderChange}
+                                        disabled={!mapReady}
+                                    />
+                                </div>
+                                <div style={{marginTop: "10px"}}>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={resetFilter}
+                                        style={{width: "100%"}}
+                                    >
+                                        Reset Filter
+                                    </Button>
+                                </div>
+                            </Paper>
                         </motion.div>
                     )}
                 </AnimatePresence>

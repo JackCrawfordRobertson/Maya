@@ -308,7 +308,6 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
                                     justifyContent: "center",
                                     alignItems: "center",
                                     textTransform: "uppercase",
-                                    fontSize: "0.875rem",
                                     fontWeight: "500",
                                     width: isMobile ? "45vw" : "20vw",     
                                 }}
@@ -420,7 +419,7 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
                                                     initial={{opacity: 0}}
                                                     animate={{opacity: 1, transition: {delay: 0.7}}}
                                                     exit={{opacity: 0}}
-                                                    style={{marginTop: "5px", marginBottom: "0px", fontSize: "1em"}}
+                                                    style={{marginTop: "5px", marginBottom: "0px", fontSize: "1.3em"}}
                                                 >
                                                     {selectedPoint?.description}
                                                 </motion.p>

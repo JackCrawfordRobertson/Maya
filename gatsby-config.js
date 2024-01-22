@@ -10,7 +10,6 @@ module.exports = {
     "gatsby-plugin-react-helmet", 
     "gatsby-plugin-image",
     "gatsby-plugin-sitemap",
-    `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-plugin-google-gtag`,
       options: {

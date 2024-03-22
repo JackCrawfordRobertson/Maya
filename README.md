@@ -4,7 +4,7 @@
   </a>
 </p>
 <h1 align="center">
-Maya - Transforming understanding with information and data.
+Maya - Visualising the Climate-Water Connection for Specialists.
 </h1>
 
 # Project Overview

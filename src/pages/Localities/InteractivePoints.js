@@ -12,6 +12,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
+import {Box, Fade} from "@mui/material";
 import {motion, AnimatePresence} from "framer-motion";
 import {ResponsiveRadar} from "@nivo/radar";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -78,6 +79,8 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
     const muiTheme = useTheme();
     const isMobile = useMediaQuery(muiTheme.breakpoints.down("sm"));
     const [ isOpen, setIsOpen ] = useState(!isMobile);
+    const [ hoveredPoint, setHoveredPoint ] = useState(null);
+    const [ showFade, setShowFade ] = useState(false); // Dedicated state for fade control
 
     const getCorrespondingDataForLocality = (localityId) => {
         const data2023 = LocalitesWaterUsage2023.find((item) => item.id === localityId);
@@ -139,22 +142,46 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
                     type: "circle",
                     source: "points",
                     paint: {
-                        "circle-radius": 6,
+                        "circle-radius": [
+                            "step",
+                            [ "zoom" ],
+                            5, // radius at zoom levels less than 5
+                            5,
+                            6, // radius of 6 at zoom level 5
+                            10,
+                            8, // radius of 8 at zoom level 10
+                            15,
+                            10, // radius of 10 at zoom level 15
+                        ],
                         "circle-color": "#3498db",
+                        // Gradually increase opacity starting from zoom level 5
+                        "circle-opacity": [
+                            "interpolate",
+                            [ "linear" ],
+                            [ "zoom" ],
+                            5,
+                            0, // Opacity is 0 at zoom levels less than 5
+                            5.5,
+                            1, // Opacity transitions to 1 between zoom levels 5 and 5.5
+                        ],
                     },
                 });
 
+                // Adjust the mouseenter event to set both hoveredPoint and showFade
                 map.on("mouseenter", "points", (e) => {
-                    map.getCanvas().style.cursor = "pointer";
                     if (e.features.length > 0) {
-                        const {id} = e.features[0].properties;
-                        hoveredPointIdRef.current = id;
+                        const {id, title} = e.features[0].properties;
+                        setHoveredPoint({id, title});
+                        setShowFade(true); // Ensure fade-in is triggered
                     }
                 });
 
+                // Adjust the mouseleave event to control fade-out
                 map.on("mouseleave", "points", () => {
                     map.getCanvas().style.cursor = "";
-                    hoveredPointIdRef.current = null;
+                    setShowFade(false); // Trigger fade-out
+                    // Optionally delay clearing hoveredPoint if you want the information to persist slightly during the fade-out
+                    setTimeout(() => setHoveredPoint(null), 500); // Match fade timeout
                 });
 
                 map.on("click", "points", (e) => {
@@ -367,8 +394,6 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
                                     width: isMobile ? "90vw" : "25vw", // Dynamic width based on device
                                 }}
                             >
-
-                                
                                 <div
                                     style={{
                                         display: "flex",
@@ -414,7 +439,6 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
                                         animate={{opacity: 1, y: 0, transition: {delay: 0.5, duration: 0.5}}}
                                         exit={{opacity: 0, y: 20, transition: {duration: 0.5}}}
                                     >
-                                
                                         <motion.p
                                             initial={{opacity: 0}}
                                             animate={{opacity: 1, transition: {delay: 0.7}}}
@@ -487,6 +511,24 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
                     )}
                 </AnimatePresence>
             </div>
+
+            <Fade in={showFade} timeout={500}>
+                    <Box
+                        sx={{
+                            position: 'absolute',
+                            bottom: '20px',
+                            left: '50%',
+                            transform: 'translateX(-50%)',
+                            padding: '10px',
+                            backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                            border: '1px solid #ddd',
+                            borderRadius: '4px',
+                            zIndex: 1000,
+                        }}
+                    >
+                        {hoveredPoint?.title}
+                    </Box>
+                </Fade>
         </ThemeProvider>
     );
 };

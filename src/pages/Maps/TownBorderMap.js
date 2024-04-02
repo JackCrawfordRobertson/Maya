@@ -12,7 +12,7 @@ const TownBorderMap = ({center, zoom, onMove, isZoomCompleted}) => {
     useEffect(() => {
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
-            style: "mapbox://styles/jackrob/clocxnocp017d01qs5mdqfprm",
+            style: "mapbox://styles/jackrob/cluiljae400z101pi4soxf1g9",
             center: center,
             zoom: zoom,
             interactive: true,

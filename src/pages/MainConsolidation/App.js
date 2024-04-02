@@ -61,9 +61,9 @@ const App = () => {
                 {isZoomCompleted && <SVGHeatmapOverlay center={center} zoom={zoom} visibleSVG={visibleSVG} map={map} />}
             </div>
 
-            {/* <div style={{pointerEvents: isZoomCompleted ? "all" : "none"}}>
+            <div style={{pointerEvents: isZoomCompleted ? "all" : "none"}}>
                 <TownBorderMap center={center} zoom={zoom} onMove={handleMove} isZoomCompleted={isZoomCompleted} />
-            </div> */}
+            </div>
 
             <div style={{pointerEvents: isZoomCompleted ? "all" : "none"}}>
                 {isZoomCompleted && <SVGControls cycleSVG={cycleSVG} disabled={buttonsDisabled} />}

@@ -145,7 +145,7 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
                         "circle-radius": [
                             "step",
                             [ "zoom" ],
-                            5, // radius at zoom levels less than 5
+                            2, // radius at zoom levels less than 5
                             5,
                             6, // radius of 6 at zoom level 5
                             10,
@@ -513,22 +513,22 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
             </div>
 
             <Fade in={showFade} timeout={500}>
-                    <Box
-                        sx={{
-                            position: 'absolute',
-                            bottom: '20px',
-                            left: '50%',
-                            transform: 'translateX(-50%)',
-                            padding: '10px',
-                            backgroundColor: 'rgba(255, 255, 255, 0.8)',
-                            border: '1px solid #ddd',
-                            borderRadius: '4px',
-                            zIndex: 1000,
-                        }}
-                    >
-                        {hoveredPoint?.title}
-                    </Box>
-                </Fade>
+                <Box
+                    sx={{
+                        position: "absolute",
+                        bottom: "20px",
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        padding: "10px",
+                        backgroundColor: "rgba(255, 255, 255, 0.8)",
+                        border: "1px solid #ddd",
+                        borderRadius: "4px",
+                        zIndex: 1000,
+                    }}
+                >
+                  <b> Current locality:</b> {hoveredPoint?.title}
+                </Box>
+            </Fade>
         </ThemeProvider>
     );
 };

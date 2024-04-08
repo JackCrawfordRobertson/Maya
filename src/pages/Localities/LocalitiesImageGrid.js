@@ -42,7 +42,7 @@ const ImageModal = ({ src, alt, onClose }) => {
     );
 };
 
-const LocalitiesImageGrid = ({ images }) => {
+const LocalitiesImageGrid = ({ images = [] }) => { // Default images to an empty array
     const [openImage, setOpenImage] = useState(null);
     const [imageAlt, setImageAlt] = useState("");
 
@@ -57,15 +57,22 @@ const LocalitiesImageGrid = ({ images }) => {
         visible: { opacity: 1, transition: { duration: 0.5 } }
     };
 
+    // Ensure images is always an array before attempting to use .map()
+    if (!Array.isArray(images)) {
+        return null; // or your preferred fallback UI
+    }
+
+    const imagesKey = images.map(image => typeof image === 'string' ? image : image.src).join(',');
+
     return (
-        <AnimatePresence> {/* Correct placement of AnimatePresence */}
+        <AnimatePresence>
             <motion.div
                 initial="hidden"
                 animate="visible"
                 exit="hidden" 
                 variants={imageVariants}
                 style={{ padding: "0px" }}
-                key={images.map(image => image).join(",")} /* Key based on images */
+                key={imagesKey} // Use a more robust key based on the images
             >
                 <Grid container spacing={1}>
                     {images.map((imgUrl, index) => (
@@ -73,7 +80,7 @@ const LocalitiesImageGrid = ({ images }) => {
                             <div
                                 style={{
                                     width: "100%",
-                                    paddingBottom: "56.25%", // Aspect ratio box
+                                    paddingBottom: "56.25%", // For 16:9 aspect ratio
                                     position: "relative",
                                     borderRadius: "4px",
                                     overflow: "hidden",
@@ -81,7 +88,7 @@ const LocalitiesImageGrid = ({ images }) => {
                                 }}
                             >
                                 <img
-                                    src={imgUrl}
+                                    src={typeof imgUrl === 'string' ? imgUrl : imgUrl.src} // Adjusted to handle both string URLs and objects
                                     alt={`Detail ${index}`}
                                     role="button"
                                     tabIndex="0"

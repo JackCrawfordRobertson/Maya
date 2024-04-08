@@ -37,9 +37,10 @@
         "@mui/material": "^5.14.17",
         "@nivo/core": "^0.83.0",
         "@nivo/radar": "^0.83.0",
+        "cloudinary": "^2.1.0",
         "d3": "^7.8.5",
         "flubber": "^0.4.2",
-        "framer-motion": "^10.16.4",
+        "framer-motion": "^11.0.25",
         "gatsby": "^5.12.4",
         "gatsby-plugin-google-gtag": "^5.13.0",
         "gatsby-plugin-image": "^3.12.1",
@@ -57,6 +58,8 @@
         "react-helmet": "^6.1.0",
         "react-joyride": "^2.7.0",
         "react-sidebar": "^3.0.2",
+        "react-slick": "^0.30.2",
+        "slick-carousel": "^1.8.1",
         "snapsvg": "^0.5.1",
         "snapsvg-cjs": "^0.0.6"
     }

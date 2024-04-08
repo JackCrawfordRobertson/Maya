@@ -68,7 +68,7 @@ const SVGHeatmapOverlay = ({ center, zoom, map, visibleSVG }) => {
               .transition()
               .delay(50)
               .duration(transitionDuration)
-              .style("opacity", 0.4);
+              .style("opacity", 0.7);
 
             map.on("viewreset", render);
             map.on("zoom", render);

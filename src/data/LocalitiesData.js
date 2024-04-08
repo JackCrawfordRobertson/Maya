@@ -12,7 +12,14 @@ export const LocalitiesData = {
             properties: {
                 id: 1,
                 title: "Ain Bourday",
-                description: "Located at an elevation of 1195.41 meters (3921.95 feet) above sea level, Ain Bourdai has a Mediterranean, warm summer climate (Classification: Csb). The district’s yearly temperature is 17.02ºC (62.64ºF) and it is -2.9% lower than Lebanon’s averages. Ain Bourdai typically receives about 75.33 millimeters (2.97 inches) of precipitation and has 96.0 rainy days (26.3% of the time) annually.",
+                description:
+                    "Located at an elevation of 1195.41 meters (3921.95 feet) above sea level, Ain Bourdai has a Mediterranean, warm summer climate (Classification: Csb). The district’s yearly temperature is 17.02ºC (62.64ºF) and it is -2.9% lower than Lebanon’s averages. Ain Bourdai typically receives about 75.33 millimeters (2.97 inches) of precipitation and has 96.0 rainy days (26.3% of the time) annually.",
+
+                images: [
+                    "https://res.cloudinary.com/dfsznxwhz/image/upload/f_auto,q_auto/rxdhzcesaq6jdza3sa8y",
+                    "https://res.cloudinary.com/dfsznxwhz/image/upload/f_auto,q_auto/jelfdkxaczrhuuyz9d82",
+                    "https://res.cloudinary.com/dfsznxwhz/image/upload/f_auto,q_auto/pqfgml1rygmchee9ajpg",
+                ],
             },
         },
 
@@ -25,7 +32,13 @@ export const LocalitiesData = {
             properties: {
                 id: 2,
                 title: "Douris",
-                description: "Located at an elevation of 1097.33 meters (3600.16 feet) above sea level, Douris has a Mediterranean, warm summer climate (Classification: Csb). The district’s yearly temperature is 17.22ºC (63.0ºF) and it is -2.7% lower than Lebanon’s averages. Douris typically receives about 76.19 millimeters (3.0 inches) of precipitation and has 97.09 rainy days (26.6% of the time) annually.",
+                description:
+                    "Located at an elevation of 1097.33 meters (3600.16 feet) above sea level, Douris has a Mediterranean, warm summer climate (Classification: Csb). The district’s yearly temperature is 17.22ºC (63.0ºF) and it is -2.7% lower than Lebanon’s averages. Douris typically receives about 76.19 millimeters (3.0 inches) of precipitation and has 97.09 rainy days (26.6% of the time) annually.",
+                images: [
+                    "https://res.cloudinary.com/dfsznxwhz/image/upload/f_auto,q_auto/v1/Douris/bafu3jsc5sgxmt61yzr0",
+                    "https://res.cloudinary.com/dfsznxwhz/image/upload/f_auto,q_auto/v1/Douris/bb1yskijx7tmuyhf8olk",
+                    "https://res.cloudinary.com/dfsznxwhz/image/upload/f_auto,q_auto/v1/Douris/xmizjowvrdq4ymfqxp0f",
+                ],
             },
         },
 
@@ -38,7 +51,13 @@ export const LocalitiesData = {
             properties: {
                 id: 3,
                 title: "Ali el Nahri",
-                description: "Located at an elevation of 956.6 meters (3138.45 feet) above sea level, Ali en Nahri has a Mediterranean, hot summer climate (Classification: Csa). The district’s yearly temperature is 16.22ºC (61.2ºF) and it is -3.7% lower than Lebanon’s averages. Ali en Nahri typically receives about 71.78 millimeters (2.83 inches) of precipitation and has 91.47 rainy days (25.06% of the time) annually.",
+                description:
+                    "Located at an elevation of 956.6 meters (3138.45 feet) above sea level, Ali en Nahri has a Mediterranean, hot summer climate (Classification: Csa). The district’s yearly temperature is 16.22ºC (61.2ºF) and it is -3.7% lower than Lebanon’s averages. Ali en Nahri typically receives about 71.78 millimeters (2.83 inches) of precipitation and has 91.47 rainy days (25.06% of the time) annually.",
+                images: [
+                    "https://res.cloudinary.com/dfsznxwhz/image/upload/f_auto,q_auto/v1/Ali%20el%20Nahri/lvpehzhd1ihhzpqznlid",
+                    "https://res.cloudinary.com/dfsznxwhz/image/upload/f_auto,q_auto/v1/Ali%20el%20Nahri/jxzbuq52vw9bql4h2kpm",
+                    "https://res.cloudinary.com/dfsznxwhz/image/upload/f_auto,q_auto/v1/Ali%20el%20Nahri/zxzoioyzydpbwp9nghmm",
+                ],
             },
         },
 
@@ -51,7 +70,13 @@ export const LocalitiesData = {
             properties: {
                 id: 4,
                 title: "Riyak",
-                description: "Located at an elevation of 931.16 meters (3054.99 feet) above sea level, Riyaq has a Mediterranean, hot summer climate (Classification: Csa). The district’s yearly temperature is 16.27ºC (61.29ºF) and it is -3.65% lower than Lebanon’s averages. Riyaq typically receives about 71.98 millimeters (2.83 inches) of precipitation and has 91.72 rainy days (25.13% of the time) annually.",
+                description:
+                    "Located at an elevation of 931.16 meters (3054.99 feet) above sea level, Riyaq has a Mediterranean, hot summer climate (Classification: Csa). The district’s yearly temperature is 16.27ºC (61.29ºF) and it is -3.65% lower than Lebanon’s averages. Riyaq typically receives about 71.98 millimeters (2.83 inches) of precipitation and has 91.72 rainy days (25.13% of the time) annually.",
+                images: [
+                    "https://res.cloudinary.com/dfsznxwhz/image/upload/f_auto,q_auto/v1/Riyak/ch1bxvu150eowtk80009",
+                    "https://res.cloudinary.com/dfsznxwhz/image/upload/f_auto,q_auto/v1/Riyak/d0c765nhdiwlpnu9dovk",
+                    "https://res.cloudinary.com/dfsznxwhz/image/upload/f_auto,q_auto/v1/Riyak/htsnyhkx5urfta55ssim",
+                ],
             },
         },
 
@@ -64,7 +89,12 @@ export const LocalitiesData = {
             properties: {
                 id: 5,
                 title: "Haouch Hala",
-                description: "Description for Point 2",
+                description: "Houch Hala is a village in Beqaa Governorate, Lebanon. Houch Hala is situated nearby to the village Riyaq and the locality Wadi Yahfufah.",
+                images: [
+                    "https://res.cloudinary.com/dfsznxwhz/image/upload/f_auto,q_auto/v1/Haouch%20Hala/r2imtlamgr7a5g8k0xc1",
+                    "https://res.cloudinary.com/dfsznxwhz/image/upload/f_auto,q_auto/v1/Haouch%20Hala/igm3rtwwqebsvmwxp4te",
+                    "https://res.cloudinary.com/dfsznxwhz/image/upload/f_auto,q_auto/v1/Haouch%20Hala/isv3qjd2fpgal6dpondp",
+                ],
             },
         },
 
@@ -77,7 +107,13 @@ export const LocalitiesData = {
             properties: {
                 id: 6,
                 title: "Fekha",
-                description: "Description for Point 2",
+                description: "Fakeha is a village in Baalbek-Hermel Governorate, Lebanon. Fakeha is situated nearby to the villages El Maalqa and Jdeide.",
+                images: [
+                    "https://res.cloudinary.com/dfsznxwhz/image/upload/f_auto,q_auto/v1/Fekha/mlsao8liu0hvyxgywezf",
+                    "https://res.cloudinary.com/dfsznxwhz/image/upload/f_auto,q_auto/v1/Fekha/po84l88pdlvbdasgrxbf",
+                    "https://res.cloudinary.com/dfsznxwhz/image/upload/f_auto,q_auto/v1/Fekha/jpgt11xkwdpk81w9q8fe",
+
+                ],
             },
         },
 
@@ -90,7 +126,12 @@ export const LocalitiesData = {
             properties: {
                 id: 7,
                 title: "Khirbet Qanafar",
-                description: "Description for Point 2",
+                description: "Khirbat Qanafar is a village in Beqaa Governorate, Lebanon and has an elevation of 950 metres. Khirbat Qanafar is situated nearby to the villages Ain Zebdeh and Kefraya.",
+                images: [
+                    "https://res.cloudinary.com/dfsznxwhz/image/upload/v1712135675/cld-sample-5.jpg",
+                    "https://res.cloudinary.com/demo/image/upload/ain-bourday-detail1.jpg",
+                    "https://res.cloudinary.com/demo/image/upload/ain-bourday-detail2.jpg",
+                ],
             },
         },
 
@@ -103,7 +144,12 @@ export const LocalitiesData = {
             properties: {
                 id: 8,
                 title: "Maalqa",
-                description: "Description for Point 2",
+                description: "El Maalqa is a village in Baalbek-Hermel Governorate, Lebanon. El Maalqa is situated nearby to the villages Jdeide and Fakeha.",
+                // images: [
+                //     "https://res.cloudinary.com/dfsznxwhz/image/upload/v1712135675/cld-sample-5.jpg",
+                //     "https://res.cloudinary.com/demo/image/upload/ain-bourday-detail1.jpg",
+                //     "https://res.cloudinary.com/demo/image/upload/ain-bourday-detail2.jpg",
+                // ],
             },
         },
 
@@ -116,7 +162,12 @@ export const LocalitiesData = {
             properties: {
                 id: 9,
                 title: "Moqraq",
-                description: "Description for Point 2",
+                description: "Located at an elevation of 963.82 meters (3162.14 feet) above sea level, El Moqraq has a Mediterranean, warm summer climate (Classification: Csb). The district’s yearly temperature is 17.28ºC (63.1ºF) and it is -2.64% lower than Lebanon’s averages. El Moqraq typically receives about 76.48 millimeters (3.01 inches) of precipitation and has 97.46 rainy days (26.7% of the time) annually.",
+                // images: [
+                //     "https://res.cloudinary.com/dfsznxwhz/image/upload/v1712135675/cld-sample-5.jpg",
+                //     "https://res.cloudinary.com/demo/image/upload/ain-bourday-detail1.jpg",
+                //     "https://res.cloudinary.com/demo/image/upload/ain-bourday-detail2.jpg",
+                // ],
             },
         },
 
@@ -130,6 +181,11 @@ export const LocalitiesData = {
                 id: 10,
                 title: "Toufiqiyeh",
                 description: "Description for Point 2",
+                images: [
+                    "https://res.cloudinary.com/dfsznxwhz/image/upload/f_auto,q_auto/v1/Toufiqiyeh/xnhsqalu2kfv34fgwqda",
+                    // "https://res.cloudinary.com/demo/image/upload/ain-bourday-detail1.jpg",
+                    // "https://res.cloudinary.com/demo/image/upload/ain-bourday-detail2.jpg",
+                ],
             },
         },
 
@@ -142,7 +198,12 @@ export const LocalitiesData = {
             properties: {
                 id: 11,
                 title: "Nabi Osman",
-                description: "Description for Point 2",
+                description: "Nabi Osman is a village in the northern part of the Bekaa Valley, on the lower slopes of the Anti-Lebanon mountain range. It is located in Baalbek District and lies on the highway linking Lebanon and Syria.",
+                images: [
+                    "https://res.cloudinary.com/dfsznxwhz/image/upload/f_auto,q_auto/v1/Nabi%20Osmane/ordyjbehj2ltyhzxl84p",
+                    "https://res.cloudinary.com/dfsznxwhz/image/upload/f_auto,q_auto/v1/Nabi%20Osmane/b2cs3xqsst3whottrffl",
+                    "https://res.cloudinary.com/dfsznxwhz/image/upload/f_auto,q_auto/v1/Nabi%20Osmane/z77uaidl2duylptggfza",
+                ],
             },
         },
 
@@ -155,7 +216,12 @@ export const LocalitiesData = {
             properties: {
                 id: 12,
                 title: "Ras Baalbek",
-                description: "Description for Point 2",
+                description: "Ras Baalbek is a village in the northern Beqaa Valley in Lebanon. Ras Baalbek has about 15,000 residents and an elevation of 993 metres.",
+                images: [
+                    "https://res.cloudinary.com/dfsznxwhz/image/upload/f_auto,q_auto/v1/Ras%20Baalbek/ytnlj43crwk8gshuwyah",
+                    "https://res.cloudinary.com/dfsznxwhz/image/upload/f_auto,q_auto/v1/Ras%20Baalbek/axr4spk5alqynjcuban9",
+                    "https://res.cloudinary.com/dfsznxwhz/image/upload/f_auto,q_auto/v1/Ras%20Baalbek/szuyxoaw3w7dyg5rxbi3",
+                ],
             },
         },
 
@@ -168,7 +234,12 @@ export const LocalitiesData = {
             properties: {
                 id: 13,
                 title: "Laboueh",
-                description: "Description for Point 2",
+                description: "Labweh is a village in Baalbek-Hermel Governorate, Lebanon. Labweh is situated nearby to the villages Nabi Osmane and Moqraq.",
+                images: [
+                    "https://res.cloudinary.com/dfsznxwhz/image/upload/f_auto,q_auto/v1/Laboueh/bppxmy8t7kdgqb4piuxo",
+                    "https://res.cloudinary.com/dfsznxwhz/image/upload/f_auto,q_auto/v1/Laboueh/mx46kdt4dplueelft5tj",
+                    "https://res.cloudinary.com/dfsznxwhz/image/upload/f_auto,q_auto/v1/Laboueh/viug0mfwit3eq1ujzait",
+                ],
             },
         },
 
@@ -181,7 +252,12 @@ export const LocalitiesData = {
             properties: {
                 id: 14,
                 title: "Zabboud",
-                description: "Description for Point 2",
+                description: "Zabboud is a village in Baalbek-Hermel Governorate, Lebanon and has an elevation of 854 metres. Zabboud is situated nearby to the neighbourhood حارة الفوقي and the village Kharayeb.",
+                // images: [
+                //     "https://res.cloudinary.com/dfsznxwhz/image/upload/v1712135675/cld-sample-5.jpg",
+                //     "https://res.cloudinary.com/demo/image/upload/ain-bourday-detail1.jpg",
+                //     "https://res.cloudinary.com/demo/image/upload/ain-bourday-detail2.jpg",
+                // ],
             },
         },
 
@@ -194,7 +270,12 @@ export const LocalitiesData = {
             properties: {
                 id: 15,
                 title: "Bejjejeh",
-                description: "Description for Point 2",
+                description: "Bejjeh is a municipality in the Byblos District of Keserwan-Jbeil Governorate, Lebanon. It is 54 kilometers north of Beirut. Bejjeh has an average elevation of 560 meters above sea level and a total land area of 502 hectares.",
+                images: [
+                    "https://res.cloudinary.com/dfsznxwhz/image/upload/f_auto,q_auto/v1/Bejjejeh/nnxtopqowfk0kvczahvp",
+                    "https://res.cloudinary.com/dfsznxwhz/image/upload/f_auto,q_auto/v1/Bejjejeh/yrgxvxwit0gatw0jxyrf",
+                    "https://res.cloudinary.com/dfsznxwhz/image/upload/f_auto,q_auto/v1/Bejjejeh/uc73mxbe5utgamu6b53p",
+                ],
             },
         },
     ],

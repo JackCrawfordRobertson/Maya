@@ -1,7 +1,7 @@
 //LocalitesWaterUsage2.js
 
 export const LocalitesWaterUsage2023 = [
-    {id: 1, name: "Ain Bourday", waterDemand: 180, averageProducedWater: 540, availableWaterSource: 1620},
+    {id: 1, name: "Ain Bourday", waterDemand: 180, averageProducedWater: 540, availableWaterSource: 1620,},
     {id: 2, name: "Douris", waterDemand: 820, averageProducedWater: 540, availableWaterSource: 1620},
     {id: 3, name: "Ali el Nahri", waterDemand: 2678, averageProducedWater: 1770, availableWaterSource: 1770},
     {id: 4, name: "Riyak", waterDemand: 3300, averageProducedWater: 100, availableWaterSource: 100},

@@ -4,6 +4,8 @@ import App from "./MainConsolidation/App.js";
 import "./global.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 
+
+
 const IndexPage = () => {
     const mainContainerStyle = {
         height: "100%",

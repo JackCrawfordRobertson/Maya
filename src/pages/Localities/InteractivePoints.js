@@ -24,6 +24,8 @@ import {
     LocalitesWaterUsage2025,
     LocalitesWaterUsage2026,
 } from "../../data/LocalitesWaterUsage2";
+import LocalitiesImageGrid from "./LocalitiesImageGrid"; // Adjust the path as necessary
+
 import Slider from "@mui/material/Slider";
 
 // Set the theme for the MUI components
@@ -80,7 +82,8 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
     const isMobile = useMediaQuery(muiTheme.breakpoints.down("sm"));
     const [ isOpen, setIsOpen ] = useState(!isMobile);
     const [ hoveredPoint, setHoveredPoint ] = useState(null);
-    const [ showFade, setShowFade ] = useState(false); // Dedicated state for fade control
+    const [ showFade, setShowFade ] = useState(false);
+    const localityImages = selectedPoint?.properties?.images || [];
 
     const getCorrespondingDataForLocality = (localityId) => {
         const data2023 = LocalitesWaterUsage2023.find((item) => item.id === localityId);
@@ -392,27 +395,36 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
                                     flexDirection: "column",
                                     zIndex: 1,
                                     width: isMobile ? "90vw" : "25vw", // Dynamic width based on device
+                                    overflowY: "auto", // Enables vertical scrolling
                                 }}
                             >
+                                <AnimatePresence>
+                                    <div key={selectedPoint ? selectedPoint.id : "initial"}>
+                                        {selectedPoint && <LocalitiesImageGrid images={selectedPoint.images || []} />}
+                                    </div>
+                                </AnimatePresence>
+
                                 <div
                                     style={{
                                         display: "flex",
                                         justifyContent: "space-between",
                                         alignItems: "center",
                                         margin: "0px",
+                                        marginTop: "10px",
                                     }}
                                 >
                                     <motion.h2
                                         initial={{opacity: 0}}
                                         animate={{opacity: 1, transition: {delay: 0.6}}}
                                         exit={{opacity: 0}}
-                                        style={{marginTop: "5px", marginBottom: "0px"}}
+                                        style={{marginTop: "0px", marginBottom: "0px"}}
                                     >
                                         {selectedPoint?.title}
                                     </motion.h2>
+
                                     <Tooltip title="About this widget">
                                         <IconButton onClick={toggleInfo}>
-                                            <InfoIcon />
+                                            <InfoIcon style={{marginTop: "0px", marginBottom: "0px"}} />
                                         </IconButton>
                                     </Tooltip>
                                 </div>
@@ -443,14 +455,14 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
                                             initial={{opacity: 0}}
                                             animate={{opacity: 1, transition: {delay: 0.7}}}
                                             exit={{opacity: 0}}
-                                            style={{marginTop: "5px", marginBottom: "0px", fontSize: "1.3em"}}
+                                            style={{marginTop: "0px", marginBottom: "0px", fontSize: "1.3em"}}
                                         >
                                             {selectedPoint?.description}
                                         </motion.p>
                                     </motion.div>
                                 )}
 
-                                <div style={{flex: 1, minHeight: 0, zIndex: 1}}>
+                                <div style={{flex: 1, minHeight: 0, zIndex: 1, minHeight: isMobile ? "400px" : "0"}}>
                                     {selectedPoint && (
                                         <ResponsiveRadar
                                             data={radarData}
@@ -526,7 +538,7 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
                         zIndex: 1000,
                     }}
                 >
-                  <b> Current locality:</b> {hoveredPoint?.title}
+                    <b> Current locality:</b> {hoveredPoint?.title}
                 </Box>
             </Fade>
         </ThemeProvider>

@@ -390,7 +390,7 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
                                 elevation={4}
                                 sx={{
                                     padding: "10px",
-                                    height: isMobile ? "90vh" : "80vh", // Dynamic width based on device
+                                    height: isMobile ? "90vh" : "90vh", // Dynamic width based on device
                                     display: "flex",
                                     flexDirection: "column",
                                     zIndex: 1,

@@ -1,0 +1,71 @@
+@keyframes jump {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+  
+  .jump-animation {
+    animation: jump 1.5s ease-in-out infinite;
+  }
+  
+
+  .Main{
+    text-align: left;
+    color: white;
+    max-width: 40vw;
+    font-size: 1.2rem;
+  }
+
+  .Main__container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+  }
+
+  .heading{
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 0;
+  }
+
+  .body_coppy{
+    font-size: 1.2rem;
+    font-weight: 400;
+
+  }
+
+  .widget {
+    background-color: #ecf0f1; /* Set the background color */
+    color: #333333; /* Set the text color */
+    border-radius: 10px; /* Set the border radius */
+    padding-left: 2em; /* Left padding */
+    padding-right: 2em;
+    padding-top: 1em; /* Top padding */
+    margin-bottom: 20px; /* Bottom margin for spacing */
+    max-width: 40vw; /* Maximum width */
+    
+  }
+
+  .grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+
+  
+
+
+  @media (max-width: 600px) {
+    .Main {
+      max-width: 100%!important;
+    }
+    .widget {
+      max-width: 100%!important;
+    }
+  }

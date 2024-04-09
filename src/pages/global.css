@@ -6,8 +6,8 @@ body {
   padding: 0;
   min-height: 100vh;
   min-height: 100vw;
-  overflow-x: hidden; /* Hide horizontal scrollbar and prevent horizontal scrolling */
-  overflow-y: hidden; /* Hide vertical scrollbar and prevent vertical scrolling */
+  /* overflow-x: hidden; 
+  overflow-y: hidden;  */
   font-size: 1em;
 
 }

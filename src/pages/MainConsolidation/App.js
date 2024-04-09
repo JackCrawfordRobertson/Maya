@@ -4,16 +4,18 @@ import BaseMap from "../Maps/BaseMap";
 import SVGHeatmapOverlay from "../SVGHeatmapOverlay/SVGHeatmapOverlay";
 import SVGControls from "../SVGHeatmapOverlay/SVGControls";
 import TownBorderMap from "../Maps/TownBorderMap";
-import ZoomButton from "../StartingZoom/ZoomButton";
+import DevZoom from "../StartingZoom/DevZoom";
+import ZoomFrontLoadScreen from "../StartingZoom/index";
 // import TutorialJoyride from "../Tutorial/TutorialJoyride"; // Adjust the path as necessary
 
 const App = () => {
     const [ center, setCenter ] = useState([ 0, 0 ]);
-    const [ zoom, setZoom ] = useState(2);
+    const [ zoom, setZoom ] = useState(3);
     const [ visibleSVG, setVisibleSVG ] = useState(0);
     const [ map, setMap ] = useState(null);
     const [ buttonsDisabled, setButtonsDisabled ] = useState(true);
     const [ isZoomCompleted, setIsZoomCompleted ] = useState(false);
+    const [ showZoomFrontLoad, setShowZoomFrontLoad ] = useState(true); // Add this line
 
     const cycleSVG = () => {
         setVisibleSVG((prevSVG) => (prevSVG + 1) % 3);
@@ -49,8 +51,7 @@ const App = () => {
     };
 
     return (
-        <div className="app" style={{ position: "relative" }}>
-            
+        <div className="app" style={{position: "relative"}}>
             {/* <TutorialJoyride /> */}
 
             <div style={{pointerEvents: isZoomCompleted ? "all" : "none"}}>
@@ -69,13 +70,14 @@ const App = () => {
                 {isZoomCompleted && <SVGControls cycleSVG={cycleSVG} disabled={buttonsDisabled} />}
             </div>
 
-            <ZoomButton onZoom={zoomToFocus} disabled={buttonsDisabled} />
+            {/* DevZoom component */}
 
-        
+            <DevZoom onZoom={zoomToFocus} disabled={buttonsDisabled} />
 
+            {/* Production component */}
+
+            {/* {showZoomFrontLoad && <ZoomFrontLoadScreen onZoom={zoomToFocus} onOtherAction={() => setShowZoomFrontLoad(false)} />} */}
         </div>
-
-    
     );
 };
 

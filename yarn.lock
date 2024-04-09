@@ -1592,6 +1592,18 @@
   resolved "https://registry.yarnpkg.com/@lmdb/lmdb-win32-x64/-/lmdb-win32-x64-2.5.3.tgz#c72e8b6faae31d925d23a6db0379cc3fe0216fdd"
   integrity sha512-cK+Elf3RjEzrm3SerAhrFWL5oQAsZSJ/LmjL1joIpTfEP1etJJ9CTRvdaV6XLYAxaEkfdhk/9hOvHLbR9yIhCA==
 
+"@lordicon/helpers@^1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@lordicon/helpers/-/helpers-1.6.0.tgz#c4ebaa8960e6321c6b2b9e731b5009e60d709af4"
+  integrity sha512-iEw6q1gycHf77e4o+PdTg1Ua4yXdREVnCsErTw/f4eaAUDYFF/qWQSq3mJJuiwvZ/JT1vwctQ2dKr1FxUY1W2w==
+
+"@lordicon/react@^1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@lordicon/react/-/react-1.6.0.tgz#7f16d5089c95b435faf366aaa673df9374c112ae"
+  integrity sha512-SqDdc9/ReRpO3D8t1WG+yOKAFwQsewuw9hf6++faJhGk/ZgUOA4mqPke4R/pc0pMhXHOeET9DPgvNi1dmRpxxw==
+  dependencies:
+    "@lordicon/helpers" "^1.6.0"
+
 "@mapbox/geojson-rewind@^0.5.2":
   version "0.5.2"
   resolved "https://registry.npmjs.org/@mapbox/geojson-rewind/-/geojson-rewind-0.5.2.tgz"
@@ -7862,6 +7874,11 @@ kdbush@^4.0.1, kdbush@^4.0.2:
   resolved "https://registry.npmjs.org/kdbush/-/kdbush-4.0.2.tgz"
   integrity sha512-WbCVYJ27Sz8zi9Q7Q0xHC+05iwkm3Znipc2XTlrnJbsHMYktW4hPhXUE8Ys1engBrvffoSCqbil1JQAa7clRpA==
 
+keen-slider@^6.8.6:
+  version "6.8.6"
+  resolved "https://registry.yarnpkg.com/keen-slider/-/keen-slider-6.8.6.tgz#17bb7b219860f291a5ea5fde4496b737bf407a83"
+  integrity sha512-dcEQ7GDBpCjUQA8XZeWh3oBBLLmyn8aoeIQFGL/NTVkoEOsmlnXqA4QykUm/SncolAZYGsEk/PfUhLZ7mwMM2w==
+
 keyv@*, keyv@^4.0.0, keyv@^4.5.0:
   version "4.5.0"
   resolved "https://registry.npmjs.org/keyv/-/keyv-4.5.0.tgz"
@@ -8094,6 +8111,11 @@ loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.4.0:
   integrity sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==
   dependencies:
     js-tokens "^3.0.0 || ^4.0.0"
+
+lottie-web@^5.12.2:
+  version "5.12.2"
+  resolved "https://registry.yarnpkg.com/lottie-web/-/lottie-web-5.12.2.tgz#579ca9fe6d3fd9e352571edd3c0be162492f68e5"
+  integrity sha512-uvhvYPC8kGPjXT3MyKMrL3JitEAmDMp30lVkuq/590Mw9ok6pWcFCwXJveo0t5uqYw1UREQHofD+jVpdjBv8wg==
 
 lower-case-first@^2.0.2:
   version "2.0.2"
@@ -10262,6 +10284,11 @@ react-helmet@^6.1.0:
     react-fast-compare "^3.1.1"
     react-side-effect "^2.1.0"
 
+react-icons@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-5.0.1.tgz#1694e11bfa2a2888cab47dcc30154ce90485feee"
+  integrity sha512-WqLZJ4bLzlhmsvme6iFdgO8gfZP17rfjYEJ2m9RsZjZ+cc4k1hTzknEz63YS1MeT50kVzoa1Nz36f4BEx+Wigw==
+
 react-innertext@^1.1.5:
   version "1.1.5"
   resolved "https://registry.npmjs.org/react-innertext/-/react-innertext-1.1.5.tgz"
@@ -11537,6 +11564,11 @@ swap-case@^2.0.2:
   integrity sha512-kc6S2YS/2yXbtkSMunBtKdah4VFETZ8Oh6ONSmSd9bRxhqTrtARUCBUiWXH3xVPpvR7tz2CSnkuXVE42EcGnMw==
   dependencies:
     tslib "^2.0.3"
+
+swiper@^11.1.0:
+  version "11.1.0"
+  resolved "https://registry.yarnpkg.com/swiper/-/swiper-11.1.0.tgz#3497b60d65d1320e427cdf11dfaad5c555283826"
+  integrity sha512-Pm78CgU7Wvg+w/MgIL/1NwMSLgx0XqFof25EnVyX8iZFCYJv5CppH7LHkBj43qW2k5Cp3Iz7FcdBxrox7XX2AQ==
 
 table@^6.0.9:
   version "6.8.0"

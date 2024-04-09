@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {motion} from "framer-motion";
 
-const ZoomButton = ({onZoom}) => {
+const DevZoom = ({onZoom}) => {
     const [ visible, setVisible ] = useState(true);
     const [ loadingProgress, setLoadingProgress ] = useState(0);
     const [ isButtonDisabled, setIsButtonDisabled ] = useState(true); // State to manage button disabled/enabled
@@ -9,7 +9,7 @@ const ZoomButton = ({onZoom}) => {
 
     useEffect(() => {
         // Set an interval to update the loading progress
-        const increment = 100 / (5000 / 50); // This should be 1 if we are incrementing every 50ms.
+        const increment = 100 / (100 / 50); // This should be 1 if we are incrementing every 50ms.
 
         const intervalId = setInterval(() => {
             setLoadingProgress((prevProgress) => {
@@ -39,8 +39,8 @@ const ZoomButton = ({onZoom}) => {
     return visible ? (
         <motion.div
             initial={{opacity: 1}}
-            animate={{opacity: 0.8}}
-            transition={{delay: 3, duration: 2}}
+            animate={{opacity: 1}}
+            transition={{delay: 0, duration: 0}}
             style={{
                 position: "absolute",
                 top: 0,
@@ -62,7 +62,7 @@ const ZoomButton = ({onZoom}) => {
                 transition={{duration: 0.5, ease: "easeInOut", delay: 0.25}}
                 style={{textAlign: "center", marginBottom: "0px"}}
             >
-                <h1 style={{fontSize: "5em", color: textColor, marginBottom: "0px"}}>Maya</h1>
+                <h1 style={{fontSize: "5em", color: textColor, marginBottom: "0px"}}></h1>
             </motion.div>
 
             <motion.div
@@ -71,7 +71,7 @@ const ZoomButton = ({onZoom}) => {
                 transition={{duration: 0.5, ease: "easeInOut", delay: 0.5}}
                 style={{textAlign: "center", width: "70%", }}
             >
-                <p style={{color: textColor}}> Visualising the Climate-Water Connection for Specialists</p>
+                <p style={{color: textColor}}> </p>
             </motion.div>
 
             <motion.button
@@ -122,11 +122,11 @@ const ZoomButton = ({onZoom}) => {
                         pointerEvents: "none", // Make the text non-interactive
                     }}
                 >
-                    Zoom to Focus
+                    Go
                 </span>
             </motion.button>
         </motion.div>
     ) : null;
 };
 
-export default ZoomButton;
+export default DevZoom;

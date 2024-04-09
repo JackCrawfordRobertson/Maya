@@ -6,6 +6,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 
 
 
+
 const IndexPage = () => {
     const mainContainerStyle = {
         height: "100%",

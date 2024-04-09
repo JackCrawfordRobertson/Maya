@@ -72,7 +72,7 @@ const marks = [
     },
 ];
 
-const InteractivePoints = ({map, isZoomCompleted}) => {
+const InteractivePoints = ({map, isZoomCompleted, isWidgetOpen, }) => { 
     const [ selectedPoint, setSelectedPoint ] = useState(null);
     const hoveredPointIdRef = useRef(null);
     const [ displayKeys, setDisplayKeys ] = useState([ "2023", "2024", "2025", "2026" ]);
@@ -307,83 +307,25 @@ const InteractivePoints = ({map, isZoomCompleted}) => {
 
     return (
         <ThemeProvider theme={theme}>
-            <div
-                className="interactive-points"
-                style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "flex-end",
-                    top: "10px",
-                    right: "10px",
-                    zIndex: 3,
-                    position: "absolute",
-                }}
-            >
+        <div
+            className="interactive-points"
+            style={{
+                display: isWidgetOpen ? "flex" : "none", // Control visibility directly with the prop
+                flexDirection: "column",
+                alignItems: "flex-end",
+                top: "60px",
+                left: "10px",
+                zIndex: 3,
+                position: "absolute",
+            }}
+        >
                 <AnimatePresence>
-                    {isZoomCompleted && (
-                        <motion.button
-                            initial={{opacity: 0, y: 20}}
-                            animate={{opacity: 1, y: 0}}
-                            transition={transitionSettings}
-                            onClick={toggleOpen} // Toggle isOpen
-                            style={{
-                                backgroundColor: theme.palette.primary.main,
-                                color: "#fff",
-                                padding: "10px",
-                                border: "none",
-                                borderRadius: "4px",
-                                cursor: "pointer",
-                                marginBottom: "10px",
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                textTransform: "uppercase",
-                                fontWeight: "500",
-                                width: isMobile ? "45vw" : "20vw",
-                            }}
-                        >
-                            {isOpen ? (
-                                <motion.div
-                                    key="hide"
-                                    initial={{opacity: 0}}
-                                    animate={{opacity: 1}}
-                                    exit={{opacity: 0}}
-                                    transition={{duration: 0.2}}
-                                    style={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                    }}
-                                >
-                                    <ChevronRightIcon /> Localities Data
-                                </motion.div>
-                            ) : (
-                                <motion.div
-                                    key="show"
-                                    initial={{opacity: 0}}
-                                    animate={{opacity: 1}}
-                                    exit={{opacity: 0}}
-                                    transition={{duration: 0.2}}
-                                    style={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                    }}
-                                >
-                                    <ChevronLeftIcon /> Localities Data
-                                </motion.div>
-                            )}
-                        </motion.button>
-                    )}
-                </AnimatePresence>
-
-                <AnimatePresence>
-                    {isOpen && isZoomCompleted && (
+                    {isWidgetOpen && isZoomCompleted && (
                         <motion.div
                             key="panel" // key that reflects the presence of the element
-                            initial={{x: 300, opacity: 0}}
+                            initial={{x: -300, opacity: 0}}
                             animate={{x: 0, opacity: 1}}
-                            exit={{x: 300, opacity: 0}}
+                            exit={{x: -300, opacity: 0}}
                             transition={{duration: 1, ease: "easeInOut"}}
                         >
                             <Paper

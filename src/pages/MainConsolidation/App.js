@@ -63,12 +63,14 @@ const App = () => {
             </div>
 
             <div style={{pointerEvents: isZoomCompleted ? "all" : "none"}}>
-                <TownBorderMap center={center} zoom={zoom} onMove={handleMove} isZoomCompleted={isZoomCompleted} />
+                {isZoomCompleted && (
+                    <TownBorderMap center={center} zoom={zoom} onMove={handleMove} isZoomCompleted={isZoomCompleted} />
+                )}
             </div>
 
-            <div style={{pointerEvents: isZoomCompleted ? "all" : "none"}}>
+            {/* <div style={{pointerEvents: isZoomCompleted ? "all" : "none"}}>
                 {isZoomCompleted && <SVGControls cycleSVG={cycleSVG} disabled={buttonsDisabled} />}
-            </div>
+            </div> */}
 
             {/* DevZoom component */}
 

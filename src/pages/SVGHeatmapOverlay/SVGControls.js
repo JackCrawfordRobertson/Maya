@@ -55,33 +55,22 @@ const contents = [
     // ... Add more content objects for additional SVGs if needed
 ];
 
-const SVGControls = ({cycleSVG, disabled}) => {
+// The SVGControls now accepts an isOpen prop from the parent
+const SVGControls = ({ cycleSVG, disabled, isOpen }) => {
     const muiTheme = useTheme();
     const isMobile = useMediaQuery(muiTheme.breakpoints.down("sm"));
-    const [ open, setOpen ] = useState(!isMobile);
-    const [ contentIndex, setContentIndex ] = useState(0);
-    const [ infoOpen, setInfoOpen ] = useState(false);
+    const [contentIndex, setContentIndex] = useState(0);
+    const [infoOpen, setInfoOpen] = useState(false);
 
-    useEffect(() => {
-        setOpen(!isMobile);
-    }, [ isMobile ]);
+    // Removed internal open state management logic and button rendering
+    // Removed toggleOpen method
 
     const handleCycleSVG = (event) => {
-        event.preventDefault(); // Prevent default event behavior
-        event.stopPropagation(); // Stop event propagation
-        if (!disabled) {
-            cycleSVG();
-            setContentIndex((prevIndex) => (prevIndex + 1) % contents.length);
-        }
-    };
-
-   
-
-    const toggleOpen = (event) => {
         event.preventDefault();
         event.stopPropagation();
         if (!disabled) {
-            setOpen(!open);
+            cycleSVG();
+            setContentIndex((prevIndex) => (prevIndex + 1) % contents.length);
         }
     };
 
@@ -89,88 +78,43 @@ const SVGControls = ({cycleSVG, disabled}) => {
         setInfoOpen(!infoOpen);
     };
 
+    
+
     return (
         <ThemeProvider theme={theme}>
             <div
-                className="heatmap-overlay"
+                className="interactive-points"
                 style={{
-                    position: "absolute",
-                    top: "10px",
+                    display: isOpen ? "flex" : "none", // Use isOpen prop to control visibility
+                    flexDirection: "column",
+                    alignItems: "flex-end",
+                    top: "60px",
                     left: "10px",
                     zIndex: 3,
+                    position: "absolute",
                 }}
             >
-                    <motion.button
-                        initial={{opacity: 0, y: 20}}
-                        animate={{opacity: 1, y: 0}}
-                        transition={{duration: 1, ease: "easeInOut"}}
-                        onClick={(e) => toggleOpen(e)}
-                        style={{
-                            backgroundColor: theme.palette.primary.main,
-                            color: "#fff",
-                            padding: "10px",
-                            border: "none",
-                            borderRadius: "4px",
-                            cursor: "pointer",
-                            marginBottom: "10px",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            textTransform: "uppercase",
-                            fontSize: "0.875rem",
-                            fontWeight: "500",
-                            width: isMobile ? "45vw" : "20vw",
-                        }}
-                        disabled={disabled}
-                    >
-                        <AnimatePresence mode="wait">
-                            {open ? (
-                                <motion.div
-                                    key="hide"
-                                    initial={{opacity: 0}}
-                                    animate={{opacity: 1}}
-                                    exit={{opacity: 0}}
-                                    transition={{duration: 0.2}}
-                                    style={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                    }}
-                                >
-                                    Aquifer Data <ChevronLeftIcon />
-                                </motion.div>
-                            ) : (
-                                <motion.div
-                                    key="show"
-                                    initial={{opacity: 0}}
-                                    animate={{opacity: 1}}
-                                    exit={{opacity: 0}}
-                                    transition={{duration: 0.2}}
-                                    style={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                    }}
-                                >
-                                    Aquifer Data <ChevronRightIcon />
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-                    </motion.button>
-                
-
-                <AnimatePresence>
-                    {open && (
-                        <motion.div
-                            key="content"
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div
+                            key="panel" // key that reflects the presence of the element
                             initial={{x: -300, opacity: 0}}
                             animate={{x: 0, opacity: 1}}
                             exit={{x: -300, opacity: 0}}
                             transition={{duration: 1, ease: "easeInOut"}}
                         >
-                            <Paper elevation={4} style={{padding: "10px"}}>
+                            <Paper elevation={4}sx={{
+                                    padding: "10px",
+                                    height: isMobile ? "90vh" : "auto", // Dynamic width based on device
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    zIndex: 1,
+                                    width: isMobile ? "90vw" : "25vw", // Dynamic width based on device
+                                    overflowY: "auto", // Enables vertical scrolling
+                                }}>
                                 <div
                                     style={{
+                                        
                                         display: "flex",
                                         justifyContent: "space-between",
                                         alignItems: "center",
@@ -285,10 +229,10 @@ const SVGControls = ({cycleSVG, disabled}) => {
                                 >
                                     Next Simulation
                                 </Button>
-                            </Paper>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                                </Paper>
+                    </motion.div>
+                )}
+            </AnimatePresence>
             </div>
         </ThemeProvider>
     );

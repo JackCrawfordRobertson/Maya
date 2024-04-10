@@ -52,10 +52,10 @@ const App = () => {
             <BaseMap center={center} zoom={zoom} onMove={handleMove} setMap={onMapLoad} />
             {map && <GeoJsonHeatmapOverlay map={map} currentGeoJsonIndex={currentGeoJsonIndex} />}
             {map && <WidgetConsolidation map={map} isZoomCompleted={isZoomCompleted} cycleSVG={cycleSVG} />}
-            <DevZoom onZoom={handleZoom} />
-            {/* {showZoomFrontLoadScreen && (
+            {/* <DevZoom onZoom={handleZoom} /> */}
+            {showZoomFrontLoadScreen && (
                 <ZoomFrontLoadScreen onZoom={handleZoom} onOtherAction={() => setShowZoomFrontLoadScreen(false)} />
-            )} */}
+            )}
         </div>
     );
 };

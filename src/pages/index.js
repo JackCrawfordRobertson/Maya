@@ -1,6 +1,6 @@
 import React from "react";
 import {Helmet} from "react-helmet";
-import App from "./MainConsolidation/App.js";
+import App from "./Home/App.js";
 import "./global.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 

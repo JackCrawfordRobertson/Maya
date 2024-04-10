@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { IoWater } from "react-icons/io5";
 import { FaLocationDot } from "react-icons/fa6";
 import InteractivePoints from "../Localities/InteractivePoints";
-import GeoControls from "../SVGHeatmapOverlay/GeoControls";
+import GeoControls from "../GeoHeatmap/GeoControls";
 import ExpandableButton from '../Widget/BubbleCharts/ExpandableButton'; // Adjust the import path as necessary
 
 const WidgetConsolidation = ({ map, isZoomCompleted, cycleSVG }) => {

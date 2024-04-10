@@ -1,8 +1,8 @@
 import React, {useState} from "react";
-import BaseMap from "../Maps/BaseMap";
+import BaseMap from "../Map/BaseMap";
 import WidgetConsolidation from "../Widget/index";
-import GeoJsonHeatmapOverlay from "../SVGHeatmapOverlay/GeoJsonHeatmapOverlay";
-import DevZoom from "../StartingZoom/DevZoom"; // Ensure this path is correct
+import GeoJsonHeatmapOverlay from "../GeoHeatmap/GeoJsonHeatmapOverlay";
+import DevZoom from "../StartingZoom/DevZoom";
 import ZoomFrontLoadScreen from "../StartingZoom/index"; // Ensure this path is correct
 
 const App = () => {
@@ -52,10 +52,10 @@ const App = () => {
             <BaseMap center={center} zoom={zoom} onMove={handleMove} setMap={onMapLoad} />
             {map && <GeoJsonHeatmapOverlay map={map} currentGeoJsonIndex={currentGeoJsonIndex} />}
             {map && <WidgetConsolidation map={map} isZoomCompleted={isZoomCompleted} cycleSVG={cycleSVG} />}
-            {/* <DevZoom onZoom={handleZoom} /> */}
-            {showZoomFrontLoadScreen && (
+            <DevZoom onZoom={handleZoom} />
+            {/* {showZoomFrontLoadScreen && (
                 <ZoomFrontLoadScreen onZoom={handleZoom} onOtherAction={() => setShowZoomFrontLoadScreen(false)} />
-            )}
+            )} */}
         </div>
     );
 };

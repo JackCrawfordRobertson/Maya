@@ -9,13 +9,10 @@ const TutorialJoyride = () => {
 
     const steps = [
         {
-            target: '.heatmap-overlay',
+            target: '.widget-consolidation',
             content: 'This is an important feature!',
         },
-        {
-            target: '.InteractivePoints',
-            content: 'This is an important feature!',
-        },
+       
         // ... add more steps as needed
     ];
 

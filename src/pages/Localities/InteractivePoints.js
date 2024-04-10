@@ -24,7 +24,7 @@ import {
     LocalitesWaterUsage2025,
     LocalitesWaterUsage2026,
 } from "../../data/LocalitesWaterUsage2";
-import LocalitiesImageGrid from "./LocalitiesImageGrid"; // Adjust the path as necessary
+import LocalitiesImageGrid from "../Widget/LocalitiesImageGrid"; // Adjust the path as necessary
 
 import Slider from "@mui/material/Slider";
 
@@ -305,6 +305,11 @@ const InteractivePoints = ({map, isZoomCompleted, isWidgetOpen, }) => {
         }
     }, []);
 
+    useEffect(() => {
+        console.log("Interactive Points widget open state:", isWidgetOpen);
+    }, [isWidgetOpen]);
+    
+
     return (
         <ThemeProvider theme={theme}>
         <div
@@ -313,14 +318,14 @@ const InteractivePoints = ({map, isZoomCompleted, isWidgetOpen, }) => {
                 display: isWidgetOpen ? "flex" : "none", // Control visibility directly with the prop
                 flexDirection: "column",
                 alignItems: "flex-end",
-                top: "60px",
+                top: "80px",
                 left: "10px",
                 zIndex: 3,
                 position: "absolute",
             }}
         >
                 <AnimatePresence>
-                    {isWidgetOpen && isZoomCompleted && (
+                {isWidgetOpen && (
                         <motion.div
                             key="panel" // key that reflects the presence of the element
                             initial={{x: -300, opacity: 0}}
@@ -397,7 +402,7 @@ const InteractivePoints = ({map, isZoomCompleted, isWidgetOpen, }) => {
                                             initial={{opacity: 0}}
                                             animate={{opacity: 1, transition: {delay: 0.7}}}
                                             exit={{opacity: 0}}
-                                            style={{marginTop: "0px", marginBottom: "0px", fontSize: "1.3em"}}
+                                            style={{marginTop: "0px", marginBottom: "0px", fontSize: "1em"}}
                                         >
                                             {selectedPoint?.description}
                                         </motion.p>

@@ -80,7 +80,7 @@ const LocalitiesImageGrid = ({ images = [] }) => { // Default images to an empty
                             <div
                                 style={{
                                     width: "100%",
-                                    paddingBottom: "56.25%", // For 16:9 aspect ratio
+                                    paddingBottom: "40%", // For 16:9 aspect ratio
                                     position: "relative",
                                     borderRadius: "4px",
                                     overflow: "hidden",

@@ -1,7 +1,5 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import Button from "@mui/material/Button";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Paper from "@mui/material/Paper";
 import {createTheme, ThemeProvider, useTheme} from "@mui/material/styles";
 import InfoIcon from "@mui/icons-material/Info";
@@ -56,7 +54,7 @@ const contents = [
 ];
 
 // The SVGControls now accepts an isOpen prop from the parent
-const SVGControls = ({ cycleSVG, disabled, isOpen }) => {
+const GeoControls = ({ cycleSVG, disabled, isOpen }) => {
     const muiTheme = useTheme();
     const isMobile = useMediaQuery(muiTheme.breakpoints.down("sm"));
     const [contentIndex, setContentIndex] = useState(0);
@@ -88,7 +86,7 @@ const SVGControls = ({ cycleSVG, disabled, isOpen }) => {
                     display: isOpen ? "flex" : "none", // Use isOpen prop to control visibility
                     flexDirection: "column",
                     alignItems: "flex-end",
-                    top: "60px",
+                    top: "80px",
                     left: "10px",
                     zIndex: 3,
                     position: "absolute",
@@ -129,14 +127,14 @@ const SVGControls = ({ cycleSVG, disabled, isOpen }) => {
                                             animate={{opacity: 1, y: 0, transition: {delay: 0.5, duration: 0.5}}}
                                             exit={{opacity: 0, y: 20, transition: {duration: 0.5}}}
                                         >
-                                            <motion.h3
+                                            <motion.h2
                                                 initial={{opacity: 0}}
                                                 animate={{opacity: 1, transition: {delay: 0.6}}}
                                                 exit={{opacity: 0}}
-                                                style={{marginTop: "5px", marginBottom: "0px"}}
+                                                style={{marginTop: "0px", marginBottom: "0px"}}
                                             >
                                                 {contents[contentIndex].title}
-                                            </motion.h3>
+                                            </motion.h2>
                                         </motion.div>
                                     </AnimatePresence>
 
@@ -179,7 +177,7 @@ const SVGControls = ({ cycleSVG, disabled, isOpen }) => {
                                                 initial={{opacity: 0}}
                                                 animate={{opacity: 1, transition: {delay: 0.6}}}
                                                 exit={{opacity: 0}}
-                                                style={{marginTop: "5px", marginBottom: "0px"}}
+                                                style={{marginTop: "0px", marginBottom: "0px"}}
                                             >
                                                 Description
                                             </motion.h5>
@@ -187,7 +185,7 @@ const SVGControls = ({ cycleSVG, disabled, isOpen }) => {
                                                 initial={{opacity: 0}}
                                                 animate={{opacity: 1, transition: {delay: 0.7}}}
                                                 exit={{opacity: 0}}
-                                                style={{marginTop: "5px", marginBottom: "0px", fontSize: "1em"}}
+                                                style={{marginTop: "10px", marginBottom: "0px", fontSize: "1em",}}
                                             >
                                                 {contents[contentIndex].text}
                                             </motion.p>
@@ -195,10 +193,10 @@ const SVGControls = ({ cycleSVG, disabled, isOpen }) => {
                                     </AnimatePresence>
                                 </div>
 
-                                <div style={{marginTop: "10px"}}>
+                                <div >
                                     {" "}
                                     {/* Adjust margin-top as needed */}
-                                    <h4 style={{marginTop: "10px", marginBottom: "5px"}}>Drawdown (m)</h4>
+                                    <h4 style={{marginTop: "0px", marginBottom: "5px"}}>Drawdown (m)</h4>
                                     {keyParameters.map((item, index) => (
                                         <div
                                             key={index}
@@ -223,7 +221,7 @@ const SVGControls = ({ cycleSVG, disabled, isOpen }) => {
                                 <Button
                                     variant="contained"
                                     color="primary"
-                                    onClick={handleCycleSVG}
+                                    onClick={cycleSVG}
                                     fullWidth
                                     disabled={disabled}
                                 >
@@ -238,4 +236,4 @@ const SVGControls = ({ cycleSVG, disabled, isOpen }) => {
     );
 };
 
-export default SVGControls;
+export default GeoControls;

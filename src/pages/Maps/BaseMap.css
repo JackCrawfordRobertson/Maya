@@ -1,0 +1,6 @@
+.map-container {
+    width: 100vw !important;
+    height: 100vh !important;
+    position: relative;
+    z-index: 0; /* Base layer */
+  }

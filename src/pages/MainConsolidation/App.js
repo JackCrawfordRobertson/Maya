@@ -1,84 +1,34 @@
-// App.js
-import React, {useState} from "react";
+import React, { useState } from "react";
 import BaseMap from "../Maps/BaseMap";
-import SVGHeatmapOverlay from "../SVGHeatmapOverlay/SVGHeatmapOverlay";
-import SVGControls from "../SVGHeatmapOverlay/SVGControls";
-import TownBorderMap from "../Maps/TownBorderMap";
-import DevZoom from "../StartingZoom/DevZoom";
-import ZoomFrontLoadScreen from "../StartingZoom/index";
-// import TutorialJoyride from "../Tutorial/TutorialJoyride"; // Adjust the path as necessary
+import WidgetConsolidation from "../Widget/index"; // Ensure this path is correct
+import GeoJsonHeatmapOverlay from "../SVGHeatmapOverlay/GeoJsonHeatmapOverlay"; // Ensure this path is correct
 
 const App = () => {
-    const [ center, setCenter ] = useState([ 0, 0 ]);
-    const [ zoom, setZoom ] = useState(3);
-    const [ visibleSVG, setVisibleSVG ] = useState(0);
-    const [ map, setMap ] = useState(null);
-    const [ buttonsDisabled, setButtonsDisabled ] = useState(true);
-    const [ isZoomCompleted, setIsZoomCompleted ] = useState(false);
-    const [ showZoomFrontLoad, setShowZoomFrontLoad ] = useState(true); // Add this line
+    const [center, setCenter] = useState([36.305, 34.27]); // Default center
+    const [zoom, setZoom] = useState(9); // Default zoom
+    const [map, setMap] = useState(null);
+    const [isZoomCompleted, setIsZoomCompleted] = useState(false);
+    const [currentGeoJsonIndex, setCurrentGeoJsonIndex] = useState(0); // State to track current GeoJSON index
 
+    // Function to cycle through different GeoJSON layers
     const cycleSVG = () => {
-        setVisibleSVG((prevSVG) => (prevSVG + 1) % 3);
+        setCurrentGeoJsonIndex((prevIndex) => (prevIndex + 1) % 3); // Update the index to cycle through the GeoJSONs
     };
 
     const handleMove = (newCenter, newZoom) => {
-        if (center[0] !== newCenter[0] || center[1] !== newCenter[1] || zoom !== newZoom) {
-            setCenter(newCenter);
-            setZoom(newZoom);
-        }
+        setCenter(newCenter);
+        setZoom(newZoom);
     };
 
-    const zoomToFocus = () => {
-        if (map) {
-            map.flyTo({
-                center: [ 36.305, 34.27 ],
-                zoom: 9,
-                speed: 0.9,
-                curve: 2,
-                easing(t) {
-                    return t;
-                },
-            });
-
-            setTimeout(() => {
-                map.once("moveend", function () {
-                    console.log("Zoom animation completed");
-                    setButtonsDisabled(false);
-                    setIsZoomCompleted(true);
-                });
-            }, 500);
-        }
+    const onMapLoad = (mapInstance) => {
+        setMap(mapInstance);
     };
 
     return (
-        <div className="app" style={{position: "relative"}}>
-            {/* <TutorialJoyride /> */}
-
-            <div style={{pointerEvents: isZoomCompleted ? "all" : "none"}}>
-                <BaseMap center={center} zoom={zoom} onMove={handleMove} setMap={setMap} />
-            </div>
-
-            <div style={{pointerEvents: isZoomCompleted ? "all" : "none"}}>
-                {isZoomCompleted && <SVGHeatmapOverlay center={center} zoom={zoom} visibleSVG={visibleSVG} map={map} />}
-            </div>
-
-            <div style={{pointerEvents: isZoomCompleted ? "all" : "none"}}>
-                {isZoomCompleted && (
-                    <TownBorderMap center={center} zoom={zoom} onMove={handleMove} isZoomCompleted={isZoomCompleted} />
-                )}
-            </div>
-
-            {/* <div style={{pointerEvents: isZoomCompleted ? "all" : "none"}}>
-                {isZoomCompleted && <SVGControls cycleSVG={cycleSVG} disabled={buttonsDisabled} />}
-            </div> */}
-
-            {/* DevZoom component */}
-
-            <DevZoom onZoom={zoomToFocus} disabled={buttonsDisabled} />
-
-            {/* Production component */}
-
-            {/* {showZoomFrontLoad && <ZoomFrontLoadScreen onZoom={zoomToFocus} onOtherAction={() => setShowZoomFrontLoad(false)} />} */}
+        <div className="app" style={{ position: "relative" }}>
+            <BaseMap center={center} zoom={zoom} onMove={handleMove} setMap={onMapLoad} />
+            {map && <GeoJsonHeatmapOverlay map={map} currentGeoJsonIndex={currentGeoJsonIndex} />}
+            {map && <WidgetConsolidation map={map} isZoomCompleted={isZoomCompleted} cycleSVG={cycleSVG} />}
         </div>
     );
 };

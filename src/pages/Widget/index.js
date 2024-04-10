@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IoWater } from "react-icons/io5";
 import { FaLocationDot } from "react-icons/fa6";
 import InteractivePoints from "../Localities/InteractivePoints";
@@ -8,22 +8,35 @@ import ExpandableButton from '../Widget/BubbleCharts/ExpandableButton'; // Adjus
 const WidgetConsolidation = ({ map, isZoomCompleted, cycleSVG }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isInteractivePointsOpen, setIsInteractivePointsOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Toggle GeoControls Widget
+  // Detect screen size
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768); // For example, consider < 768px as mobile
+    };
+
+    // Check on mount
+    checkMobile();
+
+    // Listen for resize events
+    window.addEventListener('resize', checkMobile);
+
+    // Cleanup
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const toggleOpen = () => {
-    console.log("GeoControls Toggle Button clicked");
-    setIsOpen(!isOpen); // Toggle current widget
+    setIsOpen(!isOpen);
     if (isInteractivePointsOpen) {
-      setIsInteractivePointsOpen(false); // Ensure only one widget is open at a time
+      setIsInteractivePointsOpen(false);
     }
   };
 
-  // Toggle Interactive Points Widget
   const toggleInteractivePointsOpen = () => {
-    console.log("Interactive Points Toggle Button clicked");
-    setIsInteractivePointsOpen(!isInteractivePointsOpen); // Toggle current widget
+    setIsInteractivePointsOpen(!isInteractivePointsOpen);
     if (isOpen) {
-      setIsOpen(false); // Ensure only one widget is open at a time
+      setIsOpen(false);
     }
   };
 
@@ -39,7 +52,7 @@ const WidgetConsolidation = ({ map, isZoomCompleted, cycleSVG }) => {
           padding: "10px",
           zIndex: 4,
           backgroundColor: "rgba(255, 255, 255, 0.8)",
-          width: "25vw",
+          width: isMobile ? "90vw" : "25vw", // Dynamic width based on isMobile state
           borderRadius: "10px",
         }}
       >

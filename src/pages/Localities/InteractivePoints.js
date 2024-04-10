@@ -1,7 +1,5 @@
 import React, {useEffect, useState, useRef, useMemo} from "react";
 import Button from "@mui/material/Button";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Paper from "@mui/material/Paper";
 import InfoIcon from "@mui/icons-material/Info";
 import IconButton from "@mui/material/IconButton";

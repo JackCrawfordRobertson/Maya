@@ -1,8 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {useKeenSlider} from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
-import Button from "@mui/material/Button";
-
 import MayaIntro from "./ComponentSections/MayaIntro";
 import AboutSection from "./ComponentSections/AboutSection";
 import ActionSection from "./ComponentSections/ActionSection";

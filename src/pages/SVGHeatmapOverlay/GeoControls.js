@@ -54,11 +54,11 @@ const contents = [
 ];
 
 // The SVGControls now accepts an isOpen prop from the parent
-const GeoControls = ({ cycleSVG, disabled, isOpen }) => {
+const GeoControls = ({cycleSVG, disabled, isOpen}) => {
     const muiTheme = useTheme();
     const isMobile = useMediaQuery(muiTheme.breakpoints.down("sm"));
-    const [contentIndex, setContentIndex] = useState(0);
-    const [infoOpen, setInfoOpen] = useState(false);
+    const [ contentIndex, setContentIndex ] = useState(0);
+    const [ infoOpen, setInfoOpen ] = useState(false);
 
     // Removed internal open state management logic and button rendering
     // Removed toggleOpen method
@@ -76,32 +76,29 @@ const GeoControls = ({ cycleSVG, disabled, isOpen }) => {
         setInfoOpen(!infoOpen);
     };
 
-    
-
     return (
-        <ThemeProvider theme={theme}>
-            <div
-                className="interactive-points"
-                style={{
-                    display: isOpen ? "flex" : "none", // Use isOpen prop to control visibility
-                    flexDirection: "column",
-                    alignItems: "flex-end",
-                    top: "80px",
-                    left: "10px",
-                    zIndex: 3,
-                    position: "absolute",
-                }}
-            >
-            <AnimatePresence>
-                {isOpen && (
-                    <motion.div
-                            key="panel" // key that reflects the presence of the element
-                            initial={{x: -300, opacity: 0}}
-                            animate={{x: 0, opacity: 1}}
-                            exit={{x: -300, opacity: 0}}
-                            transition={{duration: 1, ease: "easeInOut"}}
+    <ThemeProvider theme={theme}>
+            {/* Removed the style that controls visibility using isOpen */}
+            <div className="interactive-points" style={{
+                flexDirection: "column",
+                alignItems: "flex-end",
+                top: "80px",
+                left: "10px",
+                zIndex: 3,
+                position: "absolute",
+            }}>
+                <AnimatePresence>
+                    {isOpen && (
+                        <motion.div
+                            key="panel"
+                            initial={{ x: -500, opacity: 0 }}
+                            animate={{ x: 0, opacity: 1 }}
+                            exit={{ x: -500, opacity: 0 }}
+                            transition={{ duration: 1.5, ease: "easeInOut" }}
                         >
-                            <Paper elevation={4}sx={{
+                            <Paper
+                                elevation={4}
+                                sx={{
                                     padding: "10px",
                                     height: isMobile ? "90vh" : "auto", // Dynamic width based on device
                                     display: "flex",
@@ -109,15 +106,14 @@ const GeoControls = ({ cycleSVG, disabled, isOpen }) => {
                                     zIndex: 1,
                                     width: isMobile ? "90vw" : "25vw", // Dynamic width based on device
                                     overflowY: "auto", // Enables vertical scrolling
-                                }}>
+                                }}
+                            >
                                 <div
                                     style={{
-                                        
                                         display: "flex",
                                         justifyContent: "space-between",
                                         alignItems: "center",
                                         width: isMobile ? "90vw" : "25vw", // Dynamic width based on device
-                                        
                                     }}
                                 >
                                     <AnimatePresence>
@@ -185,7 +181,7 @@ const GeoControls = ({ cycleSVG, disabled, isOpen }) => {
                                                 initial={{opacity: 0}}
                                                 animate={{opacity: 1, transition: {delay: 0.7}}}
                                                 exit={{opacity: 0}}
-                                                style={{marginTop: "10px", marginBottom: "0px", fontSize: "1em",}}
+                                                style={{marginTop: "10px", marginBottom: "0px", fontSize: "1em"}}
                                             >
                                                 {contents[contentIndex].text}
                                             </motion.p>
@@ -193,7 +189,7 @@ const GeoControls = ({ cycleSVG, disabled, isOpen }) => {
                                     </AnimatePresence>
                                 </div>
 
-                                <div >
+                                <div style={{marginTop:'5px'}}>
                                     {" "}
                                     {/* Adjust margin-top as needed */}
                                     <h4 style={{marginTop: "0px", marginBottom: "5px"}}>Drawdown (m)</h4>
@@ -221,16 +217,16 @@ const GeoControls = ({ cycleSVG, disabled, isOpen }) => {
                                 <Button
                                     variant="contained"
                                     color="primary"
-                                    onClick={cycleSVG}
+                                    onClick={handleCycleSVG} // Use handleCycleSVG here instead of cycleSVG
                                     fullWidth
                                     disabled={disabled}
                                 >
                                     Next Simulation
                                 </Button>
-                                </Paper>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+                            </Paper>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
         </ThemeProvider>
     );

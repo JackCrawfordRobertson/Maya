@@ -5139,8 +5139,9 @@ export default {
           ]
         ]
       },
-      "properties": null
-    },
+      properties: {
+        fieldName: "Value1",
+    },    },
     {
       "type": "Feature",
       "geometry": {
@@ -6742,8 +6743,9 @@ export default {
           ]
         ]
       },
-      "properties": null
-    },
+      properties: {
+        fieldName: "Value2",
+    },    },
     {
       "type": "Feature",
       "geometry": {
@@ -7021,7 +7023,8 @@ export default {
           ]
         ]
       },
-      "properties": null
-    }
+      properties: {
+        fieldName: "Value3",
+    },    }
   ]
 };

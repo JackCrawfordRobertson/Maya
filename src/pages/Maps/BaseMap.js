@@ -10,7 +10,7 @@ const BaseMap = ({ center, zoom, setMap }) => {
     useEffect(() => {
         const map = new mapboxgl.Map({
             container: mapContainer.current,
-            style: "mapbox://styles/jackrob/clutmwwaf002401qz513g42lw", // Map style URL
+            style: "mapbox://styles/jackrob/clutmwwaf002401qz513g42lw", 
             center: center, // Initial center
             zoom: zoom, // Initial zoom
             interactive: true,

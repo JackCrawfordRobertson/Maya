@@ -312,27 +312,25 @@ const InteractivePoints = ({map, isZoomCompleted, isWidgetOpen, }) => {
 
     return (
         <ThemeProvider theme={theme}>
-        <div
-            className="interactive-points"
-            style={{
-                display: isWidgetOpen ? "flex" : "none", // Control visibility directly with the prop
-                flexDirection: "column",
-                alignItems: "flex-end",
-                top: "80px",
-                left: "10px",
-                zIndex: 3,
-                position: "absolute",
-            }}
-        >
-                <AnimatePresence>
+            {/* Wrap the whole content in AnimatePresence to handle the enter and exit animations */}
+            <AnimatePresence>
                 {isWidgetOpen && (
-                        <motion.div
-                            key="panel" // key that reflects the presence of the element
-                            initial={{x: -300, opacity: 0}}
-                            animate={{x: 0, opacity: 1}}
-                            exit={{x: -300, opacity: 0}}
-                            transition={{duration: 1, ease: "easeInOut"}}
-                        >
+                    <motion.div
+                        className="interactive-points"
+                        initial={{x: -500, opacity: 0}}
+                        animate={{x: 0, opacity: 1}}
+                        exit={{x: -500, opacity: 0}}
+                        transition={{duration: 1.5, ease: "easeInOut"}}
+                        style={{
+                            flexDirection: "column",
+                            alignItems: "flex-end",
+                            top: "80px",
+                            left: "10px",
+                            zIndex: 3,
+                            position: "absolute",
+                            display: "flex", // Ensure the div is always flex when it's present
+                        }}
+                    >
                             <Paper
                                 elevation={4}
                                 sx={{
@@ -465,11 +463,11 @@ const InteractivePoints = ({map, isZoomCompleted, isWidgetOpen, }) => {
                                         Reset Filter
                                     </Button>
                                 </div>
-                            </Paper>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-            </div>
+                                </Paper>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
 
             <Fade in={showFade} timeout={500}>
                 <Box

@@ -9,17 +9,23 @@ const WidgetConsolidation = ({ map, isZoomCompleted, cycleSVG }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isInteractivePointsOpen, setIsInteractivePointsOpen] = useState(false);
 
+  // Toggle GeoControls Widget
   const toggleOpen = () => {
-    console.log("Toggle Open/Close Button clicked");
-    setIsOpen(!isOpen);
+    console.log("GeoControls Toggle Button clicked");
+    setIsOpen(!isOpen); // Toggle current widget
+    if (isInteractivePointsOpen) {
+      setIsInteractivePointsOpen(false); // Ensure only one widget is open at a time
+    }
   };
 
+  // Toggle Interactive Points Widget
   const toggleInteractivePointsOpen = () => {
-    console.log("Interactive Points toggle before:", isInteractivePointsOpen);
-    setIsInteractivePointsOpen(!isInteractivePointsOpen);
-    console.log("Interactive Points toggle after:", isInteractivePointsOpen);
-};
-
+    console.log("Interactive Points Toggle Button clicked");
+    setIsInteractivePointsOpen(!isInteractivePointsOpen); // Toggle current widget
+    if (isOpen) {
+      setIsOpen(false); // Ensure only one widget is open at a time
+    }
+  };
 
   return (
     <>
@@ -37,21 +43,18 @@ const WidgetConsolidation = ({ map, isZoomCompleted, cycleSVG }) => {
           borderRadius: "10px",
         }}
       >
-        {/* Toggle Open/Close Button */}
         <ExpandableButton
           icon={<IoWater />}
-          label={isOpen ? "Close" : "Open"}
+          label="Aquifer Health"
           onClick={toggleOpen}
         />
 
-        {/* Toggle Interactive Points Button */}
         <ExpandableButton
           icon={<FaLocationDot />}
           label="Interactive Points"
           onClick={toggleInteractivePointsOpen}
         />
 
-        {/* Select Category Title */}
         <div style={{ display: 'flex', alignItems: 'center', fontWeight: 'normal', fontSize:'1em' }}>
           Select Category
         </div>

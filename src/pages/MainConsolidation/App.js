@@ -11,7 +11,7 @@ const App = () => {
     const [ map, setMap ] = useState(null);
     const [ isZoomCompleted, setIsZoomCompleted ] = useState(false);
     const [ currentGeoJsonIndex, setCurrentGeoJsonIndex ] = useState(0);
-    const [ showZoomFrontLoadScreen, setShowZoomFrontLoadScreen ] = useState(true);
+    const [showZoomFrontLoadScreen, setShowZoomFrontLoadScreen] = useState(true);
 
     const cycleSVG = () => {
         setCurrentGeoJsonIndex((prevIndex) => (prevIndex + 1) % 3);
@@ -45,15 +45,17 @@ const App = () => {
         }
     };
 
+    
+
     return (
         <div className="app" style={{position: "relative"}}>
             <BaseMap center={center} zoom={zoom} onMove={handleMove} setMap={onMapLoad} />
             {map && <GeoJsonHeatmapOverlay map={map} currentGeoJsonIndex={currentGeoJsonIndex} />}
             {map && <WidgetConsolidation map={map} isZoomCompleted={isZoomCompleted} cycleSVG={cycleSVG} />}
-            {/* <DevZoom onZoom={handleZoom} /> */}
-            {showZoomFrontLoadScreen && (
+            <DevZoom onZoom={handleZoom} />
+            {/* {showZoomFrontLoadScreen && (
                 <ZoomFrontLoadScreen onZoom={handleZoom} onOtherAction={() => setShowZoomFrontLoadScreen(false)} />
-            )}{" "}
+            )} */}
         </div>
     );
 };

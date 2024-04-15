@@ -31,14 +31,16 @@ const ControlButtons = ({ map }) => {
 
     // Animation styles
     const animationStyleReset = useSpring({
-        width: isHoveredReset ? "100%" : "40px",
+        height: isHoveredReset ? 120 : 40,
+        width: isHoveredReset ? "120px" : "40px",
         backgroundColor: "#3DA9DE",
         config: { tension: 300, friction: 20 },
         borderRadius: "30px",
     });
 
     const animationStyleToggle = useSpring({
-        width: isHoveredToggle ? "100%" : "40px",
+        height: isHoveredToggle ? 120 : 40,
+        width: isHoveredToggle ? "120px" : "40px",
         backgroundColor: "#3DA9DE",
         config: { tension: 300, friction: 20 },
         borderRadius: "30px",

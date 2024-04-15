@@ -40,7 +40,7 @@ const ZoomFrontLoadScreen = ({onZoom, onOtherAction}) => {
                 left: 0,
                 width: "100vw",
                 height: "100vh",
-                backgroundColor: `rgba(61, 169, 222, ${backgroundOpacity})`, // Set background opacity dynamically
+                backgroundColor: `rgba(52,152,219, ${backgroundOpacity})`, // Set background opacity dynamically
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",

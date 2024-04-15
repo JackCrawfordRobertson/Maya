@@ -1,6 +1,5 @@
 // GeoJsonHeatmapOverlay.js
 import { useEffect } from "react";
-import mapboxgl from "mapbox-gl";
 // Import the three GeoJSON data files
 import geojsonData1 from '../../data/simulationGeojson/S0';
 import geojsonData2 from '../../data/simulationGeojson/S11';

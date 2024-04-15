@@ -68,7 +68,7 @@ const WidgetConsolidation = ({ map, isZoomCompleted, cycleSVG }) => {
           onClick={toggleInteractivePointsOpen}
         />
 
-        <div style={{ display: 'flex', alignItems: 'center', fontWeight: 'normal', fontSize:'1em' }}>
+        <div style={{ display: 'flex', alignItems: 'center', fontWeight: 'normal', fontSize:'em' }}>
           Select Category
         </div>
       </div>

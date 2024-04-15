@@ -266,12 +266,6 @@ const InteractivePoints = ({map, isZoomCompleted, isWidgetOpen, }) => {
         }
     }, [ isZoomCompleted, isMobile ]);
 
-    const toggleOpen = (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        setIsOpen((prevState) => !prevState);
-    };
-
     const handleSliderChange = (event, newValue) => {
         setDisplayKeys([ newValue.toString() ]);
     };
@@ -405,7 +399,7 @@ const InteractivePoints = ({map, isZoomCompleted, isWidgetOpen, }) => {
                                     </motion.div>
                                 )}
 
-                                <div style={{flex: 1, minHeight: 0, zIndex: 1, minHeight: isMobile ? "400px" : "0"}}>
+                                <div style={{flex: 1, zIndex: 1, minHeight: isMobile ? "400px" : "0"}}>
                                     {selectedPoint && (
                                         <ResponsiveRadar
                                             data={radarData}

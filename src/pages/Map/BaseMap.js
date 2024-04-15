@@ -1,49 +1,39 @@
 import React, { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
-import './BaseMap.css'; // Ensure this path is correct
+import './BaseMap.css';
 
 mapboxgl.accessToken = "pk.eyJ1IjoiamFja3JvYiIsImEiOiJjanZ1bDBrdjUxYmgyNGJtczlxdWl3MzRuIn0.qla3sSgkkyxIkbYLvVsceA";
 
-const BaseMap = ({ center, zoom, setMap }) => {
+const BaseMap = ({ center, zoom, setMap, resetView }) => {
     const mapContainer = useRef(null);
-    const [is3D, setIs3D] = useState(false); // Manage 3D state
-
+    const [is3D, setIs3D] = useState(false);
 
     useEffect(() => {
         const map = new mapboxgl.Map({
             container: mapContainer.current,
             style: "mapbox://styles/jackrob/clutmwwaf002401qz513g42lw", 
-            center: center, // Initial center
-            zoom: zoom, // Initial zoom
+            center: center,
+            zoom: zoom,
             interactive: true,
+            // Initialize with a very high exaggeration for dramatic effect
+            terrain: { source: "mapbox-dem", exaggeration: 7.0 }
         });
 
-        setMap(map); // Optional: Store the map instance
+        setMap(map);
 
         map.on('load', () => {
-            // Example: Adjust a layer to 3D when 'is3D' is true
-            if (is3D) {
-                map.setPaintProperty('your_layer_id', 'fill-extrusion-height', 20);
-                // Add additional adjustments for 3D view
-            } else {
-                map.setPaintProperty('your_layer_id', 'fill-extrusion-height', 0);
-                // Adjust settings back for 2D view
-            }
+            // Update terrain exaggeration based on the is3D state
+            map.setTerrain({ source: 'mapbox-dem', exaggeration: is3D ? 7.0 : 1.5 });
         });
 
         return () => {
-            map.remove(); // Cleanup
+            map.remove();
         };
-    }, [center, zoom, is3D]); // React to changes
-
-    const toggle3D = () => {
-        setIs3D(!is3D); // Toggle 3D state
-    };
+    }, [center, zoom, is3D]); 
 
     return (
         <>
             <div className="map-container" ref={mapContainer}></div>
-            
         </>
     );
 };

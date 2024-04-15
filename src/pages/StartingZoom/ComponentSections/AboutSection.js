@@ -5,7 +5,7 @@ import { BsArrowRightSquareFill } from "react-icons/bs";
 const AboutSection = ({ onNext, onButtonClick }) => {
     const handleButtonClick = () => {
         if (onButtonClick) {
-            onButtonClick(); // Call the function passed from the parent component
+            onButtonClick(); 
         }
     };
 
@@ -29,19 +29,19 @@ const AboutSection = ({ onNext, onButtonClick }) => {
                 <button
                     onClick={() => {
                         if (onNext) {
-                            onNext(); // Call the function passed from the parent component
+                            onNext(); 
                         }
-                        handleButtonClick(); // Call the handleButtonClick function
+                        handleButtonClick(); 
                     }}
                     className="jump-animation"
                     style={{
                         background: "transparent",
                         padding: "0",
                         border: "none",
-                        cursor: "pointer", // To visually indicate the element is clickable
-                        display: "inline-flex", // Use 'flex' to align the icon center if needed
-                        alignItems: "center", // Vertically center the icon in the button
-                        justifyContent: "right", // Horizontally center the icon in the button
+                        cursor: "pointer", 
+                        display: "inline-flex",
+                        alignItems: "center", 
+                        justifyContent: "right", 
                     }}
                 >
                     <BsArrowRightSquareFill style={{ fontSize: "3rem", color: "white" }} />

@@ -43,7 +43,7 @@ yarn develop
 
 Navigate to http://localhost:8000 to view the app in development mode.
 
-## Usage
+## Contributing
 Contributions are welcome! Please follow these steps to contribute:
 
 Fork the repository.
@@ -52,7 +52,7 @@ Commit your changes (git commit -m 'Add some YourFeature').
 Push to the branch (git push origin feature/YourFeature).
 Open a pull request.
 
-## Usage
+## Vision for the Future
 
 Maya is poised for expansion to aid specialists and stakeholders throughout the Levant in transforming critical data into meaningful actions. Our vision extends to publishing the platform for broader use and securing funding for sustained impact.
 

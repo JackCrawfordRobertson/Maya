@@ -3,7 +3,7 @@ import BaseMap from "../Map/BaseMap";
 import WidgetConsolidation from "../Widget/index";
 import GeoJsonHeatmapOverlay from "../GeoHeatmap/GeoJsonHeatmapOverlay";
 import DevZoom from "../StartingZoom/DevZoom";
-import ControlButtons from "../Map/MapNavigation/ControlButtons";
+// import ControlButtons from "../Map/MapNavigation/ControlButtons";
 import ZoomFrontLoadScreen from "../StartingZoom/index"; // Ensure this path is correct
 
 const App = () => {
@@ -49,7 +49,7 @@ const App = () => {
     return (
         <div className="app" style={{position: "relative"}}>
             <BaseMap center={center} zoom={zoom} onMove={handleMove} setMap={onMapLoad} />
-            <ControlButtons map={map} />
+            {/* <ControlButtons map={map} /> */}
 
             {map && <GeoJsonHeatmapOverlay map={map} currentGeoJsonIndex={currentGeoJsonIndex} />}
             {map && <WidgetConsolidation map={map} isZoomCompleted={isZoomCompleted} cycleSVG={cycleSVG} />}

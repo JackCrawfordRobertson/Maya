@@ -49,32 +49,34 @@ const ZoomFrontLoadScreen = ({ onZoom, onOtherAction }) => {
         transition: "background-color 6s ease-in-out", // Adjust transition duration and timing function
       }}
     >
-      {loaded && (
+      <div
+        ref={sliderRef}
+        className="keen-slider"
+        style={{ width: "100%", height: "100%", margin: "auto" }}
+      >
         <div
-          ref={sliderRef}
-          className="keen-slider"
-          style={{ width: "100%", height: "100%", margin: "auto" }}
+          className="keen-slider__slide"
+          style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
         >
-          <div
-            className="keen-slider__slide"
-            style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-          >
-            <MayaIntro onNext={nextSlide} />
-          </div>
-          <div
-            className="keen-slider__slide"
-            style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-          >
-            <AboutSection onNext={nextSlide} onButtonClick={handleButtonClick} />
-          </div>
-          <div
-            className="keen-slider__slide"
-            style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-          >
-            <ActionSection onNext={nextSlide} onZoom={onZoom} onOtherAction={onOtherAction} />
-          </div>
+          <MayaIntro onNext={nextSlide} />
         </div>
-      )}
+        {loaded && ( // Check if the carousel is loaded
+          <React.Fragment>
+            <div
+              className="keen-slider__slide"
+              style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+            >
+              <AboutSection onNext={nextSlide} onButtonClick={handleButtonClick} />
+            </div>
+            <div
+              className="keen-slider__slide"
+              style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+            >
+              <ActionSection onNext={nextSlide} onZoom={onZoom} onOtherAction={onOtherAction} />
+            </div>
+          </React.Fragment>
+        )}
+      </div>
     </div>
   );
 };

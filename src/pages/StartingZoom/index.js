@@ -11,7 +11,7 @@ const ZoomFrontLoadScreen = ({ onZoom, onOtherAction }) => {
   const [sliderRef, instanceRef] = useKeenSlider({
     initial: 0,
     slideChanged(slider) {
-      setCurrentSlide(slider.track.details.rel);
+      setCurrentSlide(slider.details().relativeSlide);
     },
     created() {
       setLoaded(true);
@@ -30,24 +30,7 @@ const ZoomFrontLoadScreen = ({ onZoom, onOtherAction }) => {
 
   useEffect(() => {
     setBackgroundOpacity(1);
-
-    // Add staggered delays to the rendering of AboutSection and ActionSection
-    const aboutSectionTimeout = setTimeout(() => {
-      // Render AboutSection after 1000 milliseconds (1 second)
-      clearTimeout(aboutSectionTimeout); // Clear the timeout to avoid memory leaks
-    }, 1000);
-
-    const actionSectionTimeout = setTimeout(() => {
-      // Render ActionSection after 2000 milliseconds (2 seconds)
-      clearTimeout(actionSectionTimeout); // Clear the timeout to avoid memory leaks
-    }, 2000);
-
-    return () => {
-      // Clear timeouts on component unmount
-      clearTimeout(aboutSectionTimeout);
-      clearTimeout(actionSectionTimeout);
-    };
-  }, []); // Run this effect only once on initial render
+  }, [currentSlide]); // Update opacity when current slide changes
 
   return (
     <div
@@ -66,30 +49,32 @@ const ZoomFrontLoadScreen = ({ onZoom, onOtherAction }) => {
         transition: "background-color 6s ease-in-out", // Adjust transition duration and timing function
       }}
     >
-      <div
-        ref={sliderRef}
-        className="keen-slider"
-        style={{ width: "100%", height: "100%", margin: "auto" }}
-      >
+      {loaded && (
         <div
-          className="keen-slider__slide"
-          style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+          ref={sliderRef}
+          className="keen-slider"
+          style={{ width: "100%", height: "100%", margin: "auto" }}
         >
-          <MayaIntro onNext={nextSlide} />
+          <div
+            className="keen-slider__slide"
+            style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+          >
+            <MayaIntro onNext={nextSlide} />
+          </div>
+          <div
+            className="keen-slider__slide"
+            style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+          >
+            <AboutSection onNext={nextSlide} onButtonClick={handleButtonClick} />
+          </div>
+          <div
+            className="keen-slider__slide"
+            style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+          >
+            <ActionSection onNext={nextSlide} onZoom={onZoom} onOtherAction={onOtherAction} />
+          </div>
         </div>
-        <div
-          className="keen-slider__slide"
-          style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-        >
-          <AboutSection onNext={nextSlide} onButtonClick={handleButtonClick} />
-        </div>
-        <div
-          className="keen-slider__slide"
-          style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-        >
-          <ActionSection onNext={nextSlide} onZoom={onZoom} onOtherAction={onOtherAction} />
-        </div>
-      </div>
+      )}
     </div>
   );
 };

@@ -4,13 +4,13 @@ import Button from "@mui/material/Button";
 import { BsArrowRightSquareFill } from "react-icons/bs";
 
 const MayaIntro = ({ onNext }) => {
-    // Animation variants for Framer Motion
     const containerVariants = {
         hidden: { opacity: 0, y: 20 },
         visible: {
             opacity: 1,
             y: 0,
             transition: {
+                delay: 1.6, // Delay the initial container animation
                 when: "beforeChildren",
                 staggerChildren: 0.3,
             },
@@ -28,14 +28,13 @@ const MayaIntro = ({ onNext }) => {
         },
     };
 
-    // Adding button variants for animation
     const buttonVariants = {
         hidden: { opacity: 0, y: 20 },
         visible: {
             opacity: 1,
             y: 0,
             transition: {
-                delay: 2, 
+                delay: 1.6, // Adjusting button delay to match the initial delay
                 duration: 0.5,
             },
         },

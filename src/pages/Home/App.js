@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import BaseMap from "../Map/BaseMap";
-import WidgetConsolidation from "../Widget/index";
+import WidgetConsolidation from "../Widget/WidgetConsolidation";
 import GeoJsonHeatmapOverlay from "../GeoHeatmap/GeoJsonHeatmapOverlay";
 import DevZoom from "../StartingZoom/DevZoom";
 import ControlButtons from "../Map/MapNavigation/ControlButtons";
@@ -13,6 +13,8 @@ const App = () => {
     const [ isZoomCompleted, setIsZoomCompleted ] = useState(false);
     const [ currentGeoJsonIndex, setCurrentGeoJsonIndex ] = useState(0);
     const [ showZoomFrontLoadScreen, setShowZoomFrontLoadScreen ] = useState(true);
+
+    const [ opacity, setOpacity ] = useState(0.43); // Default opacity
 
     const cycleSVG = () => {
         setCurrentGeoJsonIndex((prevIndex) => (prevIndex + 1) % 3);
@@ -51,9 +53,17 @@ const App = () => {
             <BaseMap center={center} zoom={zoom} onMove={handleMove} setMap={onMapLoad} />
             <ControlButtons map={map} />
 
-            {map && <GeoJsonHeatmapOverlay map={map} currentGeoJsonIndex={currentGeoJsonIndex} />}
-            {map && <WidgetConsolidation map={map} isZoomCompleted={isZoomCompleted} cycleSVG={cycleSVG} />}
-           <DevZoom onZoom={handleZoom} /> 
+            {map && <GeoJsonHeatmapOverlay map={map} currentGeoJsonIndex={currentGeoJsonIndex} opacity={opacity} />}
+            {map && (
+                <WidgetConsolidation
+                    map={map}
+                    isZoomCompleted={isZoomCompleted}
+                    cycleSVG={cycleSVG}
+                    setOpacity={setOpacity}
+                />
+            )}
+
+            <DevZoom onZoom={handleZoom} />
             {/* {showZoomFrontLoadScreen && (
                 <ZoomFrontLoadScreen onZoom={handleZoom} onOtherAction={() => setShowZoomFrontLoadScreen(false)} />
             )} */}

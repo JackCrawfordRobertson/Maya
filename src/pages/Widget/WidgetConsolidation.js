@@ -3,9 +3,9 @@ import {IoWater} from "react-icons/io5";
 import {FaLocationDot} from "react-icons/fa6";
 import InteractivePoints from "../Localities/InteractivePoints";
 import GeoControls from "../GeoHeatmap/GeoControls";
-import ExpandableButton from "../Widget/BubbleCharts/ExpandableButton"; // Adjust the import path as necessary
+import ExpandableButton from "./BubbleCharts/ExpandableButton"; // Adjust the import path as necessary
 
-const WidgetConsolidation = ({map, isZoomCompleted, cycleSVG}) => {
+const WidgetConsolidation = ({map, isZoomCompleted, cycleSVG, setOpacity}) => {
     const [ isOpen, setIsOpen ] = useState(false);
     const [ isInteractivePointsOpen, setIsInteractivePointsOpen ] = useState(false);
     const [ isMobile, setIsMobile ] = useState(false);
@@ -73,7 +73,8 @@ const WidgetConsolidation = ({map, isZoomCompleted, cycleSVG}) => {
                 </div>
             </div>
 
-            <GeoControls isZoomCompleted={isZoomCompleted} isOpen={isOpen} cycleSVG={cycleSVG} />
+            <GeoControls isOpen={isOpen} cycleSVG={cycleSVG} onOpacityChange={setOpacity} />
+
             <InteractivePoints
                 map={map}
                 isZoomCompleted={isZoomCompleted}

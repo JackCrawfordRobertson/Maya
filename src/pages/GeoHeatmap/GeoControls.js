@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import Button from "@mui/material/Button";
+import Slider from "@mui/material/Slider";
 import Paper from "@mui/material/Paper";
 import {createTheme, ThemeProvider, useTheme} from "@mui/material/styles";
 import InfoIcon from "@mui/icons-material/Info";
@@ -54,14 +55,17 @@ const contents = [
 ];
 
 // The SVGControls now accepts an isOpen prop from the parent
-const GeoControls = ({cycleSVG, disabled, isOpen}) => {
+const GeoControls = ({ cycleSVG, disabled, isOpen, onOpacityChange }) => {
     const muiTheme = useTheme();
     const isMobile = useMediaQuery(muiTheme.breakpoints.down("sm"));
     const [ contentIndex, setContentIndex ] = useState(0);
-    const [ infoOpen, setInfoOpen ] = useState(false);
+    const [infoOpen, setInfoOpen] = useState(false);
+    const [opacity, setOpacity] = useState(0.43); // Manage local state
 
-    // Removed internal open state management logic and button rendering
-    // Removed toggleOpen method
+    const handleOpacityChange = (event, newValue) => {
+        setOpacity(newValue);
+        onOpacityChange(newValue); 
+    };
 
     const handleCycleSVG = (event) => {
         event.preventDefault();
@@ -214,6 +218,24 @@ const GeoControls = ({cycleSVG, disabled, isOpen}) => {
                                         </div>
                                     ))}
                                 </div>
+                                <motion.h4
+                                                initial={{opacity: 0}}
+                                                animate={{opacity: 1, transition: {delay: 0.6}}}
+                                                exit={{opacity: 0}}
+                                                style={{marginTop: "10px", marginBottom: "0px"}}
+                                            >
+                                                Transparency Level
+                                            </motion.h4>
+                                <Slider
+                                    value={opacity}
+                                    onChange={handleOpacityChange}
+                                    min={0}
+                                    max={0.5}
+                                    step={0.01}
+                                    aria-labelledby="opacity-slider"
+                                    valueLabelDisplay="auto"
+                                    style={{ marginBottom: '5px' }}
+                                />
                                 <Button
                                     variant="contained"
                                     color="primary"
@@ -223,6 +245,7 @@ const GeoControls = ({cycleSVG, disabled, isOpen}) => {
                                 >
                                     Next Simulation
                                 </Button>
+                               
                             </Paper>
                         </motion.div>
                     )}

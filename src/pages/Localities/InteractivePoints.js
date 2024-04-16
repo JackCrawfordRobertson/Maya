@@ -70,7 +70,7 @@ const marks = [
     },
 ];
 
-const InteractivePoints = ({map, isZoomCompleted, isWidgetOpen, }) => { 
+const InteractivePoints = ({ map, isZoomCompleted, isWidgetOpen, setIsWidgetOpen }) => {
     const [ selectedPoint, setSelectedPoint ] = useState(null);
     const hoveredPointIdRef = useRef(null);
     const [ displayKeys, setDisplayKeys ] = useState([ "2023", "2024", "2025", "2026" ]);
@@ -124,7 +124,15 @@ const InteractivePoints = ({map, isZoomCompleted, isWidgetOpen, }) => {
         setDisplayKeys([ "2023", "2024", "2025", "2026" ]);
     };
 
-    const transitionSettings = {duration: 1, ease: "easeInOut"};
+    const transitionSettings = { duration: 1, ease: "easeInOut" };
+    
+    useEffect(() => {
+        // You can add any specific logic here if needed when isWidgetOpen changes
+        if (!isWidgetOpen) {
+          // Reset or perform cleanup if the widget is forcefully closed from the parent
+        }
+      }, [isWidgetOpen]);
+      
 
     useEffect(() => {
         const handleMapLoad = () => {
@@ -188,41 +196,47 @@ const InteractivePoints = ({map, isZoomCompleted, isWidgetOpen, }) => {
                 map.on("click", "points", (e) => {
                     if (e.features.length > 0) {
                         const featureId = e.features[0].properties.id;
-                        const data2023 = LocalitesWaterUsage2023.find((item) => item.id === featureId);
-                        const data2024 = LocalitesWaterUsage2024.find((item) => item.id === featureId);
-                        const data2025 = LocalitesWaterUsage2025.find((item) => item.id === featureId);
-                        const data2026 = LocalitesWaterUsage2026.find((item) => item.id === featureId);
-                        const localityData = LocalitiesData.features.find(
-                            (feature) => feature.properties.id === featureId
-                        );
-
+                        const data2023 = LocalitesWaterUsage2023.find(item => item.id === featureId);
+                        const data2024 = LocalitesWaterUsage2024.find(item => item.id === featureId);
+                        const data2025 = LocalitesWaterUsage2025.find(item => item.id === featureId);
+                        const data2026 = LocalitesWaterUsage2026.find(item => item.id === featureId);
+                        const localityData = LocalitiesData.features.find(feature => feature.properties.id === featureId);
+                
                         if (data2023 && data2024 && data2025 && data2026 && localityData) {
-                            setSelectedPoint({
-                                ...localityData.properties,
-                                data2023: {
-                                    waterDemand: data2023.waterDemand,
-                                    averageProducedWater: data2023.averageProducedWater,
-                                    availableWaterSource: data2023.availableWaterSource,
-                                },
-                                data2024: {
-                                    waterDemand: data2024.waterDemand,
-                                    averageProducedWater: data2024.averageProducedWater,
-                                    availableWaterSource: data2024.availableWaterSource,
-                                },
-                                data2025: {
-                                    waterDemand: data2025.waterDemand,
-                                    averageProducedWater: data2025.averageProducedWater,
-                                    availableWaterSource: data2025.availableWaterSource,
-                                },
-                                data2026: {
-                                    waterDemand: data2026.waterDemand,
-                                    averageProducedWater: data2026.averageProducedWater,
-                                    availableWaterSource: data2026.availableWaterSource,
-                                },
+                            setSelectedPoint(prevState => {
+                                // Determine if we're clicking the same point
+                                const isSamePoint = prevState?.id === featureId;
+                                // Set the widget to open or toggle it if the same point is clicked again
+                                setIsWidgetOpen(isSamePoint ? !isWidgetOpen : true);
+
+                                return {
+                                    ...localityData.properties,
+                                    data2023: {
+                                        waterDemand: data2023.waterDemand,
+                                        averageProducedWater: data2023.averageProducedWater,
+                                        availableWaterSource: data2023.availableWaterSource,
+                                    },
+                                    data2024: {
+                                        waterDemand: data2024.waterDemand,
+                                        averageProducedWater: data2024.averageProducedWater,
+                                        availableWaterSource: data2024.availableWaterSource,
+                                    },
+                                    data2025: {
+                                        waterDemand: data2025.waterDemand,
+                                        averageProducedWater: data2025.averageProducedWater,
+                                        availableWaterSource: data2025.availableWaterSource,
+                                    },
+                                    data2026: {
+                                        waterDemand: data2026.waterDemand,
+                                        averageProducedWater: data2026.averageProducedWater,
+                                        availableWaterSource: data2026.availableWaterSource,
+                                    },
+                                };
                             });
                         }
                     }
                 });
+                
             } catch (error) {
                 console.error("Error adding source and layer:", error);
             }
@@ -321,11 +335,12 @@ const InteractivePoints = ({map, isZoomCompleted, isWidgetOpen, }) => {
                             zIndex: 3,
                             position: "absolute",
                             display: "flex", // Ensure the div is always flex when it's present
+
                         }}
                     >
                             <Paper
                                 elevation={4}
-                                sx={{
+                            sx={{
                                     padding: "10px",
                                     height: isMobile ? "90vh" : "90vh", // Dynamic width based on device
                                     display: "flex",

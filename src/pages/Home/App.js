@@ -53,10 +53,10 @@ const App = () => {
 
             {map && <GeoJsonHeatmapOverlay map={map} currentGeoJsonIndex={currentGeoJsonIndex} />}
             {map && <WidgetConsolidation map={map} isZoomCompleted={isZoomCompleted} cycleSVG={cycleSVG} />}
-          {/*  <DevZoom onZoom={handleZoom} />  Ensure this component is imported correctly */}
-            {showZoomFrontLoadScreen && (
+           <DevZoom onZoom={handleZoom} /> 
+            {/* {showZoomFrontLoadScreen && (
                 <ZoomFrontLoadScreen onZoom={handleZoom} onOtherAction={() => setShowZoomFrontLoadScreen(false)} />
-            )}
+            )} */}
         </div>
     );
 };

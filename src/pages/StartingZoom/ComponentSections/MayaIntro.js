@@ -50,6 +50,8 @@ const MayaIntro = ({ onNext }) => {
                 color: "#ffffff",
                 alignItems: "center",
                 zIndex: 10000,
+                paddingLeft: "2%",
+                paddingRight: "2%",
             }}
         >
             <motion.h1 variants={childVariants} style={{ fontSize: "5em", marginBottom: "0" }}>Maya</motion.h1>

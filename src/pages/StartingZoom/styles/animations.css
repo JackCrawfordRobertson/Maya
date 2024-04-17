@@ -24,7 +24,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+    padding-left: 1em;
+    padding-right: 1em;
   }
 
   .heading{

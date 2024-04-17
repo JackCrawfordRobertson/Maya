@@ -107,7 +107,7 @@ const GeoControls = ({cycleSVG, disabled, isOpen, onOpacityChange}) => {
                                 elevation={4}
                                 sx={{
                                     padding: "10px",
-                                    height: isMobile ? "90vh" : "auto", // Dynamic width based on device
+                                    height: isMobile ? "auto" : "auto", // Dynamic width based on device
                                     display: "flex",
                                     flexDirection: "column",
                                     zIndex: 1,

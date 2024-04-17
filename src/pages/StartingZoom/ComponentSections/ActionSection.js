@@ -1,18 +1,30 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Button from "@mui/material/Button";
 
 const ActionSection = ({onZoom, onOtherAction}) => {
+    useEffect(() => {
+        const setCustomVH = () => {
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty("--vh", `${vh}px`);
+        };
+
+        setCustomVH();
+        window.addEventListener("resize", setCustomVH);
+
+        return () => window.removeEventListener("resize", setCustomVH);
+    }, []);
+
     const handleLaunch = () => {
-        onZoom(); // Trigger the zoom functionality.
+        onZoom();
         if (typeof onOtherAction === "function") {
-            onOtherAction(); // Only call onOtherAction if it's a function
+            onOtherAction();
         }
     };
 
     return (
-        <div className="Main__container">
-            <div className="Main">
-                <div style={{marginBottom: "40px"}}>
+        <div className="Main__container" style={{height: "100vh", maxHeight: "calc(var(--vh, 1vh) * 100)"}}>
+            <div className="Main" style={{overflowY: "auto", padding: "1rem"}}>
+                <div style={{marginBottom: "20px"}}>
                     <h1>Launch Maya</h1>
                     <p>
                         Explore, compare and enhance your understanding of water scarcity and the impacts of climate
@@ -27,26 +39,24 @@ const ActionSection = ({onZoom, onOtherAction}) => {
                         specifically targeting water usage across localities most at risk throughout the region.
                     </p>
                     <Button
-    onClick={handleLaunch}
-    style={{
-        backgroundColor: "#ffffff",
-        color: "#ff0000 !important", // Change text color to red
-        padding: "15px",
-        marginBottom: "20px",
-        border: "none",
-        borderRadius: "5px",
-        cursor: "pointer",
-        fontSize: "16px",
-        fontWeight: "bold",
-        width: "100%",
-    }}
->
-    Launch Baalbek-Hermel
-</Button>
-
+                        onClick={handleLaunch}
+                        style={{
+                            backgroundColor: "#ffffff",
+                            color: "#3DA9DE",
+                            padding: "10px",
+                            marginBottom: "10px",
+                            border: "none",
+                            borderRadius: "5px",
+                            cursor: "pointer",
+                            fontSize: "14px",
+                            fontWeight: "bold",
+                            width: "100%",
+                        }}
+                    >
+                        Launch Baalbek-Hermel
+                    </Button>
                 </div>
 
-                {/* Explore More Section */}
                 <div className="widget">
                     <h2 style={{marginBottom: "0"}}>Al-Qādisiyyah Governorate, Iraq</h2>
                     <h5 style={{marginTop: "0", fontWeight: "500"}}>Last updated on - To Be confirmed</h5>
@@ -56,16 +66,16 @@ const ActionSection = ({onZoom, onOtherAction}) => {
                     </p>
                     <Button
                         onClick={onOtherAction}
-                        disabled={true} // Disable the button functionality
+                        disabled={true}
                         style={{
-                            backgroundColor: "#ededed", // Change background color to a light gray
-                            color: "#c0c0c0", // Change text color to a lighter shade of gray
-                            padding: "15px 30px",
-                            marginBottom: "20px",
+                            backgroundColor: "#ededed",
+                            color: "#c0c0c0",
+                            padding: "10px 20px",
+                            marginBottom: "10px",
                             border: "none",
                             borderRadius: "5px",
-                            cursor: "not-allowed", // Change cursor to indicate not clickable
-                            fontSize: "16px",
+                            cursor: "not-allowed",
+                            fontSize: "14px",
                             fontWeight: "bold",
                             width: "100%",
                         }}
@@ -76,11 +86,6 @@ const ActionSection = ({onZoom, onOtherAction}) => {
             </div>
         </div>
     );
-};
-
-// Providing a default prop for onOtherAction
-ActionSection.defaultProps = {
-    onOtherAction: () => {}, // Default does nothing
 };
 
 export default ActionSection;

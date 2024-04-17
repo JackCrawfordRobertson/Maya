@@ -34,7 +34,7 @@ const MayaIntro = ({ onNext }) => {
             opacity: 1,
             y: 0,
             transition: {
-                delay: 1.6, // Adjusting button delay to match the initial delay
+                delay: 9000, // Adjusting button delay to match the initial delay
                 duration: 0.5,
             },
         },

@@ -27,22 +27,23 @@ const ActionSection = ({onZoom, onOtherAction}) => {
                         specifically targeting water usage across localities most at risk throughout the region.
                     </p>
                     <Button
-                        onClick={handleLaunch}
-                        style={{
-                            backgroundColor: "#ffffff",
-                            color: "333333",
-                            padding: "15px",
-                            marginBottom: "20px",
-                            border: "none",
-                            borderRadius: "5px",
-                            cursor: "pointer",
-                            fontSize: "16px",
-                            fontWeight: "bold",
-                            width: "100%",
-                        }}
-                    >
-                        Launch Baalbek-Hermel
-                    </Button>
+    onClick={handleLaunch}
+    style={{
+        backgroundColor: "#ffffff",
+        color: "#ff0000 !important", // Change text color to red
+        padding: "15px",
+        marginBottom: "20px",
+        border: "none",
+        borderRadius: "5px",
+        cursor: "pointer",
+        fontSize: "16px",
+        fontWeight: "bold",
+        width: "100%",
+    }}
+>
+    Launch Baalbek-Hermel
+</Button>
+
                 </div>
 
                 {/* Explore More Section */}

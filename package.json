@@ -54,6 +54,7 @@
         "gatsby-transformer-remark": "^6.12.1",
         "gatsby-transformer-sharp": "^5.12.1",
         "keen-slider": "^6.8.6",
+        "lodash": "^4.17.21",
         "lottie-web": "^5.12.2",
         "mapbox-gl": "^2.15.0",
         "react": "^18.2.0",

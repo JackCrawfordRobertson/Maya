@@ -9,18 +9,18 @@ const GeoJsonHeatmapOverlay = ({ map, currentGeoJsonIndex, opacity }) => {
     const geoJsonDataFiles = [geojsonData1, geojsonData2, geojsonData3];
 
     useEffect(() => {
-        console.log('Current Opacity:', opacity);  // Log the opacity value whenever it changes
-
         if (!map) return;
 
-        const addOrUpdateLayer = () => {
+        // Function to initialize the source and layer
+        const initializeLayer = () => {
             if (!map.getSource(sourceID)) {
-                // If the source does not exist, add both the source and the layer
                 map.addSource(sourceID, {
                     type: "geojson",
                     data: geoJsonDataFiles[currentGeoJsonIndex]
                 });
+            }
 
+            if (!map.getLayer(layerID)) {
                 map.addLayer({
                     id: layerID,
                     type: "fill",
@@ -38,31 +38,45 @@ const GeoJsonHeatmapOverlay = ({ map, currentGeoJsonIndex, opacity }) => {
                             'Value7', '#ffc107',
                             '#000'  // Default color
                         ],
-                        'fill-opacity': opacity
+                        'fill-opacity': opacity,
+                        'fill-opacity-transition': { duration: 300 }
                     }
                 });
-            } else {
-                // If the source exists, simply update the data and opacity
-                map.getSource(sourceID).setData(geoJsonDataFiles[currentGeoJsonIndex]);
-                map.setPaintProperty(layerID, 'fill-opacity', opacity);
             }
         };
 
+        // Update the data only when currentGeoJsonIndex changes
+        const updateData = () => {
+            if (map.getSource(sourceID)) {
+                map.getSource(sourceID).setData(geoJsonDataFiles[currentGeoJsonIndex]);
+            }
+        };
+
+        // Listen for when the map is loaded to initialize the layer
         if (map.isStyleLoaded()) {
-            addOrUpdateLayer();
+            initializeLayer();
+            updateData();
         } else {
-            map.on('load', addOrUpdateLayer);
+            map.on('load', initializeLayer);
         }
 
+        // Effect cleanup
         return () => {
             if (map.getLayer(layerID)) {
                 map.removeLayer(layerID);
                 map.removeSource(sourceID);
-                map.off('load', addOrUpdateLayer);
-
+                map.off('load', initializeLayer);
             }
         };
-    }, [map, currentGeoJsonIndex, opacity]); // Add opacity to the dependency array
+    }, [map, currentGeoJsonIndex]); // Dependencies for initializing and updating data
+
+    // Separate effect for handling opacity changes efficiently
+    useEffect(() => {
+        if (map && map.getLayer(layerID)) {
+            console.log('Current Opacity:', opacity);  // Log the opacity value when it changes
+            map.setPaintProperty(layerID, 'fill-opacity', opacity);
+        }
+    }, [map, opacity]); // Dependency on opacity to update it smoothly
 
     return null;
 };

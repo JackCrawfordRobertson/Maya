@@ -4,7 +4,7 @@ import WidgetConsolidation from "../Widget/WidgetConsolidation";
 import GeoJsonHeatmapOverlay from "../GeoHeatmap/GeoJsonHeatmapOverlay";
 import DevZoom from "../StartingZoom/DevZoom";
 import ControlButtons from "../Map/MapNavigation/ControlButtons";
-import ZoomFrontLoadScreen from "../StartingZoom/index"; // Ensure this path is correct
+import ZoomFrontLoadScreen from "../StartingZoom/ZoomFrontLoadScreen"; // Ensure this path is correct
 
 const App = () => {
     const [ center, setCenter ] = useState([ 36.305, 34.27 ]); // Default center

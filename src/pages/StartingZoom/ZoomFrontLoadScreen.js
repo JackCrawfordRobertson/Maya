@@ -30,7 +30,7 @@ const ZoomFrontLoadScreen = ({ onZoom, onOtherAction }) => {
                     newStates[index] = 1;
                     return newStates;
                 });
-            }, 1500) // Delay of 1000 milliseconds
+            }, 900) // Delay of 1000 milliseconds
         );
         
         return () => timers.forEach(timer => clearTimeout(timer)); // Cleanup timeouts when component unmounts

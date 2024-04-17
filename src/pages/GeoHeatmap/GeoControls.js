@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import Slider from "@mui/material/Slider";
 import Paper from "@mui/material/Paper";
@@ -55,16 +55,16 @@ const contents = [
 ];
 
 // The SVGControls now accepts an isOpen prop from the parent
-const GeoControls = ({ cycleSVG, disabled, isOpen, onOpacityChange }) => {
+const GeoControls = ({cycleSVG, disabled, isOpen, onOpacityChange}) => {
     const muiTheme = useTheme();
     const isMobile = useMediaQuery(muiTheme.breakpoints.down("sm"));
     const [ contentIndex, setContentIndex ] = useState(0);
-    const [infoOpen, setInfoOpen] = useState(false);
-    const [opacity, setOpacity] = useState(0.43); // Manage local state
+    const [ infoOpen, setInfoOpen ] = useState(false);
+    const [ opacity, setOpacity ] = useState(0.25); // Manage local state
 
     const handleOpacityChange = (event, newValue) => {
         setOpacity(newValue);
-        onOpacityChange(newValue); 
+        onOpacityChange(newValue);
     };
 
     const handleCycleSVG = (event) => {
@@ -81,24 +81,27 @@ const GeoControls = ({ cycleSVG, disabled, isOpen, onOpacityChange }) => {
     };
 
     return (
-    <ThemeProvider theme={theme}>
+        <ThemeProvider theme={theme}>
             {/* Removed the style that controls visibility using isOpen */}
-            <div className="interactive-points" style={{
-                flexDirection: "column",
-                alignItems: "flex-end",
-                top: "80px",
-                left: "10px",
-                zIndex: 3,
-                position: "absolute",
-            }}>
+            <div
+                className="interactive-points"
+                style={{
+                    flexDirection: "column",
+                    alignItems: "flex-end",
+                    top: "80px",
+                    left: "10px",
+                    zIndex: 3,
+                    position: "absolute",
+                }}
+            >
                 <AnimatePresence>
                     {isOpen && (
                         <motion.div
                             key="panel"
-                            initial={{ x: -500, opacity: 0 }}
-                            animate={{ x: 0, opacity: 1 }}
-                            exit={{ x: -500, opacity: 0 }}
-                            transition={{ duration: 1.5, ease: "easeInOut" }}
+                            initial={{x: -500, opacity: 0}}
+                            animate={{x: 0, opacity: 1}}
+                            exit={{x: -500, opacity: 0}}
+                            transition={{duration: 1.5, ease: "easeInOut"}}
                         >
                             <Paper
                                 elevation={4}
@@ -193,7 +196,7 @@ const GeoControls = ({ cycleSVG, disabled, isOpen, onOpacityChange }) => {
                                     </AnimatePresence>
                                 </div>
 
-                                <div style={{marginTop:'5px'}}>
+                                <div style={{marginTop: "5px"}}>
                                     {" "}
                                     {/* Adjust margin-top as needed */}
                                     <h4 style={{marginTop: "0px", marginBottom: "5px"}}>Drawdown (m)</h4>
@@ -219,13 +222,13 @@ const GeoControls = ({ cycleSVG, disabled, isOpen, onOpacityChange }) => {
                                     ))}
                                 </div>
                                 <motion.h4
-                                                initial={{opacity: 0}}
-                                                animate={{opacity: 1, transition: {delay: 0.6}}}
-                                                exit={{opacity: 0}}
-                                                style={{marginTop: "10px", marginBottom: "0px"}}
-                                            >
-                                                Transparency Level
-                                            </motion.h4>
+                                    initial={{opacity: 0}}
+                                    animate={{opacity: 1, transition: {delay: 0.6}}}
+                                    exit={{opacity: 0}}
+                                    style={{marginTop: "10px", marginBottom: "0px"}}
+                                >
+                                    Transparency Level
+                                </motion.h4>
                                 <Slider
                                     value={opacity}
                                     onChange={handleOpacityChange}
@@ -234,7 +237,7 @@ const GeoControls = ({ cycleSVG, disabled, isOpen, onOpacityChange }) => {
                                     step={0.01}
                                     aria-labelledby="opacity-slider"
                                     valueLabelDisplay="auto"
-                                    style={{ marginBottom: '5px' }}
+                                    style={{marginBottom: "5px"}}
                                 />
                                 <Button
                                     variant="contained"
@@ -245,7 +248,6 @@ const GeoControls = ({ cycleSVG, disabled, isOpen, onOpacityChange }) => {
                                 >
                                     Next Simulation
                                 </Button>
-                               
                             </Paper>
                         </motion.div>
                     )}

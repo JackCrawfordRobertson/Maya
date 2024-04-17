@@ -123,7 +123,7 @@ const ControlButtons = ({ map }) => {
                 position: "absolute",
                 bottom: 30,
                 right: 10,
-                zIndex: 5,
+                zIndex: 1,
                 backgroundColor: "#f0f0f0",
                 padding: "10px",
                 borderRadius: "10px",

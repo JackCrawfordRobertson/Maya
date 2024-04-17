@@ -1,20 +1,30 @@
-import React from "react";
-import {Helmet} from "react-helmet";
+import React, { useEffect } from "react";
+import { Helmet } from "react-helmet";
 import App from "./Home/App.js";
 import "./global.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-
-
-
 const IndexPage = () => {
-    const mainContainerStyle = {
-        height: "100%",
-        width: "100%",
-    };
+    useEffect(() => {
+        const adjustVH = () => {
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        };
+
+        // Add event listener to adjust viewport height on resize
+        window.addEventListener('resize', adjustVH);
+        
+        // Call once to set initial viewport height
+        adjustVH();
+
+        // Cleanup function to remove event listener
+        return () => {
+            window.removeEventListener('resize', adjustVH);
+        };
+    }, []);
 
     return (
-        <main style={mainContainerStyle}>
+        <main style={{ height: "100%", width: "100%" }}>
             <App />
         </main>
     );

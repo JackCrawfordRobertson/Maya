@@ -1,18 +1,18 @@
 /* global.css */
-
-body {
-  font-family: Inter, sans-serif;
-  margin: 0;
-  padding: 0;
-  max-height: 100vh;
-  min-width: 100vw;
-  /* overflow-x: hidden; 
-  overflow-y: hidden;  */
-  font-size: 1em;
-  background-color: "rgba(255, 255, 255, 1)";
-
+:root {
+  --vh: 100vh; /* Fallback if the dynamic calculation fails */
 }
 
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  height: var(--vh); /* Using the custom property */
+  width: 100vw;
+  overflow-x: hidden;
+  font-size: 1em;
+  background-color: "#3DA9DE";
+}
 .mapboxgl-map * {
   font-family: 'Inter', sans-serif !important;
 }

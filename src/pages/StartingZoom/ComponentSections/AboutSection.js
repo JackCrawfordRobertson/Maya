@@ -19,7 +19,7 @@ const AboutSection = ({ onNext, onButtonClick }) => {
                     data into actionable insights, designed to foster a comprehensive understanding among local
                     stakeholders, international donors, and the broader community.
                 </p>
-                <p>
+                <p className="body_coppy">
                     By transforming dense water case studies from the Levant into accessible, design-driven narratives,
                     Maya sets a new standard for environmental communication. With its proven success and positive
                     feedback from initial beta tests, Maya is ready for further expansion. Our vision is to empower specialists and

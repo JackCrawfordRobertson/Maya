@@ -24,8 +24,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-left: 1em;
-    padding-right: 1em;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   .heading{
@@ -35,7 +35,7 @@
   }
 
   .body_coppy{
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 400;
 
   }

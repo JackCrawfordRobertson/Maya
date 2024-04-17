@@ -63,10 +63,10 @@ const App = () => {
                 />
             )}
 
-            <DevZoom onZoom={handleZoom} />
-            {/* {showZoomFrontLoadScreen && (
+            {/* <DevZoom onZoom={handleZoom} /> */}
+            {showZoomFrontLoadScreen && (
                 <ZoomFrontLoadScreen onZoom={handleZoom} onOtherAction={() => setShowZoomFrontLoadScreen(false)} />
-            )} */}
+            )}
         </div>
     );
 };

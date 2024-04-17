@@ -34,7 +34,7 @@ const MayaIntro = ({ onNext }) => {
             opacity: 1,
             y: 0,
             transition: {
-                delay: 9000, // Adjusting button delay to match the initial delay
+                delay: 1.9, // Adjusted delay to follow the initial animation
                 duration: 0.5,
             },
         },
@@ -61,7 +61,8 @@ const MayaIntro = ({ onNext }) => {
                     onClick={onNext}
                     className="jump-animation"
                     style={{
-                        backgroundColor: "transparent",
+                        backgroundColor: "#3498db", // Changed to a solid, visible color
+                        color: "white", // Ensure text/icon is visible
                         padding: "0",
                         display: "inline-block",
                         justifyContent: "center",
@@ -71,7 +72,7 @@ const MayaIntro = ({ onNext }) => {
                         marginTop: "2rem",
                     }}
                 >
-                    <BsArrowRightSquareFill style={{ fontSize: "3rem" }} />
+                    <BsArrowRightSquareFill style={{ fontSize: "3rem", color: "white" }} />
                 </Button>
             </motion.div>
         </motion.div>

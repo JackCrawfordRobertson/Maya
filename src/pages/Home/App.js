@@ -7,7 +7,7 @@ import ControlButtons from "../Map/MapNavigation/ControlButtons";
 import ZoomFrontLoadScreen from "../StartingZoom/ZoomFrontLoadScreen"; // Ensure this path is correct
 
 const App = () => {
-    const [ center, setCenter ] = useState([ 36.305, 34.27 ]); // Default center
+    const [ center, setCenter ] = useState([ 36.050, 34.27 ]); // Default center
     const [ zoom, setZoom ] = useState(2); // Default zoom level for an "outer space" effect
     const [ map, setMap ] = useState(null);
     const [ isZoomCompleted, setIsZoomCompleted ] = useState(false);

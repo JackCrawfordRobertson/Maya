@@ -5,7 +5,7 @@ import MayaIntro from "./ComponentSections/MayaIntro";
 import AboutSection from "./ComponentSections/AboutSection";
 import ActionSection from "./ComponentSections/ActionSection";
 
-const ZoomFrontLoadScreen = ({ onZoom, onOtherAction }) => {
+const ZoomFrontLoadScreen = ({ onZoomLebanon, onZoomPakistan, onOtherAction }) => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [loaded, setLoaded] = useState(false);
     const [sliderRef, instanceRef] = useKeenSlider({
@@ -78,8 +78,8 @@ const ZoomFrontLoadScreen = ({ onZoom, onOtherAction }) => {
                     className="keen-slider__slide"
                     style={{display: "flex", justifyContent: "center", alignItems: "center", opacity: opacityStates[2]}}
                 >
-                    <ActionSection onNext={nextSlide} onZoom={onZoom} onOtherAction={onOtherAction} />
-                </div>
+                    <ActionSection onZoomLebanon={onZoomLebanon} onZoomPakistan={onZoomPakistan} onOtherAction={onOtherAction} />
+                    </div>
             </div>
         </div>
     );

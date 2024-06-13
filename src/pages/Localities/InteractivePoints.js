@@ -18,13 +18,13 @@ import InfoIcon from "@mui/icons-material/Info";
 import {createTheme, ThemeProvider, useTheme} from "@mui/material/styles";
 import {motion, AnimatePresence} from "framer-motion";
 import {ResponsiveLine} from "@nivo/line";
-import {LocalitiesData} from "../../data/LocalitiesData";
+import {LocalitiesData} from "../../data/Lebanon/LocalitiesData";
 import {
     LocalitesWaterUsage2023,
     LocalitesWaterUsage2024,
     LocalitesWaterUsage2025,
     LocalitesWaterUsage2026,
-} from "../../data/LocalitesWaterUsage2";
+} from "../../data/Lebanon/LocalitesWaterUsage2";
 import LocalitiesImageGrid from "../Widget/LocalitiesImageGrid";
 import CustomTooltip from "../Widget/CustomTooltip_InteractivePoints";
 
@@ -160,11 +160,11 @@ const InteractivePoints = ({map, isZoomCompleted, isWidgetOpen, setIsWidgetOpen}
                     type: "geojson",
                     data: LocalitiesData,
                 });
-    
+
                 map.on("zoomend", () => {
                     setMapReady(true);
                 });
-    
+
                 map.addLayer({
                     id: "points",
                     type: "circle",
@@ -172,7 +172,7 @@ const InteractivePoints = ({map, isZoomCompleted, isWidgetOpen, setIsWidgetOpen}
                     paint: {
                         "circle-radius": [
                             "step",
-                            ["zoom"],
+                            [ "zoom" ],
                             2, // radius at zoom levels less than 5
                             5,
                             6, // radius of 6 at zoom level 5
@@ -184,8 +184,8 @@ const InteractivePoints = ({map, isZoomCompleted, isWidgetOpen, setIsWidgetOpen}
                         "circle-color": "#3498db",
                         "circle-opacity": [
                             "interpolate",
-                            ["linear"],
-                            ["zoom"],
+                            [ "linear" ],
+                            [ "zoom" ],
                             5,
                             0, // Opacity is 0 at zoom levels less than 5
                             5.5,
@@ -193,32 +193,34 @@ const InteractivePoints = ({map, isZoomCompleted, isWidgetOpen, setIsWidgetOpen}
                         ],
                     },
                 });
-    
+
                 // Adjust the mouseenter event to set both hoveredPoint and showFade
                 map.on("mouseenter", "points", (e) => {
                     if (e.features.length > 0) {
-                        const { id, title } = e.features[0].properties;
-                        setHoveredPoint({ id, title });
+                        const {id, title} = e.features[0].properties;
+                        setHoveredPoint({id, title});
                         setShowFade(true); // Ensure fade-in is triggered
                     }
                 });
-    
+
                 // Adjust the mouseleave event to control fade-out
                 map.on("mouseleave", "points", () => {
                     map.getCanvas().style.cursor = "";
                     setShowFade(false); // Trigger fade-out
                     setTimeout(() => setHoveredPoint(null), 500); // Match fade timeout
                 });
-    
+
                 map.on("click", "points", (e) => {
                     if (e.features.length > 0) {
                         const featureId = e.features[0].properties.id;
-                        const data2023 = LocalitesWaterUsage2023.find(item => item.id === featureId);
-                        const data2024 = LocalitesWaterUsage2024.find(item => item.id === featureId);
-                        const data2025 = LocalitesWaterUsage2025.find(item => item.id === featureId);
-                        const data2026 = LocalitesWaterUsage2026.find(item => item.id === featureId);
-                        const localityData = LocalitiesData.features.find(feature => feature.properties.id === featureId);
-    
+                        const data2023 = LocalitesWaterUsage2023.find((item) => item.id === featureId);
+                        const data2024 = LocalitesWaterUsage2024.find((item) => item.id === featureId);
+                        const data2025 = LocalitesWaterUsage2025.find((item) => item.id === featureId);
+                        const data2026 = LocalitesWaterUsage2026.find((item) => item.id === featureId);
+                        const localityData = LocalitiesData.features.find(
+                            (feature) => feature.properties.id === featureId
+                        );
+
                         if (data2023 && data2024 && data2025 && data2026 && localityData) {
                             setSelectedPoint({
                                 ...localityData.properties,
@@ -243,23 +245,23 @@ const InteractivePoints = ({map, isZoomCompleted, isWidgetOpen, setIsWidgetOpen}
                                     availableWaterSource: data2026.availableWaterSource,
                                 },
                             });
-    
+
                             setIsWidgetOpen(true); // Ensure the widget is opened
                         }
                     }
                 });
-    
             } catch (error) {
                 console.error("Error adding source and layer:", error);
             }
         };
-    
+
         if (map && map.isStyleLoaded()) {
             handleMapLoad();
-        } else {
+        }
+        else {
             map?.on("load", handleMapLoad);
         }
-    
+
         return () => {
             if (map) {
                 map.off("mouseenter", "points");
@@ -267,7 +269,7 @@ const InteractivePoints = ({map, isZoomCompleted, isWidgetOpen, setIsWidgetOpen}
                 map.off("click", "points");
                 map.off("load", handleMapLoad);
                 map.off("zoomend");
-    
+
                 try {
                     if (map.getLayer("points")) {
                         map.removeLayer("points");
@@ -280,9 +282,7 @@ const InteractivePoints = ({map, isZoomCompleted, isWidgetOpen, setIsWidgetOpen}
                 }
             }
         };
-    }, [map]);
-    
-    
+    }, [ map ]);
 
     useEffect(() => {
         if (isZoomCompleted && !isMobile) {
@@ -326,36 +326,38 @@ const InteractivePoints = ({map, isZoomCompleted, isWidgetOpen, setIsWidgetOpen}
 
     useEffect(() => {
         console.log("Interactive Points widget open state:", isWidgetOpen);
-    }, [isWidgetOpen]);
-    
-    const CustomTick = ({ x, y, value }) => {
+    }, [ isWidgetOpen ]);
+
+    const CustomTick = ({x, y, value}) => {
         // Split the value into words and add line breaks
-        const words = value.split(' ');
+        const words = value.split(" ");
         const lines = [];
         let currentLine = words.shift();
-    
-        words.forEach(word => {
-            if ((currentLine + word).length > 10) { // Adjust max length as needed
+
+        words.forEach((word) => {
+            if ((currentLine + word).length > 10) {
+                // Adjust max length as needed
                 lines.push(currentLine);
                 currentLine = word;
-            } else {
+            }
+            else {
                 currentLine += ` ${word}`;
             }
         });
         lines.push(currentLine);
-    
+
         // Adjust the y position to add spacing above the labels
         const yOffset = 20; // Adjust this value as needed for more space
-    
+
         return (
             <g transform={`translate(${x},${y + yOffset})`}>
                 <text
                     textAnchor="middle"
                     dominantBaseline="middle"
                     style={{
-                        fill: '#333',
+                        fill: "#333",
                         fontSize: 12,
-                        maxWidth: '50px' // Set max width
+                        maxWidth: "50px", // Set max width
                     }}
                 >
                     {lines.map((line, index) => (
@@ -367,8 +369,6 @@ const InteractivePoints = ({map, isZoomCompleted, isWidgetOpen, setIsWidgetOpen}
             </g>
         );
     };
-    
-    
 
     return (
         <ThemeProvider theme={theme}>
@@ -471,8 +471,8 @@ const InteractivePoints = ({map, isZoomCompleted, isWidgetOpen, setIsWidgetOpen}
                                     <ResponsiveLine
                                         data={lineChartData}
                                         margin={{top: 20, right: 70, bottom: 80, left: 50}}
-                                        xScale={{ type: "point" }}
-                                        yScale={{ type: "linear", stacked: true, min: "auto", max: "auto" }}
+                                        xScale={{type: "point"}}
+                                        yScale={{type: "linear", stacked: true, min: "auto", max: "auto"}}
                                         axisTop={null}
                                         axisRight={null}
                                         axisBottom={{
@@ -481,7 +481,7 @@ const InteractivePoints = ({map, isZoomCompleted, isWidgetOpen, setIsWidgetOpen}
                                             legendOffset: 60, // Increase legend offset for more space
                                             legendPosition: "middle",
                                             tickPadding: 20, // Increase padding between ticks and labels
-                                            renderTick: CustomTick // Apply custom tick renderer
+                                            renderTick: CustomTick, // Apply custom tick renderer
                                         }}
                                         axisLeft={{
                                             orient: "left",
@@ -491,9 +491,9 @@ const InteractivePoints = ({map, isZoomCompleted, isWidgetOpen, setIsWidgetOpen}
                                         }}
                                         colors={reversedPurpleBlue}
                                         pointSize={10}
-                                        pointColor={{ theme: "background" }}
+                                        pointColor={{theme: "background"}}
                                         pointBorderWidth={2}
-                                        pointBorderColor={{ from: "serieColor" }}
+                                        pointBorderColor={{from: "serieColor"}}
                                         pointLabelYOffset={-12}
                                         useMesh={true}
                                         legends={[
@@ -523,7 +523,6 @@ const InteractivePoints = ({map, isZoomCompleted, isWidgetOpen, setIsWidgetOpen}
                                             },
                                         ]}
                                     />
-                                    
                                 )}
                             </div>
                         </Paper>

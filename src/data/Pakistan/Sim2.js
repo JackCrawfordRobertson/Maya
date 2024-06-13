@@ -1,4 +1,4 @@
-{
+export default {
   "type": "FeatureCollection",
   "features": [
     {
@@ -7194,7 +7194,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value2",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -7333,7 +7339,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -9156,7 +9168,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -10007,7 +10025,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -10666,7 +10690,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -11229,7 +11259,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -11416,7 +11452,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -11491,7 +11533,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -11670,7 +11718,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -11937,7 +11991,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -12108,7 +12168,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -12339,7 +12405,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -12546,7 +12618,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -12757,7 +12835,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -12884,7 +12968,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -13031,7 +13121,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -13158,7 +13254,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -13233,7 +13335,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -13384,7 +13492,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -13531,7 +13645,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -13662,7 +13782,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -13805,7 +13931,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -13948,7 +14080,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -14063,7 +14201,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -14214,7 +14358,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -14329,7 +14479,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -14472,7 +14628,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -14603,7 +14765,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -14738,7 +14906,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -14877,7 +15051,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -15008,7 +15188,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -15155,7 +15341,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -15294,7 +15486,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -15409,7 +15607,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -15528,7 +15732,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -15639,7 +15849,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -15714,7 +15930,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -15789,7 +16011,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -18472,7 +18700,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value4",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -19947,7 +20181,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value4",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -21362,7 +21602,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value4",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -21885,7 +22131,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value4",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -22188,7 +22440,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -22447,7 +22705,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -22650,7 +22914,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -22797,7 +23067,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -22900,7 +23176,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -23023,7 +23305,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -23134,7 +23422,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -23273,7 +23567,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -23376,7 +23676,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -23467,7 +23773,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -23534,7 +23846,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -23661,7 +23979,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -23788,7 +24112,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -23859,7 +24189,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -23998,7 +24334,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -24145,7 +24487,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -24276,7 +24624,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value4",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -24407,7 +24761,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -24542,7 +24902,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -24625,7 +24991,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value4",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -24760,7 +25132,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value7",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -24871,7 +25249,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value7",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -24970,7 +25354,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value7",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -25061,7 +25451,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value7",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -25200,7 +25596,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value7",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -25303,7 +25705,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value77",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -27646,7 +28054,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value7",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -27733,7 +28147,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -27976,7 +28396,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -28099,7 +28525,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -28234,7 +28666,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -28373,7 +28811,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -28508,7 +28952,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -28647,7 +29097,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -28890,7 +29346,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value7",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -29025,7 +29487,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value7",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -29164,7 +29632,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value7",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -29327,7 +29801,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value7",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -29478,7 +29958,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value1",
+    },
+
+
+
+
     },
     {
       "type": "Feature",
@@ -29613,7 +30099,13 @@
           ]
         ]
       },
-      "properties": null
+       properties: {
+        fieldName: "Value7",
+    },
+
+
+
+
     }
   ]
-}
+};

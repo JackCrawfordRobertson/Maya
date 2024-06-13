@@ -49,7 +49,7 @@ const contents = [
     },
     {
         title: "Simulation S11CC",
-        text: " Climate change scenario with incorporation of CMIP6 climate anomalies",
+        text: " Climate change scenario with incorporation of CMIP6 climate anomalies.",
     },
     // ... Add more content objects for additional SVGs if needed
 ];

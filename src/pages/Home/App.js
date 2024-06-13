@@ -117,15 +117,15 @@ const App = () => {
                 />
             )}
 
-            <DevZoom onZoom={handleZoomPakistan} />
+            {/* <DevZoom onZoom={handleZoomPakistan} /> */}
 
-            {/* {showZoomFrontLoadScreen && (
+            {showZoomFrontLoadScreen && (
                 <ZoomFrontLoadScreen
                     onZoomLebanon={handleZoomLebanon}
                     onZoomPakistan={handleZoomPakistan}
                     onOtherAction={() => setShowZoomFrontLoadScreen(false)}
                 />
-            )} */}
+            )}
         </div>
     );
 };

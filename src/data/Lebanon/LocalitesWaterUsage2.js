@@ -1,7 +1,7 @@
 //LocalitesWaterUsage2.js
 
 export const LocalitesWaterUsage2023 = [
-    {id: 1, name: "Ain Bourday", waterDemand: 180, averageProducedWater: 540, availableWaterSource: 1620,},
+    {id: 1, name: "Ain Bourday", waterDemand: 180, averageProducedWater: 540, availableWaterSource: 1620},
     {id: 2, name: "Douris", waterDemand: 820, averageProducedWater: 540, availableWaterSource: 1620},
     {id: 3, name: "Ali el Nahri", waterDemand: 2678, averageProducedWater: 1770, availableWaterSource: 1770},
     {id: 4, name: "Riyak", waterDemand: 3300, averageProducedWater: 100, availableWaterSource: 100},
@@ -16,6 +16,14 @@ export const LocalitesWaterUsage2023 = [
     {id: 13, name: "Laboueh", waterDemand: 100, averageProducedWater: 100, availableWaterSource: 100},
     {id: 14, name: "Zabboud", waterDemand: 248, averageProducedWater: 100, availableWaterSource: 100},
     {id: 15, name: "Bejjejeh", waterDemand: 100, averageProducedWater: 100, availableWaterSource: 100},
+
+    //Pakistan
+
+    {id: 16, name: "Lahore", waterDemand: 200, averageProducedWater: 400, availableWaterSource: 800},
+    {id: 17, name: "Kasur", waterDemand: 200, averageProducedWater: 400, availableWaterSource: 800},
+    {id: 18, name: "Raiwind", waterDemand: 200, averageProducedWater: 400, availableWaterSource: 800},
+    {id: 29, name: "Jaranwala", waterDemand: 200, averageProducedWater: 400, availableWaterSource: 800},
+    {id: 20, name: "Chunian", waterDemand: 200, averageProducedWater: 400, availableWaterSource: 800},
 ];
 
 export const LocalitesWaterUsage2024 = [
@@ -34,6 +42,13 @@ export const LocalitesWaterUsage2024 = [
     {id: 13, name: "Laboueh", waterDemand: 1475, averageProducedWater: 1796, availableWaterSource: 4612},
     {id: 14, name: "Zabboud", waterDemand: 1686, averageProducedWater: 1180, availableWaterSource: 212},
     {id: 15, name: "Bejjejeh", waterDemand: 3662, averageProducedWater: 1945, availableWaterSource: 3847},
+
+    //Pakistan
+    {id: 16, name: "Lahore", waterDemand: 200, averageProducedWater: 400, availableWaterSource: 800},
+    {id: 17, name: "Kasur", waterDemand: 200, averageProducedWater: 400, availableWaterSource: 800},
+    {id: 18, name: "Raiwind", waterDemand: 200, averageProducedWater: 400, availableWaterSource: 800},
+    {id: 19, name: "Jaranwala", waterDemand: 200, averageProducedWater: 400, availableWaterSource: 800},
+    {id: 20, name: "Chunian", waterDemand: 200, averageProducedWater: 400, availableWaterSource: 800},
 ];
 
 export const LocalitesWaterUsage2025 = [
@@ -51,9 +66,15 @@ export const LocalitesWaterUsage2025 = [
     {id: 12, name: "Ras Baalbek", waterDemand: 2040, averageProducedWater: 1239, availableWaterSource: 175},
     {id: 13, name: "Laboueh", waterDemand: 2810, averageProducedWater: 486, availableWaterSource: 819},
     {id: 14, name: "Zabboud", waterDemand: 1438, averageProducedWater: 1859, availableWaterSource: 2268},
-    {id: 15, name: "Bejjejeh", waterDemand: 543, averageProducedWater: 1989, availableWaterSource: 839}
-];
+    {id: 15, name: "Bejjejeh", waterDemand: 543, averageProducedWater: 1989, availableWaterSource: 839},
 
+    //Pakistan
+    {id: 16, name: "Lahore", waterDemand: 200, averageProducedWater: 400, availableWaterSource: 800},
+    {id: 17, name: "Kasur", waterDemand: 200, averageProducedWater: 400, availableWaterSource: 800},
+    {id: 18, name: "Raiwind", waterDemand: 200, averageProducedWater: 400, availableWaterSource: 800},
+    {id: 19, name: "Jaranwala", waterDemand: 200, averageProducedWater: 400, availableWaterSource: 800},
+    {id: 20, name: "Chunian", waterDemand: 200, averageProducedWater: 400, availableWaterSource: 800},
+];
 
 export const LocalitesWaterUsage2026 = [
     {id: 1, name: "Ain Bourday", waterDemand: 896, averageProducedWater: 1625, availableWaterSource: 2077},
@@ -70,6 +91,12 @@ export const LocalitesWaterUsage2026 = [
     {id: 12, name: "Ras Baalbek", waterDemand: 369, averageProducedWater: 1790, availableWaterSource: 2829},
     {id: 13, name: "Laboueh", waterDemand: 1022, averageProducedWater: 698, availableWaterSource: 4562},
     {id: 14, name: "Zabboud", waterDemand: 2324, averageProducedWater: 1545, availableWaterSource: 1337},
-    {id: 15, name: "Bejjejeh", waterDemand: 3187, averageProducedWater: 224, availableWaterSource: 4397}
-];
+    {id: 15, name: "Bejjejeh", waterDemand: 3187, averageProducedWater: 224, availableWaterSource: 4397},
 
+    //Pakistan
+    {id: 16, name: "Lahore", waterDemand: 200, averageProducedWater: 400, availableWaterSource: 800},
+    {id: 17, name: "Kasur", waterDemand: 400, averageProducedWater: 400, availableWaterSource: 800},
+    {id: 18, name: "Raiwind", waterDemand: 2600, averageProducedWater: 400, availableWaterSource: 800},
+    {id: 19, name: "Jaranwala", waterDemand: 800, averageProducedWater: 400, availableWaterSource: 800},
+    {id: 20, name: "Chunian", waterDemand: 200, averageProducedWater: 400, availableWaterSource: 800},
+];

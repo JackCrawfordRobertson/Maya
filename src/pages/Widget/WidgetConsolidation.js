@@ -74,12 +74,13 @@ const WidgetConsolidation = ({map, isZoomCompleted, cycleSVG, setOpacity}) => {
             </div>
 
             <GeoControls isOpen={isOpen} cycleSVG={cycleSVG} onOpacityChange={setOpacity} />
+            
 
             <InteractivePoints
                 map={map}
                 isZoomCompleted={isZoomCompleted}
                 isWidgetOpen={isInteractivePointsOpen}
-                setIsWidgetOpen={setIsInteractivePointsOpen} // Ensure this is correctly passed
+                setIsWidgetOpen={setIsInteractivePointsOpen} 
             />
         </>
     );

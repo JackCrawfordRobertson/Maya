@@ -66,7 +66,7 @@ const ActionSection = ({ onZoomLebanon, onZoomPakistan, onOtherAction }) => {
 
                 <div className="widget">
                     <h2 style={{ marginBottom: "0" }}>Lahore, Pakistan</h2>
-                    <h5 style={{ marginTop: "0", fontWeight: "500" }}>Last updated on - To Be confirmed</h5>
+                    <h5 style={{ marginTop: "0", fontWeight: "500" }}>Last updated on - 08/05/24</h5>
                     <p>
                         An ongoing, in-depth examination of River Basin Management within the Lahore Governorate,
                         Pakistan.
